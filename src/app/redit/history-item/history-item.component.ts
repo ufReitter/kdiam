@@ -6,7 +6,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-history-item',
   templateUrl: './history-item.component.html',
-  styleUrls: ['./history-item.component.css'],
+  styleUrls: ['./history-item.component.scss'],
 })
 export class HistoryItemComponent implements OnInit {
   @Input() item: any;

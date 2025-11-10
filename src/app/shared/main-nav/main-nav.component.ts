@@ -7,7 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.css'],
+  styleUrls: ['./main-nav.component.scss'],
 })
 export class MainNavComponent {
   @Input() pos: string;

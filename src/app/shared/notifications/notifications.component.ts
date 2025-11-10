@@ -5,7 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.css'],
+  styleUrls: ['./notifications.component.scss'],
 })
 export class NotificationsComponent implements OnInit {
   articles: any[] = [];

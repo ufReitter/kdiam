@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-play-button',
   templateUrl: './play-button.component.html',
-  styleUrls: ['./play-button.component.css'],
+  styleUrls: ['./play-button.component.scss'],
 })
 export class PlayButtonComponent implements OnInit {
   icon = 'play_arrow';

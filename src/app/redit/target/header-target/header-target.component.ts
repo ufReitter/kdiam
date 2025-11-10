@@ -6,7 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-header-target',
   templateUrl: './header-target.component.html',
-  styleUrls: ['../../../shared/header/header.component.css'],
+  styleUrls: ['../../../shared/header/header.component.scss'],
 })
 export class HeaderTargetComponent {
   @Input() elm: Elm;

@@ -4,7 +4,7 @@ import { Elm } from 'src/app/engine/entity';
 @Component({
   selector: 'kd-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css'],
+  styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent {
   @Input() elm: Elm;

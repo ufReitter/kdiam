@@ -7,7 +7,7 @@ import { CalculationService } from '../../services/calculation.service';
 @Component({
   selector: 'kd-func',
   templateUrl: './func.component.html',
-  styleUrls: ['./func.component.css'],
+  styleUrls: ['./func.component.scss'],
 })
 export class FuncComponent implements OnInit {
   @Input() elm: Elm;

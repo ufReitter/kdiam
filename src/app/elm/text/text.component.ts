@@ -19,7 +19,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-text',
   templateUrl: './text.component.html',
-  styleUrls: ['./text.component.css'],
+  styleUrls: ['./text.component.scss'],
 })
 export class TextComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() node: ElmNode;

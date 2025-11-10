@@ -7,7 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-edit-tools',
   templateUrl: './edit-tools.component.html',
-  styleUrls: ['./edit-tools.component.css'],
+  styleUrls: ['./edit-tools.component.scss'],
 })
 export class EditToolsComponent implements OnInit {
   constructor(

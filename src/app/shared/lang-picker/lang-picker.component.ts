@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-lang-picker',
   templateUrl: './lang-picker.component.html',
-  styleUrls: ['./lang-picker.component.css'],
+  styleUrls: ['./lang-picker.component.scss'],
 })
 export class LangPickerComponent implements OnInit {
   nextLocale: string;

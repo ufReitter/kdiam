@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-changelog',
   templateUrl: './changelog.component.html',
-  styleUrls: ['./changelog.component.css'],
+  styleUrls: ['./changelog.component.scss'],
 })
 export class ChangelogComponent implements OnInit {
   volumeSubject: Subscription;

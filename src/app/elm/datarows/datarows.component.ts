@@ -7,8 +7,11 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import {
+  MatLegacyTable as MatTable,
+  MatLegacyTableDataSource as MatTableDataSource,
+} from '@angular/material/legacy-table';
 import { MatSort, MatSortable } from '@angular/material/sort';
-import { MatLegacyTable as MatTable, MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import Dexie from 'dexie';
 import { Subscription } from 'rxjs';
 import { Elm } from 'src/app/engine/entity';
@@ -20,7 +23,7 @@ var deepClone = Dexie.deepClone;
 @Component({
   selector: 'kd-datarows',
   templateUrl: './datarows.component.html',
-  styleUrls: ['./datarows.component.css'],
+  styleUrls: ['./datarows.component.scss'],
 })
 export class DatarowsComponent implements OnInit, OnChanges, OnDestroy {
   filterValue: string;

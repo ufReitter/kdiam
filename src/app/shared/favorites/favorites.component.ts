@@ -7,7 +7,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-favorites',
   templateUrl: './favorites.component.html',
-  styleUrls: ['./favorites.component.css'],
+  styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent implements OnInit, OnDestroy {
   prefSub: Subscription;

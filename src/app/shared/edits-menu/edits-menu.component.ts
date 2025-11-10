@@ -6,7 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-edits-menu',
   templateUrl: './edits-menu.component.html',
-  styleUrls: ['./edits-menu.component.css'],
+  styleUrls: ['./edits-menu.component.scss'],
 })
 export class EditsMenuComponent implements OnInit {
   checkedAll = false;

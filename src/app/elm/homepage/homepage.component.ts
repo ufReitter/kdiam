@@ -8,7 +8,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css'],
+  styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit, OnDestroy {
   children: any;

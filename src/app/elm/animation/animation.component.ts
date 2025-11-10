@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-animation',
   templateUrl: './animation.component.html',
-  styleUrls: ['./animation.component.css'],
+  styleUrls: ['./animation.component.scss'],
 })
 export class AnimationComponent {
   animation: any;

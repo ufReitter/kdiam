@@ -35,7 +35,7 @@ var deepClone = Dexie.deepClone;
 @Component({
   selector: 'kd-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css'],
+  styleUrls: ['./editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit, OnChanges, OnDestroy {

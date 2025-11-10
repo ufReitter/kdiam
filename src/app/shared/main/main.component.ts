@@ -18,7 +18,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   toolTips: boolean;

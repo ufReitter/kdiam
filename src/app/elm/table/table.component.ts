@@ -26,7 +26,7 @@ var setByKeyPath = Dexie.setByKeyPath;
 @Component({
   selector: 'kd-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css'],
+  styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit, OnChanges, OnDestroy {

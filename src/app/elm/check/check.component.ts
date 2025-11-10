@@ -5,7 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-check',
   templateUrl: './check.component.html',
-  styleUrls: ['./check.component.css'],
+  styleUrls: ['./check.component.scss'],
 })
 export class CheckComponent {
   @Input() elm: Elm;

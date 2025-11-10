@@ -8,7 +8,7 @@ import { DataService } from '../../../services/data.service';
 @Component({
   selector: 'kd-children-target',
   templateUrl: './children-target.component.html',
-  styleUrls: ['../../../elm/children/children.component.css'],
+  styleUrls: ['../../../elm/children/children.component.scss'],
 })
 export class ChildrenTargetComponent implements OnChanges {
   slider1: any;

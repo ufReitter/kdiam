@@ -6,7 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-object-id',
   templateUrl: './object-id.component.html',
-  styleUrls: ['./object-id.component.css'],
+  styleUrls: ['./object-id.component.scss'],
 })
 export class ObjectIdComponent implements OnInit {
   @Input() str: string = '';

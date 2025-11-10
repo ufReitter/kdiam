@@ -5,7 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   table: any;

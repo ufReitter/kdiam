@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-translate',
   templateUrl: './translate.component.html',
-  styleUrls: ['./translate.component.css'],
+  styleUrls: ['./translate.component.scss'],
 })
 export class TranslateComponent implements OnInit, OnChanges, OnDestroy {
   @Input() elm: Elm;

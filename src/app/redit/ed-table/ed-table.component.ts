@@ -7,7 +7,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-ed-table',
   templateUrl: './ed-table.component.html',
-  styleUrls: ['./ed-table.component.css'],
+  styleUrls: ['./ed-table.component.scss'],
 })
 export class EdTableComponent implements OnInit {
   @Input() elm: Elm;

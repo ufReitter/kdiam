@@ -6,7 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-reference',
   templateUrl: './reference.component.html',
-  styleUrls: ['./reference.component.css'],
+  styleUrls: ['./reference.component.scss'],
 })
 export class ReferenceComponent implements OnInit {
   @Input() ref: any;

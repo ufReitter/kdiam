@@ -9,7 +9,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-target-wrapper',
   templateUrl: './target-wrapper.component.html',
-  styleUrls: ['./target-wrapper.component.css'],
+  styleUrls: ['./target-wrapper.component.scss'],
 })
 export class TargetWrapperComponent implements OnInit {
   @Input() elm: Elm;

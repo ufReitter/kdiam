@@ -19,7 +19,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-text-target',
   templateUrl: './text-target.component.html',
-  styleUrls: ['../../../elm/text/text.component.css'],
+  styleUrls: ['../../../elm/text/text.component.scss'],
 })
 export class TextTargetComponent
   implements OnChanges, AfterViewInit, OnDestroy

@@ -26,7 +26,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-logs',
   templateUrl: './logs.component.html',
-  styleUrls: ['./logs.component.css'],
+  styleUrls: ['./logs.component.scss'],
 })
 export class LogsComponent implements AfterViewInit {
   ipFilter = '';

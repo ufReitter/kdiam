@@ -251,7 +251,7 @@ export class ChecklistDatabase {
 @Component({
   selector: 'kd-tree-edit',
   templateUrl: './tree-edit.component.html',
-  styleUrls: ['./tree-edit.component.css'],
+  styleUrls: ['./tree-edit.component.scss'],
   providers: [ChecklistDatabase],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

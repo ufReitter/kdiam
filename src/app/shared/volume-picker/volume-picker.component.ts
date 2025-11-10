@@ -6,7 +6,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-volume-picker',
   templateUrl: './volume-picker.component.html',
-  styleUrls: ['./volume-picker.component.css'],
+  styleUrls: ['./volume-picker.component.scss'],
 })
 export class VolumePickerComponent implements OnInit, OnDestroy {
   localeSubject: Subscription;

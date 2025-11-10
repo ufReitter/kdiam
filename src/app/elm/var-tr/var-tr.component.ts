@@ -6,7 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: '[kd-var-tr]',
   templateUrl: './var-tr.component.html',
-  styleUrls: ['./var-tr.component.css'],
+  styleUrls: ['./var-tr.component.scss'],
 })
 export class VarTrComponent implements OnChanges {
   @Input() node: any;

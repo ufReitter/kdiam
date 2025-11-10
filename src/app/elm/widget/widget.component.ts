@@ -4,7 +4,7 @@ import { ViewService } from '../../services/view.service';
 @Component({
   selector: 'kd-widget',
   templateUrl: './widget.component.html',
-  styleUrls: ['./widget.component.css'],
+  styleUrls: ['./widget.component.scss'],
 })
 export class WidgetComponent {
   constructor(public vS: ViewService) {}

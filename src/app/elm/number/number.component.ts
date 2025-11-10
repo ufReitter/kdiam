@@ -15,7 +15,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-number',
   templateUrl: './number.component.html',
-  styleUrls: ['./number.component.css'],
+  styleUrls: ['./number.component.scss'],
 })
 export class NumberComponent implements OnInit, AfterViewInit {
   doSubject: Subscription;

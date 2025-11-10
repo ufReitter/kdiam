@@ -9,7 +9,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-redit-tools',
   templateUrl: './redit-tools.component.html',
-  styleUrls: ['./redit-tools.component.css'],
+  styleUrls: ['./redit-tools.component.scss'],
 })
 export class ReditToolsComponent implements OnInit, OnDestroy {
   @Input() component: string;

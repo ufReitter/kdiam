@@ -52,7 +52,7 @@ export class CustomTreeControl<T> extends FlatTreeControl<T> {
 @Component({
   selector: 'kd-volume-content',
   templateUrl: './volume-content.component.html',
-  styleUrls: ['./volume-content.component.css'],
+  styleUrls: ['./volume-content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VolumeContentComponent implements AfterViewInit, OnDestroy {

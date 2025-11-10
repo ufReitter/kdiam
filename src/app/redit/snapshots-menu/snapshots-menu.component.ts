@@ -5,7 +5,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-snapshots-menu',
   templateUrl: './snapshots-menu.component.html',
-  styleUrls: ['./snapshots-menu.component.css'],
+  styleUrls: ['./snapshots-menu.component.scss'],
 })
 export class SnapshotsMenuComponent implements OnInit {
   constructor(public dS: DataService, public rS: ReditService) {}

@@ -5,7 +5,7 @@ import { lastValueFrom } from 'rxjs';
 @Component({
   selector: 'kd-database',
   templateUrl: './database.component.html',
-  styleUrls: ['./database.component.css'],
+  styleUrls: ['./database.component.scss'],
 })
 export class DatabaseComponent {
   health: any;

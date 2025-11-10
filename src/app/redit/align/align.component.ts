@@ -5,7 +5,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-align',
   templateUrl: './align.component.html',
-  styleUrls: ['./align.component.css'],
+  styleUrls: ['./align.component.scss'],
 })
 export class AlignComponent {
   @Input() elm: Elm;

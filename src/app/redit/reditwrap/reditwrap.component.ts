@@ -10,7 +10,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-reditwrap',
   templateUrl: './reditwrap.component.html',
-  styleUrls: ['./reditwrap.component.css'],
+  styleUrls: ['./reditwrap.component.scss'],
 })
 export class ReditwrapComponent implements OnInit, OnDestroy {
   component: string;

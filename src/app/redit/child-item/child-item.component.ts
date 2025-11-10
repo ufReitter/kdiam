@@ -9,7 +9,7 @@ var NUMBER_FORMAT_REGEXP = /^(\d+)?\.((\d+)(-(\d+))?)?$/;
 @Component({
   selector: 'kd-child-item',
   templateUrl: './child-item.component.html',
-  styleUrls: ['./child-item.component.css'],
+  styleUrls: ['./child-item.component.scss'],
 })
 export class ChildItemComponent implements OnInit {
   warnFormat: boolean;

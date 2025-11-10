@@ -11,7 +11,7 @@ function highLightElement(e) {
 @Component({
   selector: 'kd-rbdy',
   templateUrl: './rbdy.component.html',
-  styleUrls: ['./rbdy.component.css'],
+  styleUrls: ['./rbdy.component.scss'],
 })
 export class RbdyComponent implements OnInit {
   elm: Elm;

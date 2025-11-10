@@ -7,7 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-volume-footer',
   templateUrl: './volume-footer.component.html',
-  styleUrls: ['./volume-footer.component.css'],
+  styleUrls: ['./volume-footer.component.scss'],
 })
 export class VolumeFooterComponent {
   view: 'toc';

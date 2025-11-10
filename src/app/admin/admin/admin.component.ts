@@ -6,7 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+  styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements AfterViewInit {
   bust: number;

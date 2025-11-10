@@ -8,7 +8,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-equation-target',
   templateUrl: './equation-target.component.html',
-  styleUrls: ['../../../elm/equation/equation.component.css'],
+  styleUrls: ['../../../elm/equation/equation.component.scss'],
 })
 export class EquationTargetComponent implements OnInit {
   @Input() node: ElmNode;

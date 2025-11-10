@@ -1,12 +1,15 @@
 import { Component, Inject } from '@angular/core';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import {
+  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
+  MatLegacyDialogRef as MatDialogRef,
+} from '@angular/material/legacy-dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { ViewService } from '../services/view.service';
 
 @Component({
   selector: 'dialog-cookie-warning',
-  styleUrls: ['cookie-warning-dialog.component.css'],
+  styleUrls: ['cookie-warning-dialog.component.scss'],
   templateUrl: 'cookie-warning-dialog.component.html',
 })
 export class CookieWarningDialogComponent {

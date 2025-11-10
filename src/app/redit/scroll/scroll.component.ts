@@ -20,7 +20,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-scroll',
   templateUrl: './scroll.component.html',
-  styleUrls: ['./scroll.component.css'],
+  styleUrls: ['./scroll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScrollComponent implements OnInit, AfterViewInit, OnDestroy {

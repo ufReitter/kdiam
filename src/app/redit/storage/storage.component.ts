@@ -8,7 +8,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-storage',
   templateUrl: './storage.component.html',
-  styleUrls: ['./storage.component.css'],
+  styleUrls: ['./storage.component.scss'],
 })
 export class StorageComponent {
   environment = environment;

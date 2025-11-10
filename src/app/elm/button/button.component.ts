@@ -5,7 +5,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.css'],
+  styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
   selection: any[];

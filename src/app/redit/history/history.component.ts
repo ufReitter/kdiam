@@ -11,7 +11,7 @@ import { ReditService } from '../redit.service';
 @Component({
   selector: 'kd-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css'],
+  styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnChanges, OnDestroy {
   @Input() elm: Elm;

@@ -16,7 +16,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-figure',
   templateUrl: './figure.component.html',
-  styleUrls: ['./figure.component.css'],
+  styleUrls: ['./figure.component.scss'],
 })
 export class FigureComponent implements OnInit, OnDestroy {
   progress: any;

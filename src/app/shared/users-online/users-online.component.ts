@@ -8,7 +8,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-users-online',
   templateUrl: './users-online.component.html',
-  styleUrls: ['./users-online.component.css'],
+  styleUrls: ['./users-online.component.scss'],
 })
 export class UsersOnlineComponent implements OnInit {
   usersByName = [];

@@ -20,7 +20,7 @@ import { DataService } from '../../../services/data.service';
 @Component({
   selector: 'kd-elm-target',
   templateUrl: './elm-target.component.html',
-  styleUrls: ['../../../elm/elm/elm.component.css'],
+  styleUrls: ['../../../elm/elm/elm.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ElmTargetComponent implements OnInit, OnChanges, OnDestroy {

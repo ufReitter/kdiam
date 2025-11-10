@@ -4,7 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-refs',
   templateUrl: './refs.component.html',
-  styleUrls: ['./refs.component.css'],
+  styleUrls: ['./refs.component.scss'],
 })
 export class RefsComponent implements OnInit {
   @Input() editor: any;

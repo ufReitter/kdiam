@@ -7,7 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-main-tools',
   templateUrl: './main-tools.component.html',
-  styleUrls: ['./main-tools.component.css'],
+  styleUrls: ['./main-tools.component.scss'],
 })
 export class MainToolsComponent {
   versions;

@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-edition',
   templateUrl: './edition.component.html',
-  styleUrls: ['./edition.component.css'],
+  styleUrls: ['./edition.component.scss'],
 })
 export class EditionComponent implements OnInit, OnDestroy {
   months = [

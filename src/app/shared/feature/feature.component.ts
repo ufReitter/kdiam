@@ -8,7 +8,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-feature',
   templateUrl: './feature.component.html',
-  styleUrls: ['./feature.component.css'],
+  styleUrls: ['./feature.component.scss'],
 })
 export class FeatureComponent implements OnInit, OnDestroy {
   featureElm: Elm;

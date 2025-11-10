@@ -6,7 +6,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.css'],
+  styleUrls: ['./select.component.scss'],
 })
 export class SelectComponent implements OnInit {
   selection: any[];

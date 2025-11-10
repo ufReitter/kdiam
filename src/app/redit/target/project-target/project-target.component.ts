@@ -31,7 +31,7 @@ function snapShot(c) {
 @Component({
   selector: 'kd-project-target',
   templateUrl: './project-target.component.html',
-  styleUrls: ['../../../elm/project/project.component.css'],
+  styleUrls: ['../../../elm/project/project.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ProjectTargetComponent

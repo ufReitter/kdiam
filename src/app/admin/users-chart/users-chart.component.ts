@@ -7,7 +7,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-users-chart',
   templateUrl: './users-chart.component.html',
-  styleUrls: ['./users-chart.component.css'],
+  styleUrls: ['./users-chart.component.scss'],
 })
 export class UsersChartComponent implements OnInit {
   @Input() bust: number;

@@ -6,7 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-result',
   templateUrl: './result.component.html',
-  styleUrls: ['./result.component.css'],
+  styleUrls: ['./result.component.scss'],
 })
 export class ResultComponent {
   @Input() elm: Elm;

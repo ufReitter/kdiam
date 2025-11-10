@@ -8,7 +8,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-redit-toolbar',
   templateUrl: './redit-toolbar.component.html',
-  styleUrls: ['./redit-toolbar.component.css'],
+  styleUrls: ['./redit-toolbar.component.scss'],
 })
 export class ReditToolbarComponent implements OnInit {
   @Input() elm: Elm;

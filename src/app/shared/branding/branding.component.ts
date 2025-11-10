@@ -4,7 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-branding',
   templateUrl: './branding.component.html',
-  styleUrls: ['./branding.component.css'],
+  styleUrls: ['./branding.component.scss'],
 })
 export class BrandingComponent {
   @Input() brand: string;

@@ -15,7 +15,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'kd-scroll-item',
   templateUrl: './scroll-item.component.html',
-  styleUrls: ['./scroll-item.component.css'],
+  styleUrls: ['./scroll-item.component.scss'],
 })
 export class ScrollItemComponent implements OnInit, OnChanges, OnDestroy {
   localeSubject: Subscription;

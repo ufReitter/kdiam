@@ -16,7 +16,7 @@ declare const monaco: any;
 @Component({
   selector: 'kd-code',
   templateUrl: './code.component.html',
-  styleUrls: ['./code.component.css'],
+  styleUrls: ['./code.component.scss'],
 })
 export class CodeComponent implements OnChanges {
   @Input() elm: Elm;

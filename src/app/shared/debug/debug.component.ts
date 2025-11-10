@@ -28,7 +28,7 @@ var deepClone = Dexie.deepClone;
 @Component({
   selector: 'kd-debug',
   templateUrl: './debug.component.html',
-  styleUrls: ['./debug.component.css'],
+  styleUrls: ['./debug.component.scss'],
 })
 export class DebugComponent implements OnInit, OnChanges, OnDestroy {
   elm: Elm;

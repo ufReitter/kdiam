@@ -6,7 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-json',
   templateUrl: './json.component.html',
-  styleUrls: ['./json.component.css'],
+  styleUrls: ['./json.component.scss'],
 })
 export class JsonComponent {
   @Input() elm: Elm;

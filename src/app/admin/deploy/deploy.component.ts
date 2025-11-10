@@ -9,7 +9,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-deploy',
   templateUrl: './deploy.component.html',
-  styleUrls: ['./deploy.component.css'],
+  styleUrls: ['./deploy.component.scss'],
 })
 export class DeployComponent implements OnInit {
   editions: any = [];

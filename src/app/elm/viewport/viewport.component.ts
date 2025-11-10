@@ -18,7 +18,7 @@ import { ViewService } from 'src/app/services/view.service';
 @Component({
   selector: 'kd-viewport',
   templateUrl: './viewport.component.html',
-  styleUrls: ['./viewport.component.css'],
+  styleUrls: ['./viewport.component.scss'],
 })
 export class ViewportComponent implements OnChanges, AfterViewInit, OnDestroy {
   msg: any;

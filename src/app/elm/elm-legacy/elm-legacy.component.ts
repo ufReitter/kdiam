@@ -6,7 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'kd-elm-legacy',
   templateUrl: './elm-legacy.component.html',
-  styleUrls: ['./elm-legacy.component.css'],
+  styleUrls: ['./elm-legacy.component.scss'],
 })
 export class ElmLegacyComponent implements OnInit {
   node: ElmNode;

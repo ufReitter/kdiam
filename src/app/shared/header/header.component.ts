@@ -6,7 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'kd-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   @Input() node: ElmNode;
