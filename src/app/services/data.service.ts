@@ -1,16 +1,3 @@
-/**
- * @license
- * Copyright 4Ming e.K. All Rights Reserved.
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * LICENSE file at https://kompendia.net/LICENSE.txt
- */
-//1975-04-18T12:01:10.187Z
-
-// APACHE LICENSE NOTICE
-// This file is part of the Kia App.
-
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
