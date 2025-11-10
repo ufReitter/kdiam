@@ -6,9 +6,8 @@
   },
   "version": 1,
   "newProjectRoot": "projects",
-  "defaultProject": "kompendia",
   "projects": {
-    "kompendia": {
+    "kompendiam": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -22,7 +21,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": ["quill"],
-            "outputPath": "dist/kompendia/browser",
+            "outputPath": "dist/kompendiam/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
@@ -103,19 +102,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kompendia:build",
+            "browserTarget": "kompendiam:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kompendia:build:production"
+              "browserTarget": "kompendiam:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kompendia:build"
+            "browserTarget": "kompendiam:build"
           }
         },
         "test": {
@@ -160,7 +159,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/kompendia/server",
+            "outputPath": "dist/kompendiam/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "externalDependencies": [

@@ -3,7 +3,7 @@
   "version": "0.8.0",
   "description": "",
   "author": "Uwe Friedhelm Reitter",
-  "license": "propriatary",
+  "license": "Apache License, Version 2.0",
   "scripts": {
     "build": "node ./utils/prebuild.js & ng build --configuration=production --stats-json --aot=true",
     "builddev": "node ./utils/prebuild.js & ng build --configuration=production --stats-json --aot=true --output-path=dist/ --base-href http://localhost:3100",
