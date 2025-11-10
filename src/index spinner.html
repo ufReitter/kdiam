@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+	<base href="/">
+	<meta charset="utf-8">
+	<title>Kompendia</title>
+	<meta name="viewport"
+		content="width=device-width,, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="theme-color" content="#212121" />
+	<meta name="msapplication-config" content="/browserconfig.xml" />
+	<link href="assets/splashscreens/iphone5_splash.png"
+		media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image" />
+	<link href="assets/splashscreens/iphone6_splash.png"
+		media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image" />
+	<link href="assets/splashscreens/iphoneplus_splash.png"
+		media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)"
+		rel="apple-touch-startup-image" />
+	<link href="assets/splashscreens/iphonex_splash.png"
+		media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+		rel="apple-touch-startup-image" />
+	<link href="assets/splashscreens/ipad_splash.png"
+		media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image" />
+	<link href="assets/splashscreens/ipadpro1_splash.png"
+		media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image" />
+	<link href="assets/splashscreens/ipadpro2_splash.png"
+		media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image" />
+
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+	<link rel="icon" type="image/x-icon" href="assets/icons/favicon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="assets/icons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="assets/icons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/icons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/icons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/icons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="assets/icons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="1521x152" href="assets/icons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/android-icon-192x192.png">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="assets/icons/ms-icon-144x144.png">
+
+	<link rel="preload" href="Neo-Euler.woff2" as="font" crossorigin="anonymous" />
+
+	<link rel="stylesheet" href="assets/quill/quill.snow.css">
+
+	<style>
+		body {
+			background: #aaa;
+		}
+
+		.fade-in {
+			-webkit-animation: fadein .1s linear;
+			/* Safari, Chrome and Opera > 12.1 */
+			-moz-animation: fadein .5s linear;
+			/* Firefox < 16 */
+			-ms-animation: fadein .5s linear;
+			/* Internet Explorer */
+			-o-animation: fadein .5s linear;
+			/* Opera < 12.1 */
+			animation: fadein .5s linear;
+		}
+
+		.fade-out {
+			-webkit-animation: fadeout .1s linear;
+			/* Safari, Chrome and Opera > 12.1 */
+			-moz-animation: fadeout .1s linear;
+			/* Firefox < 16 */
+			-ms-animation: fadeout .1s linear;
+			/* Internet Explorer */
+			-o-animation: fadeout .1s linear;
+			/* Opera < 12.1 */
+			animation: fadeout .1s linear;
+
+			-webkit-animation-fill-mode: forwards;
+			/* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+			-moz-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+		}
+
+		.kd-loading-status-wrapper {
+			color: #fff;
+			position: fixed;
+			bottom: 8vh;
+			right: 0;
+			z-index: 4005;
+			white-space: nowrap;
+		}
+
+		.kd-loading-status {
+			font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+			font-size: 14px;
+			width: 300px;
+			color: #fff;
+			position: absolute;
+			bottom: 0px;
+			right: 0px;
+			white-space: nowrap;
+		}
+
+		.kd-app-loading {
+			float: center;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #212121;
+			z-index: 3005;
+		}
+
+		.kd-display-none {
+			display: none;
+		}
+
+		.loadingImg {
+			float: center;
+			position: fixed;
+			top: calc(40% - 70px);
+			/* Firefox */
+			left: -moz-calc(50% - 90px);
+			/* WebKit */
+			left: -webkit-calc(50% - 90px);
+			/* Opera */
+			left: -o-calc(50% - 90px);
+			/* Standard */
+			left: calc(50% - 90px);
+			z-index: 3006;
+		}
+
+		.loadingSpin {
+			float: center;
+			position: fixed;
+			top: calc(40% - 103px);
+			/* Firefox */
+			left: -moz-calc(50% - 103px);
+			/* WebKit */
+			left: -webkit-calc(50% - 103px);
+			/* Opera */
+			left: -o-calc(50% - 103px);
+			/* Standard */
+			left: calc(50% - 103px);
+			z-index: 3007;
+			/*margin: 20% auto;*/
+			border-bottom: 5px solid #fff;
+			border-left: 5px solid #fff;
+			border-right: 5px solid #189BF2;
+			border-top: 5px solid #189BF2;
+			border-radius: 100%;
+			height: 206px;
+			width: 206px;
+			-webkit-animation: spinR 1.0s infinite linear;
+			-moz-animation: spinR 1.0s infinite linear;
+			-ms-animation: spinR 1.0s infinite linear;
+			-o-animation: spinR 1.0s infinite linear;
+			animation: spinR 1.0s infinite linear;
+		}
+
+		@keyframes spinR {
+			from {
+				-webkit-transform: rotate(0deg);
+				-moz-transform: rotate(0deg);
+				-o-transform: rotate(0deg);
+				-ms-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+
+			to {
+				-webkit-transform: rotate(359deg);
+				-moz-transform: rotate(359deg);
+				-o-transform: rotate(359deg);
+				-ms-transform: rotate(359deg);
+				transform: rotate(359deg);
+			}
+		}
+
+		@-moz-keyframes spinR {
+			from {
+				-moz-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+
+			to {
+				-moz-transform: rotate(359deg);
+				transform: rotate(359deg);
+			}
+		}
+
+		@-webkit-keyframes spinR {
+			from {
+				-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+
+			to {
+				-webkit-transform: rotate(359deg);
+				transform: rotate(359deg);
+			}
+		}
+
+		@-ms-keyframes spinR {
+			from {
+				-ms-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+
+			to {
+				-ms-transform: rotate(359deg);
+				transform: rotate(359deg);
+			}
+		}
+
+		@-o-keyframes spinR {
+			from {
+				-o-transform: rotate(0deg);
+				transform: rotate(0deg);
+			}
+
+			to {
+				-o-transform: rotate(359deg);
+				transform: rotate(359deg);
+			}
+		}
+
+		.log-error {
+			font-size: 12px;
+			color: #f00;
+		}
+
+		.log-debug {
+			font-size: 12px;
+			color: #333;
+		}
+
+		#screen-log {
+			background: #fff;
+			position: fixed;
+			z-index: 10000;
+			top: 100px;
+			left: 100px;
+		}
+	</style>
+
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#1976d2">
+	<meta http-equiv="Content-Security-Policy" 
+content="default-src 'none';
+  frame-src 'self';
+  script-src 'self';
+  style-src 'self' 'unsafe-inline';
+  font-src 'self';
+  img-src 'self' data:;
+  connect-src 'self'">
+</head>
+
+<body>
+
+	<span id="ruler"></span>
+	<div id="screen-log"></div>
+	<div id="loading" class="kd-app-loading" style="display: none;">
+		<div id="loadingLogo">
+			<div id="loadingImg" class="loadingImg">
+				<img style="position: relative; left: 5px; top: 46px" src="assets/images/kompendia-loading.png" alt=""
+					width="180" height="58">
+			</div>
+			<div id="loadingSpin" class="loadingSpin"></div>
+		</div>
+
+		<div class="kd-loading-status-wrapper">
+			<div id="loadingStatus" class="kd-loading-status">
+				<!-- Kompendia laden -->
+			</div>
+		</div>
+	</div>
+	<app-root>
+	</app-root>
+</body>
+
+</html>

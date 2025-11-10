@@ -1,0 +1,15 @@
+.tools-right {
+  position: absolute;
+  right: 15px;
+  top: 86px;
+  margin-top: 8px;
+  z-index: 8000;
+}
+
+.icon {
+  margin-right: 0;
+}
+
+.group {
+  margin-bottom: 10px;
+}

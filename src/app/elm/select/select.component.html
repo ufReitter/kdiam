@@ -1,0 +1,12 @@
+<mat-select
+  *ngIf="selection"
+  [value]="selected.name"
+  (selectionChange)="change($event)"
+>
+  <mat-select-trigger> </mat-select-trigger>
+  <mat-option *ngFor="let it of selection" [value]="it">
+    <div style="white-space: pre; tab-size: 16">
+      {{ it.value }}&#09;{{ it.name }}
+    </div>
+  </mat-option>
+</mat-select>

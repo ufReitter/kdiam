@@ -1,0 +1,81 @@
+<!-- <div #rend *ngIf="pos === 'cpt'" class="relative">
+  <div
+    [innerHTML]="
+      node?.set?.attrib[dS.locale] || elm.txts.cpt || ''
+        | highlighter : dS.searchTerm : 'partial'
+        | safeHtml
+    "
+    [class.invisible]="edit"
+    (click)="vS.inlineEditor && setEdit()"
+  ></div>
+  <div
+    *ngIf="edit"
+    (click)="closeEdit($event)"
+    class="overlay hover-pointer"
+  ></div>
+  <div *ngIf="edit" class="cpt-editor color-background">
+    <ng-container *ngTemplateOutlet="quill"></ng-container>
+  </div>
+</div> -->
+<div
+  #rend
+  [class.kd-paragraph]="elm.attrib.bdyLeading"
+  [class.bdy-indent]="view === 'article-view'"
+  class="relative"
+>
+  <div
+    *ngIf="elm.txts[pos]"
+    [innerHTML]="
+      elm.txts[pos] | highlighter : dS.searchTerm : 'partial' | safeHtml
+    "
+    [class.invisible]="edit"
+    class="ql-editorxxx html-text"
+    (click)="vS.inlineEditor && setEdit()"
+  ></div>
+  <div
+    *ngIf="edit"
+    (click)="closeEdit($event)"
+    class="overlay hover-pointer"
+  ></div>
+  <div *ngIf="edit" class="editor-wrapper color-background">
+    <quill-editor
+      [(ngModel)]="html"
+      [modules]="this.vS.quillModules"
+      (onFocus)="focus($event)"
+      (onEditorChanged)="changedEditor($event)"
+      (onBlur)="blur($event)"
+      (onEditorCreated)="created($event)"
+      (onSelectionChanged)="selection($event)"
+    ></quill-editor>
+    <kd-refs *ngIf="quill" [editor]="quill"></kd-refs>
+    <button
+      (click)="closeEdit($event); dS.edit(elm)"
+      type="button"
+      mat-icon-button
+      class="btn-icon-small buttons"
+    >
+      <mat-icon class="icon-small">edit</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- <ng-template #quill>
+  <quill-editor
+    [(ngModel)]="html"
+    [modules]="this.vS.quillModules"
+    (onFocus)="focus($event)"
+    (onEditorChanged)="changedEditor($event)"
+    (onBlur)="blur($event)"
+    (onEditorCreated)="created($event)"
+    (onSelectionChanged)="selection($event)"
+  ></quill-editor>
+  <kd-refs *ngIf="quill" [editor]="quill"></kd-refs>
+  <button
+    (click)="closeEdit($event); dS.edit(elm)"
+    type="button"
+    mat-icon-button
+    class="btn-icon-small buttons"
+  >
+    <mat-icon class="icon-small">edit</mat-icon>
+  </button>
+</ng-template> -->

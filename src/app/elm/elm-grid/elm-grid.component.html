@@ -1,0 +1,6 @@
+<mat-card (click)="viewElement()" class="w100 h100">
+  <h1 class="heading">
+    {{ child.elm?.txts.lbl || child.elm?._eid.str }}
+  </h1>
+  <div [innerHTML]="child.elm?.txts.bdy || '' | safeHtml" class="body"></div>
+</mat-card>

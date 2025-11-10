@@ -1,0 +1,13 @@
+<div
+  (click)="dS.edit(elm)"
+  class="kd-numeration numeration-equation"
+  [class.hover-pointer]="pS.profile.role.editor"
+>
+  {{ dS.system.txts.EQUATION_ABR }} {{ node.no }}
+</div>
+<div
+  [innerHTML]="elm.txts.svg || elm.equ.svg | safeHtml"
+  (click)="vS.copyFromContent(elm.txts.tex || elm.equ.tex)"
+  class="kd-equ-svg cell hover-pointer"
+  style="max-width: 320px"
+></div>

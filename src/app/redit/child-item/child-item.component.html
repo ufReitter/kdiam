@@ -1,0 +1,491 @@
+<ng-container *ngIf="setMode !== 'volume'">
+  <div
+    *ngIf="!num"
+    (click)="viewElement($event, elm)"
+    class="cell icons hover-pointer"
+  >
+    <mat-icon *ngIf="elm.txts.bdy" class="icon-small">text_fields</mat-icon>
+    <mat-icon *ngIf="elm.equ" class="icon-small">image</mat-icon>
+    <mat-icon *ngIf="elm.calc" class="icon-small">code</mat-icon>
+    <span
+      *ngIf="elm.sign"
+      [innerHTML]="elm.sign | safeHtml"
+      class="kd-sign kd-sign-edit-child hover-pointer"
+      style="display: block"
+    >
+    </span>
+    <span
+      *ngIf="elm.sign"
+      class="kd-vname kd-sign-edit-child hover-pointer"
+      style="display: block"
+      >{{ set.name }}
+    </span>
+  </div>
+
+  <div
+    *ngIf="
+      (setMode === 'settings' || setMode === 'table') &&
+      elm.equ?.svg &&
+      !elm.sign
+    "
+    (click)="viewElement($event, elm)"
+    class="cell hover-pointer kd-edit-svg"
+    [innerHTML]="elm.equ.svg | safeHtml"
+    style="text-align: left"
+    class="cell"
+  ></div>
+</ng-container>
+<ng-container *ngIf="setMode === 'volume'">
+  <div class="cell" style="width: 90px">{{ child.role }}</div>
+</ng-container>
+<ng-container *ngIf="setMode === 'settings' && parent.view === 'carousel'">
+  <div class="cell">
+    <img
+      [src]="
+        '/images/scaled/' +
+        elm._eid.str +
+        '-thumb.' +
+        elm.figure.ext +
+        '?cb=' +
+        elm.figure.version
+      "
+      alt="Thumb"
+      width="48"
+      height="48"
+      [class.themed]="elm.figure.themed"
+    />
+  </div>
+  <div class="cell">
+     
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="setDef.link"
+      (ngModelChange)="setLinkChange($event)"
+      [placeholder]="'Link'"
+      autocomplete="off"
+      style="width: 220px"
+    />
+  </div>
+</ng-container>
+<ng-container *ngIf="setMode === 'settings' && parent.view !== 'carousel'">
+  <ng-container *ngIf="elm.figure">
+    <div class="cell" style="width: 65px">
+      <mat-select
+        placeholder="Size"
+        [value]="setDef.figure.size"
+        (selectionChange)="setFigSizeChange({ size: $event.value })"
+        panelClass="scrollbar"
+      >
+        <mat-option [value]="null" class="size-select"> None </mat-option>
+        <mat-option
+          *ngFor="let size of dS.style.sizes; let i = index"
+          [value]="i"
+          class="size-select"
+        >
+          {{ size.size }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="cell">
+      <input
+        matInput
+        type="number"
+        [ngModel]="setDef.figure.customSize"
+        (ngModelChange)="setFigSizeChange({ customSize: $event })"
+        placeholder="Csize"
+        autocomplete="off"
+        style="width: 50px"
+      />
+      <input
+        matInput
+        type="number"
+        [ngModel]="setDef.figure.magnification"
+        (ngModelChange)="setFigSizeChange({ magnification: $event })"
+        placeholder="Mag"
+        autocomplete="off"
+        style="width: 50px"
+      />
+      <input
+        matInput
+        type="number"
+        [ngModel]="setDef.figure.mratio"
+        (ngModelChange)="setFigSizeChange({ mratio: $event })"
+        placeholder="Mrat"
+        autocomplete="off"
+        style="width: 50px"
+      />
+      <input
+        matInput
+        type="number"
+        [ngModel]="setDef.figure.top"
+        (ngModelChange)="setFigSizeChange({ top: $event })"
+        placeholder="Top"
+        autocomplete="off"
+        style="width: 50px"
+      />
+      <input
+        matInput
+        type="number"
+        [ngModel]="setDef.figure.left"
+        (ngModelChange)="setFigSizeChange({ left: $event })"
+        placeholder="Left"
+        autocomplete="off"
+        style="width: 50px"
+      />&nbsp;&nbsp;&nbsp;
+      <mat-checkbox
+        [(ngModel)]="setDef.attrib.noFullScreen"
+        (ngModelChange)="setAttribChange({ noFullScreen: $event })"
+        [labelPosition]="'after'"
+      >
+        noFull</mat-checkbox
+      >
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!elm.equ && !elm.figure && !elm.sign">
+    <div class="cell">{{ elm.txts.lbl || ident || elm._eid.str }}</div>
+  </ng-container>
+
+  <ng-container *ngIf="elm.sign">
+    <div class="in-form-field cell">
+      <!-- <mat-checkbox
+        [(ngModel)]="setDef.state.equ"
+        (ngModelChange)="setDefChange({ equ: $event })"
+        [matTooltip]="dS.system.txts.SORT"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      ></mat-checkbox> -->
+      <mat-checkbox
+        [(ngModel)]="setDef.state.input"
+        (ngModelChange)="setDefChange({ input: $event })"
+        [matTooltip]="dS.system.txts.INPUT_VALUE"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      ></mat-checkbox>
+      <mat-checkbox
+        [(ngModel)]="setDef.state.check"
+        (ngModelChange)="setDefChange({ check: $event })"
+        [matTooltip]="dS.system.txts.HAS_CHECKBOX"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      ></mat-checkbox>
+      <mat-checkbox
+        [(ngModel)]="setDef.state.button"
+        (ngModelChange)="setDefChange({ button: $event })"
+        [matTooltip]="dS.system.txts.HAS_BUTTON"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      ></mat-checkbox>
+      <mat-checkbox
+        [(ngModel)]="setDef.state.play"
+        (ngModelChange)="setDefChange({ play: $event })"
+        [matTooltip]="dS.system.txts.PLAY_BUTTON"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      ></mat-checkbox>
+    </div>
+    <div *ngIf="!setDef.state.input" class="cell">
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="setDef.state.coeff"
+        (ngModelChange)="setDefChange({ coeff: $event })"
+        [placeholder]="dS.system.txts.COEFFICIENT"
+        autocomplete="off"
+        style="width: 155px"
+      />
+      <input
+        matInput
+        type="text"
+        [ngModel]="setDef.state.format"
+        (ngModelChange)="formatChange('set', $event)"
+        placeholder="1.0-3"
+        autocomplete="off"
+        style="width: 75px"
+        [class.warn]="warnFormat"
+      />
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="setDef.state.rel"
+        (ngModelChange)="setDefChange({ rel: $event })"
+        placeholder="Rel"
+        autocomplete="off"
+        style="width: 40px"
+      />
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="setDef.state.unit"
+        (ngModelChange)="setDefChange({ unit: $event })"
+        [placeholder]="dS.system.txts.UNIT"
+        autocomplete="off"
+        style="width: 85px"
+      />
+    </div>
+    <div *ngIf="setDef.state.input" class="cell">
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="setDef.state.min"
+        (ngModelChange)="setDefChange({ min: $event })"
+        placeholder="Min"
+        autocomplete="off"
+      />
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="setDef.state.max"
+        (ngModelChange)="setDefChange({ max: $event })"
+        placeholder="Max"
+        autocomplete="off"
+      />
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="setDef.state.step"
+        (ngModelChange)="setDefChange({ step: $event })"
+        [placeholder]="dS.system.txts.STEP"
+        autocomplete="off"
+      />
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="setDef.state.val"
+        (ngModelChange)="setDefChange({ value: $event })"
+        [placeholder]="dS.system.txts.VALUE"
+        autocomplete="off"
+      />
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="setDef.state.rel"
+        (ngModelChange)="setDefChange({ rel: $event })"
+        placeholder="Rel"
+        autocomplete="off"
+        style="width: 40px"
+      />
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="setDef.state.unit"
+        (ngModelChange)="setDefChange({ unit: $event })"
+        [placeholder]="dS.system.txts.UNIT"
+        autocomplete="off"
+        style="width: 85px"
+      />
+    </div>
+  </ng-container>
+</ng-container>
+
+<div *ngIf="setMode === 'table' && !elm.equ?.svg" class="cell">
+  <kd-object-id
+    [toSet]="'tableId'"
+    [elm]="parent"
+    [child]="child"
+  ></kd-object-id
+  >  
+  <!-- <kd-object-id [toSet]="'colId'" [elm]="parent" [child]="child"></kd-object-id> -->
+  <mat-select
+    *ngIf="child.tableElm"
+    [value]="child.colValueId"
+    style="width: 80px"
+    (selectionChange)="changeValueId(child, $event)"
+    placeholder="Value"
+  >
+    <mat-option
+      *ngFor="let col of child.tableElm.table.cols"
+      [value]="col.field"
+    >
+      {{ col.field }}
+    </mat-option>
+    <mat-option [value]="null"> None </mat-option> </mat-select
+  >  
+  <mat-select
+    *ngIf="child.tableElm"
+    [value]="child.colNameId"
+    style="width: 80px"
+    (selectionChange)="changeNameId(child, $event)"
+    placeholder="Name"
+  >
+    <mat-option
+      *ngFor="let col of child.tableElm.table.cols"
+      [value]="col.field"
+    >
+      {{ col.field }}
+    </mat-option>
+    <mat-option [value]="null"> None </mat-option>
+  </mat-select>
+  <button
+    *ngIf="child.tableId"
+    type="button"
+    mat-icon-button
+    (click)="this.viewElement($event, child.tableElm)"
+  >
+    <mat-icon
+      [matTooltip]="dS.system.txts.VIEW"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      >open_in_new</mat-icon
+    >
+  </button>
+</div>
+
+<ng-container *ngIf="setMode === 'attributes'">
+  <div class="cell">
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.wideMargin"
+      (ngModelChange)="setAttribChange({ wideMargin: $event })"
+      [labelPosition]="'after'"
+    >
+      wideMargin</mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.divider"
+      (ngModelChange)="setAttribChange({ divider: $event })"
+      [labelPosition]="'after'"
+    >
+      divider</mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.showTitle"
+      (ngModelChange)="setAttribChange({ showTitle: $event })"
+      [labelPosition]="'after'"
+    >
+      showTitle</mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideNum"
+      (ngModelChange)="setAttribChange({ hideNum: $event })"
+      [labelPosition]="'after'"
+    >
+      hideNum  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideLbl"
+      (ngModelChange)="setAttribChange({ hideLbl: $event })"
+      [labelPosition]="'after'"
+    >
+      hideLbl  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideBody"
+      (ngModelChange)="setAttribChange({ hideBody: $event })"
+      [labelPosition]="'after'"
+    >
+      hideBody  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideFigure"
+      (ngModelChange)="setAttribChange({ hideFigure: $event })"
+      [labelPosition]="'after'"
+    >
+      hideFigure  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideTable"
+      (ngModelChange)="setAttribChange({ hideTable: $event })"
+      [labelPosition]="'after'"
+    >
+      hideTable</mat-checkbox
+    >
+  </div>
+</ng-container>
+
+<ng-container *ngIf="setMode === 'grid'">
+  <div class="cell">
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.wideMargin"
+      (ngModelChange)="setAttribChange({ wideMargin: $event })"
+      [labelPosition]="'after'"
+    >
+      wideMargin</mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.divider"
+      (ngModelChange)="setAttribChange({ divider: $event })"
+      [labelPosition]="'after'"
+    >
+      divider</mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.showTitle"
+      (ngModelChange)="setAttribChange({ showTitle: $event })"
+      [labelPosition]="'after'"
+    >
+      showTitle</mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideNum"
+      (ngModelChange)="setAttribChange({ hideNum: $event })"
+      [labelPosition]="'after'"
+    >
+      hideNum  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideLbl"
+      (ngModelChange)="setAttribChange({ hideLbl: $event })"
+      [labelPosition]="'after'"
+    >
+      hideLbl  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideBody"
+      (ngModelChange)="setAttribChange({ hideBody: $event })"
+      [labelPosition]="'after'"
+    >
+      hideBody  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideFigure"
+      (ngModelChange)="setAttribChange({ hideFigure: $event })"
+      [labelPosition]="'after'"
+    >
+      hideFigure  </mat-checkbox
+    >
+    <mat-checkbox
+      [(ngModel)]="setDef.attrib.hideTable"
+      (ngModelChange)="setAttribChange({ hideTable: $event })"
+      [labelPosition]="'after'"
+    >
+      hideTable</mat-checkbox
+    >
+  </div>
+</ng-container>
+
+<ng-container *ngIf="setMode === 'text'">
+  <div class="cell">
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="setDef.attrib[dS.locale]"
+      (ngModelChange)="setCptChange($event)"
+      [placeholder]="dS.system.txts.CAPTION"
+      autocomplete="off"
+      style="width: 220px"
+    />
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="setDef.attrib.buttonText"
+      (ngModelChange)="setBtnTextChange($event)"
+      [placeholder]="'buttonText'"
+      autocomplete="off"
+      style="width: 220px"
+    />
+  </div>
+</ng-container>
+<ng-container *ngIf="setMode === 'volume'">
+  <div class="cell">
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="child.id"
+      (ngModelChange)="setIdChange($event)"
+      [placeholder]="dS.system.txts.CAPTION"
+      autocomplete="off"
+      style="width: 220px"
+    />
+  </div>
+</ng-container>

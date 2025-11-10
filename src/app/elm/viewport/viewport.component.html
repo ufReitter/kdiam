@@ -1,0 +1,381 @@
+<div [class.kd-indent]="elm.figure?.fx" class="svgWrapper">
+  <div
+    *ngIf="pS.profile.role.editor"
+    [class.time-full]="vS.isFullscreen"
+    class="time"
+  >
+    init {{ ti | number : '1.1-1' : dS.locale }}  changes
+    {{ msg?.tc | number : '1.1-1' : dS.locale }}  render
+    {{ cS?.tr | number : '1.1-1' : dS.locale }}  fps
+    {{ this.fps | number : '2.0-0' : dS.locale }}
+  </div>
+  <div #svgC [class.svgC-full]="pS.pref.view.full" class="svgC">
+    <ng-container *ngIf="elm.job">
+      <div
+        *ngFor="let txt of elm.job.txts"
+        [style.left]="txt.x + 'px'"
+        [style.top]="txt.y + 'px'"
+        [style.transform]="'rotate(' + txt.rotate + 'rad)'"
+        class="txt"
+      >
+        <div
+          *ngIf="!vS.isFullscreen"
+          [innerHtml]="txt.elm.sign"
+          [class.kind-1]="txt.kind === 1"
+          [class.kind-2]="txt.kind === 2"
+          [class.kind-3]="txt.kind === 3"
+          class="kd-variable"
+          style="text-align: right"
+        ></div>
+        <div
+          *ngIf="vS.isFullscreen"
+          [innerHtml]="txt.elm.sign"
+          class="kd-variable"
+          [class.kind-full-1]="txt.kind === 1"
+          [class.kind-full-2]="txt.kind === 2"
+          [class.kind-full-3]="txt.kind === 3"
+        ></div></div
+    ></ng-container>
+    <svg
+      #svg0
+      [class.svg-background]="!elm.figure?.minimal"
+      [class.svg-background-full]="pS.pref.view.full"
+      class="svg0"
+    ></svg>
+    <canvas #can0 class="can0"></canvas>
+    <svg #svg1 class="svg1"></svg>
+    <svg #svg2 class="svg2"></svg>
+    <div *ngIf="report.length && !elm.figure?.minimal" class="svg-caption">
+      <div *ngFor="let it of report">
+        <!-- <div class="cell svg-caption-key">{{it.key}}:</div>
+        <div class="cell">{{it.key}}</div> -->
+        {{ it.obj | json }}
+      </div>
+    </div>
+
+    <button
+      *ngIf="pS.profile.role.editor && vS.isFullscreen"
+      type="button"
+      mat-icon-button
+      (click)="dS.recompile(this.elm)"
+      [matTooltip]="dS.system.txts.APPLY_SCRIPT"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="button-recompile"
+    >
+      <mat-icon
+        [class.kd-error]="dS.codeError"
+        [class.kd-warn]="dS.codePending"
+        [class.rotating]="dS.codePending"
+        >autorenew</mat-icon
+      >
+    </button>
+    <mat-button-toggle-group
+      *ngIf="elm.figure?.btnA"
+      (change)="onMode($event)"
+      (click)="modeClick()"
+      [value]="mode"
+      [multiple]="false"
+      [vertical]="true"
+      #myMode="matButtonToggleGroup"
+      [class.buttons-a-full]="pS.pref.view.full"
+      class="buttons-a small"
+    >
+      <mat-button-toggle value="definition" class="btn-icon-small">
+        <mat-icon class="icon-small">power_input</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="thickness" class="btn-icon-small">
+        <mat-icon class="icon-small">border_outer</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="real" class="btn-icon-small">
+        <mat-icon class="icon-small">gradient</mat-icon>
+        <div class="viewport-buttons-text1">R</div>
+      </mat-button-toggle>
+      <mat-button-toggle value="max" class="btn-icon-small">
+        <mat-icon class="icon-small">gradient</mat-icon>
+        <div class="viewport-buttons-text1">M</div>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-button-toggle-group
+      *ngIf="elm.figure?.btnB"
+      (change)="onFeatures($event)"
+      [value]="features"
+      [multiple]="true"
+      [vertical]="true"
+      #myFeatures="matButtonToggleGroup"
+      [class.buttons-b-full]="pS.pref.view.full"
+      class="buttons-b small"
+    >
+      <mat-button-toggle value="pt" class="btn-icon-small">
+        <mat-icon class="icon-small">scatter_plot</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="supplement" class="btn-icon-small">
+        <mat-icon class="icon-small">build</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="dim" class="btn-icon-small">
+        <mat-icon class="icon-small">info</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="fullscreen" class="btn-icon-small">
+        <mat-icon class="icon-small">fullscreen</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <button
+      *ngIf="pS.profile.role.editor"
+      mat-icon-button
+      [mat-menu-trigger-for]="vpMenu"
+      class="menu-button"
+    >
+      <mat-icon
+        [matTooltip]="dS.system.txts.MORE_VERTXXX"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        more_vert</mat-icon
+      >
+    </button>
+
+    <mat-menu #vpMenu="matMenu" yPosition="above" class="menu">
+      <!-- <button
+        mat-menu-item
+        (click)="
+          viewOptions.strain = !viewOptions.strain; doViewOptions(viewOptions)
+        "
+      >
+        <mat-icon *ngIf="viewOptions.strain" class="icon-xsmall"
+          >check</mat-icon
+        >
+        <span>Materialspannungen</span>
+      </button> -->
+      <button
+        mat-menu-item
+        (click)="
+          viewOptions.dimensionsA = !viewOptions.dimensionsA;
+          doViewOptions(viewOptions)
+        "
+      >
+        <mat-icon *ngIf="viewOptions.dimensionsA" class="icon-xsmall"
+          >check</mat-icon
+        >
+        <span>Bemassungen</span>
+      </button>
+      <!-- <button
+        mat-menu-item
+        (click)="
+          viewOptions.dimensionsB = !viewOptions.dimensionsB;
+          doViewOptions(viewOptions)
+        "
+      >
+        <mat-icon *ngIf="viewOptions.dimensionsB" class="icon-xsmall"
+          >check</mat-icon
+        >
+        <span>Bemassungen B</span>
+      </button> -->
+      <button
+        mat-menu-item
+        (click)="
+          viewOptions.analyse = !viewOptions.analyse; doViewOptions(viewOptions)
+        "
+      >
+        <mat-icon *ngIf="viewOptions.analyse" class="icon-xsmall"
+          >check</mat-icon
+        >
+        <span>Analyse</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button
+        mat-menu-item
+        (click)="
+          viewOptions.showAxes = !viewOptions.showAxes;
+          doViewOptions(viewOptions)
+        "
+      >
+        <mat-icon *ngIf="viewOptions.showAxes" class="icon-xsmall"
+          >check</mat-icon
+        >
+        <span>Achsen</span>
+      </button>
+      <button
+        mat-menu-item
+        (click)="
+          viewOptions.showGrid = !viewOptions.showGrid;
+          doViewOptions(viewOptions)
+        "
+      >
+        <mat-icon *ngIf="viewOptions.showGrid" class="icon-xsmall"
+          >check</mat-icon
+        >
+        <span>Grid</span>    
+        <mat-icon (click)="setGridSpacing($event, -1)" class="icon-small"
+          >remove_circle_outline</mat-icon
+        >
+        <mat-icon (click)="setGridSpacing($event, 1)" class="icon-small"
+          >add_circle_outline</mat-icon
+        >
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="toggleFullScreen()">
+        <mat-icon *ngIf="vS.isFullscreen" class="icon-xsmall">check</mat-icon>
+        <span>{{ dS.system.txts.FULLSCREEN }}</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
+<svg width="0" height="0">
+  <defs>
+    <marker
+      #arrowx
+      id="arrowx"
+      preserveAspectRatio="none"
+      viewBox="0 0 1250 10"
+      markerWidth="30"
+      markerHeight="30"
+      refX="0"
+      refY="3"
+      orient="auto"
+      markerUnits="userSpaceOnUse"
+      vector-effect="non-scaling-stroke"
+    >
+      <path d="M0,0 L0,6 L9,3 z" />
+    </marker>
+    <marker
+      #arrowy
+      id="arrowy"
+      preserveAspectRatio="none"
+      viewBox="0 0 10 1250"
+      markerWidth="30"
+      markerHeight="30"
+      refX="0"
+      refY="3"
+      orient="auto"
+      markerUnits="userSpaceOnUse"
+      vector-effect="non-scaling-stroke"
+    >
+      <path d="M0,0 L0,6 L9,3 z" fill="context-fill" stroke="context-stroke" />
+    </marker>
+    <marker
+      id="mdot"
+      markerWidth="10"
+      markerHeight="10"
+      refX="0"
+      refY="3"
+      orient="auto"
+      markerUnits="strokeWidth"
+    >
+      <circle cx="0" cy="0" r="6" fill="#f00" />
+    </marker>
+    <marker
+      id="crosshair"
+      markerWidth="10"
+      markerHeight="10"
+      refX="0"
+      refY="3"
+      orient="auto"
+      markerUnits="strokeWidth"
+    >
+      <path d="M0,0 L0,6 L9,3 z" fill="#f00" />
+    </marker>
+    <path #apath d="M0,0 L0,6 L9,3 z" stroke="#f00" fill="#f00" />
+    <line
+      #dot
+      id="dot"
+      x1="0"
+      x2="0"
+      y1="0"
+      y2="0"
+      stroke-width="5"
+      stroke="#e8e8e8"
+      stroke-linecap="round"
+      vector-effect="non-scaling-stroke"
+    />
+    <g
+      #origin
+      id="origin"
+      viewBox="-3.5 -3.5 7 7"
+      stroke-width="1"
+      stroke="#e8e8e8"
+      fill="#e8e8e8"
+      vector-effect="non-scaling-stroke"
+      preserveAspectRatio="none"
+    >
+      <path d="M 0 0 L 0 6 A 6 6 0 0 0 6 0 Z" stroke="none" />
+      <path d="M 0 0 L 6 0 A 6 6 0 0 0 0 -6 Z" stroke="none" fill="black" />
+      <path d="M 0 0 L 0 -6 A 6 6 0 0 0 -6 0 Z" stroke="none" />
+      <path d="M 0 0 L -6 0 A 6 6 0 0 0 0 6 Z" stroke="none" fill="black" />
+      <circle cx="0" cy="0" r="6" fill="none" />
+    </g>
+    <g
+      #cross
+      id="cross"
+      stroke-width="1"
+      stroke="#e8e8e8"
+      vector-effect="non-scaling-stroke"
+      stroke-linecap="round"
+    >
+      <line
+        x1="0"
+        x2="0"
+        y1="-7"
+        y2="7"
+        stroke-width="1"
+        vector-effect="non-scaling-stroke"
+      />
+      <line
+        x1="-7"
+        x2="7"
+        y1="0"
+        y2="0"
+        stroke-width="1"
+        vector-effect="non-scaling-stroke"
+      />
+    </g>
+    <g
+      #watermark
+      id="watermark"
+      class="watermark"
+      data-name="Ebene 1"
+      xmlns="http://www.w3.org/2000/svg"
+      scale="0.075"
+      width="1519.75"
+      height="540.7"
+      viewBox="0 0 1519.75 540.7"
+    >
+      <title>watermark-4ming</title>
+      <g>
+        <path
+          d="M972.67,465.31V703.63H913.3V465.31Z"
+          transform="translate(-40.37 -294.36)"
+          style="fill: #777"
+        />
+        <path
+          d="M1274.22,465.31V703.63h-50.14L1092.54,551V703.63h-59.36V465.31h54.43L1214.85,611V465.31Z"
+          transform="translate(-40.37 -294.36)"
+          style="fill: #777"
+        />
+        <path
+          d="M1555.18,481.86v52q-45.54-22-89-22-42,0-64.65,21.15t-22.69,53.9q0,31.39,22.69,50.84t59.71,19.45a98.84,98.84,0,0,0,39.4-8.53V620.89h-34.46V577.22h94v97.41q-14.16,14.16-43.08,23.11a192.64,192.64,0,0,1-57.23,9q-62.27,0-102.27-34.38t-40-87.42q0-54.25,40-88.45t103.64-34.21Q1513.72,462.24,1555.18,481.86Z"
+          transform="translate(-40.37 -294.36)"
+          style="fill: #777"
+        />
+      </g>
+      <path
+        d="M649,471.51,767.55,334.72h79.88V703.63h-91.9V473.36L655.87,589h-13.8L542.43,473.36V703.63h-91.9V334.72h79.79Z"
+        transform="translate(-40.37 -294.36)"
+        style="fill: #777"
+      />
+      <path
+        d="M366.7,294.36v324h83.83v85.23l-83.83,0V835.06H248.63V703.61H40.37V618.4l251.06-324Zm-232.55,324H248.63V472.49Z"
+        transform="translate(-40.37 -294.36)"
+        style="fill: #777"
+      />
+      <circle cx="904.27" cy="82.58" r="52.43" style="fill: #777" />
+      <rect
+        x="371.21"
+        y="458.82"
+        width="1148.54"
+        height="61.72"
+        style="fill: #777"
+      />
+    </g>
+  </defs>
+</svg>

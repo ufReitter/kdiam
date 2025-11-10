@@ -1,0 +1,92 @@
+<div *ngIf="pos === 'cpt'" class="relative">
+  <div
+    *ngIf="!edit || !elm.checkout"
+    #rend
+    [class.kd-warn]="elm.i18n[target].hasWarning"
+    [innerHTML]="
+      node?.set.attrib[dS.locale] || elm.i18n[target].strs?.cpt || '' | safeHtml
+    "
+    (click)="vS.inlineEditor && setEdit()"
+  ></div>
+  <!-- <quill-view
+    [content]="node?.set.attrib[dS.locale] || elm.i18n[target].strs?.cpt || ''"
+    [format]="elm.i18n[target].strs?.format || 'html'"
+    [theme]="'snow'"
+    (click)="vS.inlineEditor && setEdit()"
+  ></quill-view> -->
+  <div
+    *ngIf="edit && elm.checkout"
+    (click)="closeEdit($event)"
+    class="overlay hover-pointer"
+  ></div>
+  <div *ngIf="edit && elm.checkout" class="cpt-editor color-background">
+    <!-- <quill-editor
+      [(ngModel)]="html"
+      [modules]="this.vS.quillModules"
+      (onFocus)="focus($event)"
+      (onEditorChanged)="changedEditor($event)"
+      (onBlur)="blur($event)"
+      (onEditorCreated)="created($event)"
+      (onSelectionChanged)="selection($event)"
+      [theme]="'snow'"
+    ></quill-editor> -->
+    <button
+      (click)="closeEdit($event); dS.edit(elm)"
+      type="button"
+      mat-icon-button
+      class="btn-icon-small buttons"
+    >
+      <mat-icon class="icon-small">edit</mat-icon>
+    </button>
+  </div>
+</div>
+<!-- lang="{{ this.dS.lang }}" -->
+<div
+  #rend
+  *ngIf="pos === 'bdy'"
+  [class.kd-warn]="elm.i18n[target].hasWarning"
+  [class.kd-paragraph]="elm.attrib.bdyLeading"
+  [class.bdy-indent]="view === 'article-view'"
+  class="bdy-indent relative"
+>
+  <div class="ql-container ql-snow html-text">
+    <div
+      class="ql-editor html-text"
+      [innerHTML]="elm.i18n[target].strs?.bdy | safeHtml"
+      (click)="vS.inlineEditor && setEdit()"
+    ></div>
+  </div>
+  <!-- <quill-view
+    [content]="elm.i18n[target].strs?.bdy"
+    [format]="elm.i18n[target].strs?.format || 'html'"
+    sanitize="false"
+    strict="false"
+    [theme]="'snow'"
+    (click)="vS.inlineEditor && setEdit()"
+  ></quill-view> -->
+  <div
+    *ngIf="edit && elm.checkout"
+    (click)="closeEdit($event)"
+    class="overlay hover-pointer"
+  ></div>
+  <div *ngIf="edit && elm.checkout" class="bdy-editor color-background">
+    <!-- <quill-editor
+      [(ngModel)]="html"
+      [modules]="this.vS.quillModules"
+      (onFocus)="focus($event)"
+      (onEditorChanged)="changedEditor($event)"
+      (onBlur)="blur($event)"
+      (onEditorCreated)="created($event)"
+      (onSelectionChanged)="selection($event)"
+      [theme]="'snow'"
+    ></quill-editor> -->
+    <button
+      (click)="closeEdit($event); dS.edit(elm)"
+      type="button"
+      mat-icon-button
+      class="btn-icon-small buttons"
+    >
+      <mat-icon class="icon-small">edit</mat-icon>
+    </button>
+  </div>
+</div>

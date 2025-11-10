@@ -1,0 +1,28 @@
+.tools {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: content-box;
+}
+
+.latex {
+  font-size: 12px;
+  width: clamp(200px, 400px, 600px);
+}
+
+.kd-tr-hilite {
+  background-color: rgba(100, 110, 174, 0.1);
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.publisher {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

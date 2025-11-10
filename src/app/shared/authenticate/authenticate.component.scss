@@ -1,0 +1,44 @@
+.login{
+    width: 236px;
+    margin: calc(25vh - 80px) auto 0 auto;
+    text-align: center;
+}
+
+
+.form-field-login {
+  width: 236px;
+  margin: 0 12px -15px 12px;
+  padding: 5px 0;
+}
+
+#username {
+  -webkit-appearance: none;
+  width: 230px;
+  height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #111;
+  
+  border: none !important;
+  padding: 1px 0 0 4px;
+  margin: 0;
+  text-align: left;
+  border-radius: 0px;
+}
+
+#password {
+  -webkit-appearance: none;
+  width: 230px;
+  height: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #111;
+
+  border: none !important;
+  padding: 1px 0 0 4px;
+  margin: 0;
+  text-align: left;
+  border-radius: 0px;
+}
+
+

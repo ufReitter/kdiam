@@ -1,0 +1,27 @@
+<ng-container *ngIf="elm">
+  <kd-redit-tools [elm]="elm" [component]="component"></kd-redit-tools>
+  <div
+    *ngIf="component !== 'inline'"
+    [class.wrapper-editor]="component !== 'snapshot'"
+    class="color-background wrapper"
+  >
+    <div
+      [ngSwitch]="component"
+      [class.positioner]="component !== 'snapshot'"
+      class="color-background"
+    >
+      <kd-article *ngSwitchCase="'snapshot'"></kd-article>
+      <kd-storage *ngSwitchCase="'storage'"></kd-storage>
+      <kd-editor *ngSwitchCase="'editor'" [elm]="elm"></kd-editor>
+      <kd-json *ngSwitchCase="'json'" [elm]="elm"></kd-json>
+      <kd-code *ngSwitchCase="'code'" [elm]="elm"></kd-code>
+      <kd-translate *ngSwitchCase="'translate'" [elm]="elm"></kd-translate>
+      <kd-target-wrapper
+        *ngSwitchCase="'target'"
+        [elm]="dS.selElm"
+        [target]="'en'"
+      ></kd-target-wrapper>
+      <kd-history *ngSwitchCase="'history'" [elm]="elm"></kd-history>
+    </div>
+  </div>
+</ng-container>

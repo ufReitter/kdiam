@@ -1,0 +1,69 @@
+<div style="padding-top: 25px">
+  <kd-header-target [elm]="elm" [target]="'en'"></kd-header-target>
+  <kd-elm-target
+    [view]="'article-view'"
+    [viewDepth]="99"
+    [elm]="elm"
+    [target]="'en'"
+  ></kd-elm-target>
+</div>
+<div style="position: absolute; top: 46px; right: 0">
+  <span>
+    Veraltet {{ outdatedElms.length }} von {{ elms.length }}  (
+    {{ fromStr.length }} / {{ fromStrNetto.length }} )
+  </span>
+
+  <button mat-icon-button (click)="openai($event)">
+    <mat-icon>tips_and_updates</mat-icon>
+  </button>
+  <button mat-icon-button (click)="translate($event)">
+    <mat-icon>translate</mat-icon>
+  </button>
+</div>
+
+<mat-form-field
+  [hidden]="!slugNode"
+  style="position: absolute; top: -12px; left: 62px; width: 300px"
+>
+  <input
+    matInput
+    [(ngModel)]="slug"
+    (ngModelChange)="slugValidate($event, dS.selVol, dS.locale)"
+    pattern="[a-z]*"
+    [placeholder]="'Slug'"
+    autocomplete="off"
+    autocorrect="off"
+    autocapitalize="on"
+    spellcheck="false"
+    [class.warn]="warnSlug"
+  />
+  <button
+    mat-button
+    *ngIf="readySlug"
+    matSuffix
+    mat-icon-button
+    aria-label="Change"
+    (click)="slugChange()"
+  >
+    <mat-icon>check</mat-icon>
+  </button>
+  <button
+    mat-button
+    matSuffix
+    mat-icon-button
+    aria-label="Suggest"
+    (click)="slugSuggest()"
+  >
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+</mat-form-field>
+
+<div style="position: absolute; top: 0px; right: 0">
+  Glossar öffnen
+  <button type="button" mat-icon-button (click)="viewGlossary()">
+    <mat-icon>visibility</mat-icon>
+  </button>
+  <button type="button" mat-icon-button (click)="openGlossaryTab()">
+    <mat-icon>open_in_browser</mat-icon>
+  </button>
+</div>

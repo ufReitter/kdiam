@@ -1,0 +1,11 @@
+<div *ngIf="role === 'full'">
+  <div class="cell right">
+    <div class="kd-button">
+      Edition {{ dateString | date: 'LLL':dS.locale
+      }}{{ dateString | date: 'YYYY' }}-{{ this.parts[2] || 1 }}
+    </div>
+    <div class="kd-button">
+      <span>Kdia v{{ dS.version }}</span>
+    </div>
+  </div>
+</div>

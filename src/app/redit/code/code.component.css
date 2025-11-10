@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.mon-container {
+  flex-grow: 1;
+}
+.toolbar {
+  padding-right: 4px;
+}
+.tokens {
+  color: #8fd8ff;
+  color: #e7e79a;
+  color: #f17373;
+}

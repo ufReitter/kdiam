@@ -1,0 +1,84 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  (click)="open($event)"
+  class="tbutton btn-icon-small"
+>
+  <mat-icon class="icon-small">more_vert</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu" (closed)="close($event)" xPosition="before">
+  <div
+    (click)="$event.stopPropagation()"
+    class="kd-menu-tools color-foreground color-background"
+  >
+    <input
+      type="text"
+      [(ngModel)]="str"
+      (ngModelChange)="sort($event)"
+      style="width: 140px"
+      placeholder="Filter"
+      class="color-foreground"
+    />
+    &nbsp;&nbsp;
+    <mat-button-toggle-group
+      (change)="onSort($event)"
+      [value]="sorting.active"
+      [multiple]="false"
+      #mySort="matButtonToggleGroup"
+      (ngModelChange)="onSort(mySort)"
+      [matTooltip]="dS.system.txts.SORT"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="small"
+    >
+      <mat-button-toggle
+        value="num"
+        (click)="onSortClick('num')"
+        class="btn-icon-small"
+      >
+        <mat-icon class="icon-small">exposure_plus_1</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle
+        value="author"
+        (click)="onSortClick('author')"
+        class="btn-icon-small"
+      >
+        <mat-icon class="icon-small">sort</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle
+        value="title"
+        (click)="onSortClick('title')"
+        class="btn-icon-small"
+      >
+        <mat-icon class="icon-small">sort_by_alpha</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <button [disabled]="true" (click)="add()" mat-icon-button>
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </div>
+  <ng-container *ngIf="sorting.active === 'num'">
+    <button
+      mat-menu-item
+      *ngFor="let ref of refs; let i = index"
+      (click)="insert(ref)"
+    >
+      <span
+        >[{{ ref.elm.seNo || '*' }}] {{ ref.elm.datarow.author }} /
+        {{ ref.elm.datarow.title }}</span
+      >
+    </button>
+  </ng-container>
+  <ng-container *ngIf="sorting.active === 'author'">
+    <button mat-menu-item *ngFor="let ref of refs" (click)="insert(ref)">
+      <span>{{ ref.elm.datarow.author }} / {{ ref.elm.datarow.title }}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="sorting.active === 'title'">
+    <button mat-menu-item *ngFor="let ref of refs" (click)="insert(ref)">
+      <span>{{ ref.elm.datarow.title }} / {{ ref.elm.datarow.author }}</span>
+    </button>
+  </ng-container>
+</mat-menu>

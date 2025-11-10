@@ -1,0 +1,39 @@
+.wrapper {
+  height: 100%;
+}
+.content {
+  height: 100%;
+  overflow-y: auto;
+}
+.mat-tree-node {
+  overflow: visible;
+  cursor: move;
+}
+
+.drop-above {
+  border-top: 10px solid #2196f3;
+  margin-top: -10px;
+}
+
+.drop-below {
+  border-bottom: 10px solid #2196f3;
+  margin-bottom: -10px;
+}
+
+.drop-center {
+  background-color: darkgray;
+}
+
+.drag-start {
+  background-color: #1565c0;
+  color: honeydew;
+}
+.nodeNumeration {
+  display: inline-block;
+  min-width: 45px;
+  cursor: pointer;
+}
+
+.toolbar {
+  height: 40px;
+}

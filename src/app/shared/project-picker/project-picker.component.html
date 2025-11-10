@@ -1,0 +1,55 @@
+<div *ngIf="pS.projSub | async">
+  <button
+    mat-button
+    [matMenuTriggerFor]="projectPicker"
+    class="kd-projects-button"
+  >
+    {{ dS.selectedProject.design }}
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #projectPicker="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let project of dS.projectsUser"
+      (click)="onProjectChanged(project)"
+    >
+      {{ project.design }}
+    </button>
+    <div *ngIf="!edit" class="edit-row color-foreground">
+      <button
+        type="button"
+        mat-icon-button
+        (click)="setEditDesign($event)"
+        class="btn-icon-small"
+      >
+        <mat-icon class="icon-small">edit</mat-icon>
+      </button>
+      <button
+        type="button"
+        mat-icon-button
+        (click)="addProject($event)"
+        class="btn-icon-small"
+      >
+        <mat-icon class="icon-small">add_circle</mat-icon>
+      </button>
+      <button type="button" mat-icon-button class="btn-icon-small">
+        <mat-icon class="icon-small">settings</mat-icon>
+      </button>
+    </div>
+    <div
+      *ngIf="edit"
+      (click)="$event.stopPropagation()"
+      class="edit-row color-foreground"
+    >
+      <input
+        matInput
+        type="text"
+        (keyup.enter)="editDesign($event)"
+        [(ngModel)]="dS.selectedProject.design"
+        placeholder="{{ dS.system.txts.BEZEICHNUNG }}"
+        autocomplete="off"
+        style="width: 120px"
+      />
+    </div>
+  </mat-menu>
+</div>

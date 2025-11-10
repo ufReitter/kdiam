@@ -1,0 +1,23 @@
+<article>
+  <div *ngIf="!elm?.i18n.de" class="spinner-wrapper">
+    <mat-spinner
+      [diameter]="75"
+      [strokeWidth]="5"
+      style="margin: 0 auto 0 auto"
+    ></mat-spinner>
+    <div class="loading">Lade archivierten Inhalt...</div>
+  </div>
+  <div *ngIf="elm?.i18n.de">
+    <div class="relative bdy-indent header">
+      <h1 class="heading">
+        {{ elm?.i18n.de.strs.lbl || elm?._eid.str }}
+      </h1>
+
+      <div *ngIf="elm?.i18n.de.strs.lng">
+        {{ elm?.i18n.de.strs.lng }}
+      </div>
+    </div>
+
+    <div [innerHTML]="elm?.i18n.de.strs.bdy | safeHtml" class="kd-legacy"></div>
+  </div>
+</article>

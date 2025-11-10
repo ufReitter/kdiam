@@ -1,0 +1,61 @@
+.indicator {
+  position: absolute;
+  top: 2px;
+  left: 22px;
+  font-size: 12px;
+  line-height: 16px;
+  /* width: 17px; */
+  height: 16px;
+  text-align: center;
+  color: black !important;
+  font-weight: 700;
+  padding: 0 5px;
+  border-radius: 8px;
+  background-color: rgb(234, 238, 17);
+  /* background-color: #f54d41 */
+}
+
+.menu-item {
+  height: 60px !important;
+}
+
+.menu-item-new {
+  border-left: 1px inset;
+  border-left-color: white !important;
+}
+
+.title {
+  margin-top: 10px;
+  line-height: 22px !important;
+}
+
+.changes {
+  line-height: 22px !important;
+}
+
+.ago {
+  line-height: 22px !important;
+  margin-bottom: 6px;
+}
+
+.menu {
+  height: 320px !important;
+}
+
+.mat-divider {
+  border-top-color: white !important;
+  opacity: 0.3;
+}
+
+.vertical-line {
+  position: absolute;
+  left: 4px;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  float: left;
+}
+
+.fit-content {
+  height: fit-content !important;
+}

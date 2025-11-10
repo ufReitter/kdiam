@@ -1,0 +1,17 @@
+<span data-nosnippet
+  ><button
+    *ngIf="set.state.button"
+    class="btn-icon-input"
+    mat-icon-button
+    (click)="pressButton()"
+  >
+    <mat-icon
+      [matTooltip]="dS.system.txts.OPTIMAL"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="icon-small"
+    >
+      auto_fix_normal</mat-icon
+    >
+  </button>
+</span>

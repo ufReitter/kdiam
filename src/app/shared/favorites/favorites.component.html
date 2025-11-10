@@ -1,0 +1,41 @@
+<div data-nosnippet class="wrapper kd-favorites">
+  <button
+    mat-icon-button
+    [disabled]="!dS.selElm"
+    [matTooltip]="dS.system.txts.SET_FAV"
+    [matTooltipPosition]="'right'"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+    (click)="toggle()"
+    class="btn-icon-tool"
+  >
+    <ng-container [ngSwitch]="isFav">
+      <mat-icon *ngSwitchCase="false">star_outline</mat-icon>
+      <mat-icon *ngSwitchCase="true" class="kd-warn">star</mat-icon>
+    </ng-container></button
+  ><br />
+
+  <button
+    *ngIf="dS.favorites.length"
+    mat-icon-button
+    [mat-menu-trigger-for]="favMenu"
+    [matTooltip]="dS.system.txts.OPEN_FAV"
+    [matTooltipPosition]="'right'"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+    class="btn-icon-tool"
+  >
+    <mat-icon class="icon-xbig">arrow_drop_down</mat-icon>
+  </button>
+
+  <mat-menu #favMenu="matMenu" class="menu">
+    <button
+      *ngFor="let fav of dS.favorites"
+      mat-menu-item
+      (click)="viewElement(fav)"
+      [class.kd-sel]="fav === dS.selElm"
+    >
+      <span>{{ fav.txts.lbl || fav._eid.str }}</span>
+    </button>
+  </mat-menu>
+</div>

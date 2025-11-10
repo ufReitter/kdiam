@@ -1,0 +1,33 @@
+<div class="tools-right">
+  <kd-edits-menu></kd-edits-menu>
+  <mat-button-toggle-group
+    [(ngModel)]="vS.buttons.activeEdit"
+    (change)="onChangeGroup($event)"
+    [multiple]="true"
+    [vertical]="true"
+    #myFilter="matButtonToggleGroup"
+    style="position: relative"
+    class="small"
+  >
+    <mat-button-toggle
+      [value]="'inline'"
+      (change)="onChangeButton($event)"
+      [matTooltip]="dS.system.txts.INLINE_EDIT"
+      [matTooltipPosition]="'right'"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+    >
+      <mat-icon class="kd-warn">text_fields</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle
+      [value]="'editor'"
+      (change)="onChangeButton($event)"
+      [matTooltip]="dS.system.txts.OPEN_EDITOR"
+      [matTooltipPosition]="'right'"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+    >
+      <mat-icon class="kd-sel">build</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

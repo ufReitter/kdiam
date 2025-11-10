@@ -1,0 +1,15 @@
+<mat-divider></mat-divider
+><cdk-virtual-scroll-viewport
+  #myViewport
+  itemSize="34"
+  minBufferPx="510"
+  maxBufferPx="1020"
+  class="virtual-viewport"
+>
+  <kd-scroll-item
+    *cdkVirtualFor="let elm of elements"
+    [elm]="elm"
+  ></kd-scroll-item>
+</cdk-virtual-scroll-viewport>
+
+<mat-divider></mat-divider>

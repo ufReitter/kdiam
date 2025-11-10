@@ -1,0 +1,57 @@
+<div
+  [class]="pos"
+  class="wrapper"
+  (mouseenter)="stopTimer()"
+  (mouseleave)="startTimer()"
+>
+  <div class="carousel">
+    <div
+      [@fadeIn]="trigger"
+      *ngFor="let slide of slides; let i = index"
+      (click)="navigate()"
+      class="slide hover-pointer"
+    >
+      <img
+        *ngIf="
+          (slide.elm.figure?.ext === 'jpg' ||
+            slide.elm.figure?.ext === 'png') &&
+          currentSlide === i
+        "
+        [src]="
+          '/images/scaled/' +
+          slide.elm._eid.str +
+          '-' +
+          width +
+          dS.retina.suffix +
+          '.' +
+          slide.elm.figure.ext +
+          '?cb=' +
+          slide.elm.figure.version
+        "
+        [width]="width"
+        [height]="width / slide.elm.figure.ratio"
+        [class.themed]="slide.elm.figure.themed"
+        class="image"
+      />
+    </div>
+
+    <button mat-icon-buttonxxx (click)="onPreviousClick()" class="control left">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+
+    <button mat-icon-buttonxxx (click)="onNextClick()" class="control right">
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+    <div [class]="indicator" class="indicator">
+      <button
+        mat-icon-button
+        *ngFor="let slide of slides; let i = index"
+        (click)="onIndicatorClick(i)"
+        [class.kd-sel]="i === currentSlide"
+        class="btn-icon-xsmall"
+      >
+        <mat-icon class="icon-xxsmall">fiber_manual_record</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

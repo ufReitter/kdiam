@@ -1,0 +1,35 @@
+.main-nav-buttons {
+  position: relative;
+  max-width: 80px;
+  max-height: 80px;
+  white-space: normal;
+}
+
+.main-nav-button-1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.main-nav-button-2 {
+  position: absolute;
+  left: 40px;
+  top: 0;
+}
+
+.main-nav-button-3 {
+  position: absolute;
+  left: -3px;
+  top: 32px;
+}
+
+.main-nav-button-4 {
+  position: absolute;
+  left: 37px;
+  top: 31px;
+}
+
+.main-nav-button {
+  width: 40px;
+  height: 40px;
+}

@@ -1,0 +1,205 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "1cc02148-d799-46aa-bd0d-be2b1509f0e6",
+    "schematicCollections": ["@angular-eslint/schematics"]
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "defaultProject": "kompendia",
+  "projects": {
+    "kompendia": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": ["quill"],
+            "outputPath": "dist/kompendia/browser",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor/"
+              },
+              "src/index.prerender.html",
+              "src/LICENSE.txt",
+              "src/assets/kia-dark-theme.css",
+              "src/assets/spinner.css",
+              "src/favicon.ico",
+              "src/assets/flags",
+              "src/assets/fonts/Neo-Euler.woff2",
+              "src/assets/user-agent-icons",
+              "src/assets/images",
+              "src/assets/icons",
+              "src/assets/splashscreens",
+              "src/assets/sounds",
+              "src/assets/worker",
+              "src/assets/quill",
+              "src/robots.txt",
+              "src/manifest.json",
+              "src/inline.js"
+            ],
+            "styles": [
+              {
+                "inject": false,
+                "input": "src/styles/mathjax.css",
+                "bundleName": "editor-styles"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/quill.snow.css",
+                "bundleName": "editor-styles"
+              },
+              "src/styles/fontsOpenSans.scss",
+              "src/styles/theme.scss",
+              "src/styles.scss"
+            ],
+            "scripts": ["src/environments/cachebust.js"],
+            "webWorkerTsConfig": "tsconfig.worker.json",
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "serviceWorker": true
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "kompendia:build",
+            "proxyConfig": "proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "kompendia:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "kompendia:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "scripts": [],
+            "styles": [
+              "src/styles/fontsOpenSans.scss",
+              "src/styles/theme.scss",
+              "src/styles.css"
+            ],
+            "assets": [
+              "src/LICENSE",
+              "src/assets/kia-dark-theme.css",
+              "src/favicon.ico",
+              "src/assets/images",
+              "src/assets/icons",
+              "src/assets/splashscreens",
+              "src/assets/sounds",
+              "src/assets/quill",
+              "src/robots.txt",
+              "src/manifest.json"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "testapp:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "testapp:serve:production"
+            }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/kompendia/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "externalDependencies": [
+              "@nestjs/microservices",
+              "@nestjs/microservices/microservices-module",
+              "cache-manager"
+            ],
+            "sourceMap": true,
+            "optimization": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+          }
+        }
+      }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "kd"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "kd"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div class="toolbar">
+  <div
+    (click)="dS.navigate(elm)"
+    [class]="elm.savestatus"
+    [class.kd-warn]="elm.checkout && (elm.dirty || elm.txts.dirty)"
+    class="hover-pointer"
+  >
+    <span class="label">{{ elm.txts.lbl || elm._eid.str }}</span>
+  </div>
+  <div>
+    <kd-object-id [str]="elm._eid.str"></kd-object-id>
+  </div>
+  <div style="position: relative">
+    <button type="button" mat-icon-button class="btn-icon-small">
+      <mat-icon
+        *ngIf="dS.tasks[elm.task].icon"
+        [class.dim]="!elm.usedBy.length"
+        class="icon-small"
+      >
+        share</mat-icon
+      >
+    </button>
+    <mat-select
+      *ngIf="elm.usedBy.length"
+      (selectionChange)="viewElement($event, $event.value)"
+      class="kd-used-by-select"
+    >
+      <mat-option *ngFor="let by of elm.usedBy" [value]="by">
+        <mat-icon *ngIf="dS.tasks[by.task].icon" class="icon-xsmall">
+          {{ dS.tasks[by.task].icon }}</mat-icon
+        >
+        {{ by.txts.lbl || by._eid.str }}
+      </mat-option>
+    </mat-select>
+  </div>
+</div>

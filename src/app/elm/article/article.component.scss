@@ -1,0 +1,17 @@
+.references {
+  position: absolute;
+  padding: 0 0 0px 0px;
+  bottom: 0.5em;
+  left: 0em;
+  width: calc(100% - 20px);
+}
+
+.card-article {
+  width: clamp(300px, 768px, 768px);
+  padding: 25px 25px 25px 25px;
+  border-radius: 0px;
+}
+
+.card-table {
+  width: clamp(640px, 1280px, 1280px) !important;
+}

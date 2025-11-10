@@ -1,0 +1,166 @@
+<div
+  [class.kd-selected-scroll]="elm._eid.str === dS.selElm._eid.str"
+  class="store-box hover-pointer"
+>
+  <div>
+    <div class="ident-cell icon relative">
+      <mat-icon
+        *ngIf="dS.tasks[elm.task].icon"
+        [class.dim]="!elm.usedBy.length"
+        class="icon-small"
+        (click)="!elm.usedBy.length && dS.navigate(elm)"
+      >
+        {{ dS.tasks[elm.task].icon }}</mat-icon
+      >
+      <mat-icon
+        *ngIf="elm.attrib.role === 'volume'"
+        [class.dim]="elm === dS.selVol"
+        (click)="dS.subject.volume.next(elm)"
+        class="icon-small"
+        style="padding-right: 5px"
+        >visibility</mat-icon
+      >
+      <mat-select
+        *ngIf="elm.usedBy.length"
+        (selectionChange)="viewElement($event, $event.value)"
+        class="kd-used-by-select"
+      >
+        <mat-option *ngFor="let by of elm.usedBy" [value]="by">
+          <mat-icon *ngIf="dS.tasks[by.task].icon" class="icon-xsmall">
+            {{ dS.tasks[by.task].icon }}</mat-icon
+          >
+          {{ by.txts.lbl || by._eid.str }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div (click)="viewElement($event, elm)" class="cell">
+      <ng-container *ngIf="pS.pref.sorting.active === 'tasksort'">
+        <div
+          *ngIf="elm.sign"
+          [innerHTML]="elm.sign | safeHtml"
+          class="sign-cell"
+        ></div>
+        <div
+          *ngIf="elm.host_id === '5d0949f7e37e491e8a1a25bd'"
+          class="ref-cell kd-reference-big"
+        >
+          {{ elm.seNo || '*' }}
+        </div>
+        <div *ngIf="elm.absnum" class="numeration-cell-edit">
+          {{ elm.num }}
+        </div>
+      </ng-container>
+
+      <div *ngIf="elm.ident && !elm.txts.lbl; else label" class="item-label">
+        <span [innerHTML]="elm.ident | safeHtml" class="kd-sign-small"></span>
+      </div>
+      <ng-template #label>
+        <div class="item-label">
+          <span *ngIf="!elm.datarow && !elm.figure">
+            {{ elm.txts.lbl || elm._eid.str }}
+          </span>
+          <ng-container *ngIf="elm.datarow">
+            <span *ngIf="elm.host_id === '5d0949f7e37e491e8a1a25bd'">
+              {{ elm.datarow.title || elm.datarow.author || elm._eid.str }}
+            </span>
+            <span *ngIf="elm.equ">
+              {{ elm.txts.lbl || elm.equ.tex }}
+            </span>
+            <ng-container *ngIf="elm.datarow.designs">
+              WS 
+              <ng-container *ngFor="let des of elm.datarow.designs">
+                <span *ngIf="des">{{ des }}&nbsp;&nbsp;</span>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="elm.figure">
+            <span *ngIf="elm.figure.ext === 'svg'">
+              {{ elm.txts.lbl || elm._eid.str }}
+            </span>
+            <span *ngIf="elm.figure.ext === 'dyn'">
+              {{ elm.txts.lbl || elm._eid.str }}
+            </span>
+            <span *ngIf="elm.figure.ext === 'tex'">
+              {{ elm.txts.lbl || elm.figure.src || elm._eid.str }}
+            </span>
+            <span
+              *ngIf="
+                elm.figure.ext === 'jpg' ||
+                elm.figure.ext === 'png' ||
+                elm.figure.ext === 'mp4' ||
+                elm.figure.ext === 'mov' ||
+                elm.figure.ext === 'flac' ||
+                elm.figure.ext === 'm4a'
+              "
+            >
+              {{
+                elm.txts.lbl ||
+                  elm.txts.cpt ||
+                  elm.txts.lbl ||
+                  elm.figure.filename ||
+                  elm._eid.str
+              }}
+            </span>
+          </ng-container>
+        </div>
+      </ng-template>
+      <ng-container *ngIf="pS.pref.sorting.active !== 'tasksort'">
+        <div class="cell">&nbsp;</div>
+        <div
+          *ngIf="elm.sign"
+          [innerHTML]="elm.sign | safeHtml"
+          class="sign-cell"
+        ></div>
+        <div
+          *ngIf="elm.host_id === '5d0949f7e37e491e8a1a25bd'"
+          class="ref-cell kd-reference-big"
+        >
+          {{ elm.seNo || '*' }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div>
+    <div class="cell">
+      <button
+        *ngIf="elm.dirty && pS.pref.sorting.active === 'updated_at'"
+        mat-icon-button
+        class="btn-icon-xsmall"
+      >
+        <mat-icon class="icon-xsmall">change_history</mat-icon>
+      </button>
+    </div>
+    <div class="cell dimm-8" *ngIf="elm.attrib.glossary">G&nbsp;</div>
+    <div class="cell kd-warn" *ngIf="elm.trouble === 1">L&nbsp;</div>
+    <div class="cell kd-warn" *ngIf="elm.trouble === 2">W&nbsp;</div>
+    <div class="cell kd-error" *ngIf="elm.trouble === 3">E&nbsp;</div>
+
+    <ng-container [ngSwitch]="pS.pref.sorting.active">
+      <div class="cell elm-date" *ngSwitchCase="'created_at'">
+        {{ elm.created_at | date : 'short' : 'dS.locale' }}
+      </div>
+      <div class="cell elm-date" *ngSwitchCase="'updated_at'">
+        {{ elm.updated_at | date : 'short' : 'dS.locale' }}
+      </div>
+      <div class="cell elm-date" *ngSwitchCase="'updated_at_de'">
+        {{
+          elm.i18n.de?.updated_at || '1970-00-00T00:00:00.0Z'
+            | date : 'short' : 'dS.locale'
+        }}
+      </div>
+      <div class="cell elm-date" *ngSwitchCase="'updated_at_en'">
+        {{
+          elm.i18n.en?.updated_at || '1970-00-00T00:00:00.0Z'
+            | date : 'short' : 'dS.locale'
+        }}
+      </div>
+    </ng-container>
+
+    <div class="cell relative icon" (click)="checkElement(elm)">
+      <mat-icon *ngIf="!elm.checked" class="icon-small dim">
+        check_box_outline_blank</mat-icon
+      >
+      <mat-icon *ngIf="elm.checked" class="icon-small"> checkbox</mat-icon>
+    </div>
+  </div>
+</div>

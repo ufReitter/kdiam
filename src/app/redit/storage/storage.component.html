@@ -1,0 +1,263 @@
+<div class="wrapper relative">
+  <div class="head">
+    <mat-button-toggle-group
+      (keydown)="onKeydownFilter($event)"
+      (keyup)="onKeyupFilter($event)"
+      (change)="onFilter($event)"
+      [value]="pS.pref.filter"
+      [multiple]="true"
+      #myFilter="matButtonToggleGroup"
+      [matTooltip]="dS.system.txts.TOGGLE_FILTER"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="small"
+    >
+      <mat-button-toggle value="textbody" class="btn-icon-small">
+        <mat-icon class="icon-small">text_fields</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="figure" class="btn-icon-small">
+        <mat-icon class="icon-small">image</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="table" class="btn-icon-small">
+        <mat-icon class="icon-small">table_chart</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="ver" class="btn-icon-small">
+        <mat-icon class="icon-small">format_italic</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="equ" class="btn-icon-small">
+        <mat-icon class="icon-small">functions</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="code" class="btn-icon-small">
+        <mat-icon class="icon-small">code</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="children" class="btn-icon-small">
+        <mat-icon class="icon-small">arrow_downwards</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="notes" class="btn-icon-small">
+        <mat-icon class="icon-small">description</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle value="opus" class="btn-icon-small">
+        <mat-icon class="icon-small">home</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle
+        [disabled]="dS.checked.length === 0"
+        value="checked"
+        class="btn-icon-small"
+      >
+        <mat-icon class="icon-small">check_circle</mat-icon>
+      </mat-button-toggle>
+      <mat-button-toggle
+        *ngIf="dS.trouble"
+        value="trouble"
+        class="btn-icon-small"
+      >
+        <mat-icon
+          [class.kd-warn]="dS.trouble === 1"
+          [class.kd-error]="dS.trouble === 2"
+          class="icon-small"
+          >error</mat-icon
+        >
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-form-field class="form-field">
+      <input
+        matInput
+        type="search"
+        autocomplete="off"
+        placeholder="Textsuche"
+        (keyup)="onFilterString()"
+        [(ngModel)]="pS.pref.filterString"
+        spellcheck="false"
+      />
+      <button
+        mat-button
+        *ngIf="pS.pref.filterString"
+        matSuffix
+        mat-icon-button
+        aria-label="Filter"
+        (click)="pS.pref.filterString = ''; dS.filter(userId)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <div>
+      <button
+        class="btn-icon-input"
+        mat-icon-button
+        [mat-menu-trigger-for]="userMenu"
+      >
+        <mat-icon class="icon-small">person</mat-icon>
+      </button>
+    </div>
+    <mat-menu #userMenu="matMenu" class="menuxxx">
+      <button mat-menu-item (click)="userId = ''; dS.filter(userId)">
+        Alle
+      </button>
+      <div *ngFor="let user of dS.users">
+        <button mat-menu-item (click)="userId = user._id; dS.filter(userId)">
+          {{ user.nickname }}
+        </button>
+      </div>
+    </mat-menu>
+    <div>
+      <button
+        class="btn-icon-input"
+        mat-icon-button
+        (click)="sortDirectionToggle()"
+      >
+        <mat-icon class="icon-small">{{ sortDirIcon }}</mat-icon>
+      </button>
+      <button
+        class="btn-icon-input"
+        mat-icon-button
+        [mat-menu-trigger-for]="sortMenu"
+      >
+        <mat-icon class="icon-small">{{ sortByIcon }}</mat-icon>
+      </button>
+    </div>
+    <mat-menu #sortMenu="matMenu" class="menuxxx">
+      <button mat-menu-item (click)="sortBy('tasksort')">
+        <mat-icon class="icon-small">edit_attributes</mat-icon>
+        Eigenschaften
+      </button>
+      <button mat-menu-item (click)="sortBy('ident')">
+        <mat-icon class="icon-small">sort_by_alpha</mat-icon>Bezeichnung
+      </button>
+      <button mat-menu-item (click)="sortBy('created_at')">
+        <mat-icon class="icon-small">add_circle_outline</mat-icon>Erstellt
+      </button>
+      <button mat-menu-item (click)="sortBy('updated_at')">
+        <mat-icon class="icon-small">change_history</mat-icon>Eigenschaften
+        Modifiziert
+      </button>
+      <button mat-menu-item (click)="sortBy('updated_at_de')">
+        <mat-icon class="icon-small">change_history</mat-icon>Text Deutsch
+        Modifiziert
+      </button>
+      <button mat-menu-item (click)="sortBy('updated_at_en')">
+        <mat-icon class="icon-small">change_history</mat-icon>Text English
+        Modifiziert
+      </button>
+    </mat-menu>
+  </div>
+  <kd-scroll [elements]="dS.selection" [view]="dS.viewMode.mode"></kd-scroll>
+
+  <div class="footer">
+    <input
+      style="display: none"
+      type="file"
+      name="filefield"
+      multiple="multiple"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <div>
+      <span *ngIf="dS.selection.length !== dS.arr.length"
+        >{{ dS.selection.length }} / </span
+      >{{ dS.arr.length }} Elms
+    </div>
+    <div>
+      <button (click)="fileInput.click()" mat-icon-button>
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+      &nbsp;
+      <button (click)="addElement()" mat-icon-button>
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+    <div style="padding-right: 2px">
+      <button [mat-menu-trigger-for]="checkedMenu" mat-button>
+        <mat-icon class="icon-xbig">arrow_drop_down</mat-icon>
+        {{ dS.checked.length }}
+      </button>
+      <button
+        type="button"
+        mat-icon-button
+        (click)="toggleSelection()"
+        class="btn-icon-xsmall"
+      >
+        <mat-icon
+          [hidden]="dS.checked.length"
+          [matTooltip]="dS.system.txts.CHECK_ALL"
+          [matTooltipDisabled]="dS.noToolTips"
+          [matTooltipShowDelay]="1000"
+          class="icon-small"
+        >
+          check_box_outline_blank</mat-icon
+        >
+        <mat-icon
+          [hidden]="!dS.checked.length"
+          [matTooltip]="dS.system.txts.CHECK_NONE"
+          [matTooltipDisabled]="dS.noToolTips"
+          [matTooltipShowDelay]="1000"
+          class="icon-small"
+        >
+          indeterminate_check_box</mat-icon
+        >
+      </button>
+    </div>
+
+    <mat-menu #checkedMenu="matMenu" class="menu">
+      <button mat-menu-item (click)="dS.overwriteDevDB()">
+        prod > dev Datenbank
+      </button>
+      <button
+        [disabled]="!dS.checked.length"
+        mat-menu-item
+        (click)="dS.fixSelection()"
+      >
+        dev > prod Element
+      </button>
+
+      <mat-divider></mat-divider>
+      <button
+        [disabled]="!dS.checked.length"
+        mat-menu-item
+        (click)="dS.clearSelection()"
+      >
+        <mat-icon>playlist_add</mat-icon>{{ dS.system.txts.CREATE_PARENT }}
+      </button>
+      <button
+        [disabled]="!dS.checked.length"
+        mat-menu-item
+        (click)="dS.saveElmsToFileSystem(false)"
+      >
+        <mat-icon>save</mat-icon>
+        {{ dS.system.txts.SAVE }}
+      </button>
+      <button
+        [disabled]="!dS.checked.length"
+        mat-menu-item
+        (click)="dS.saveElmsToFileSystem(true)"
+        [disabled]="!haveCheckedChildren()"
+      >
+        <mat-icon>save</mat-icon>
+        {{
+          dS.system.txts.SAVE +
+            ' ' +
+            dS.system.txts.WITH_ABR +
+            ' ' +
+            dS.system.txts.CHILDREN
+        }}
+      </button>
+      <button
+        [disabled]="!dS.checked.length"
+        mat-menu-item
+        (click)="addToGlossary()"
+      >
+        <mat-icon>edit_attributes</mat-icon>
+        Zum Glossar hinzuf.
+      </button>
+
+      <mat-divider></mat-divider>
+      <button
+        [disabled]="!dS.checked.length"
+        mat-menu-item
+        (click)="dS.deleteChecked()"
+      >
+        <mat-icon>delete</mat-icon>
+        {{ dS.system.txts.DELETE }}
+      </button>
+    </mat-menu>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<mat-form-field appearance="fill" class="action-selection">
+  <mat-label>{{ dS.system.txts.VOL_SELECTION }}</mat-label>
+  <mat-select
+    [value]="selectedEdition"
+    (selectionChange)="changeVolume($event.value)"
+  >
+    <mat-option *ngFor="let ed of dS.editions" [value]="ed">
+      {{ ed.i18n[dS.locale].lbl }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<kd-object-id [str]="selectedEdition?._eid"></kd-object-id><br />
+
+<button
+  mat-button
+  [disabled]="contentPending"
+  (click)="deployContent()"
+  class="action-button"
+>
+  {{ dS.system.txts.PUBLISH }}
+</button>
+<span class="action-progress-wrapper">
+  <span *ngIf="!contentPending; else cPending">{{ contentResponse }}</span>
+  <ng-template #cPending>
+    <div class="action-progress">
+      <mat-progress-bar
+        mode="indeterminate"
+        [color]="'warn'"
+        class="kd-button-progress"
+      ></mat-progress-bar>
+    </div>
+  </ng-template>
+</span>
+<br />
+<button
+  mat-button
+  [disabled]="sitemapPending"
+  (click)="createSitemap()"
+  class="action-button"
+>
+  Sitemap
+</button>
+<span class="action-progress-wrapper">
+  <span *ngIf="!sitemapPending; else sPending">{{ sitemapResponse }}</span>
+  <ng-template #sPending>
+    <div class="action-progress">
+      <mat-progress-bar
+        mode="indeterminate"
+        [color]="'warn'"
+        class="kd-button-progress"
+      ></mat-progress-bar>
+    </div>
+  </ng-template>
+</span>
+<br />
+<ng-container *ngIf="pS.profile.role.admin">
+  <button mat-button (click)="lastmod()" class="action-button">Lastmod</button
+  ><br />
+  <button mat-button (click)="createAliasSlugs()" class="action-button">
+    Alias Slugs</button
+  ><br />
+  <button mat-button (click)="createUrls()" class="action-button">
+    Urls
+  </button></ng-container
+>
+<kd-table [table]="editionsTable"></kd-table>
+
+<div *ngFor="let ed of editions">
+  {{ ed.edition }}
+</div>
+
+<div *ngFor="let slug of createdSlugs">
+  {{ slug }}
+</div>
+
+<!-- <br />
+<br />
+
+<button mat-button (click)="deploy('dapi')">Api</button>
+<button mat-button (click)="deploy('dclient')">Client</button>
+<button mat-button (click)="deploy('duni')">Uni</button>
+<button mat-button (click)="deploy('ddeep')">Deep</button>
+<button mat-button (click)="deploy('pfile')">Prerender-File</button>
+<button mat-button (click)="deploy('prerender')">Prerender</button> -->

@@ -1,0 +1,48 @@
+{
+  "index": "/index.html",
+  "appData": {
+    "name": "Kompendia",
+    "version": "1.0.0-beta.1"
+  },
+  "exclude": ["/mediaxxx/*.m4a"],
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/icons/favicon-32x32.png",
+          "/assets/icons/favicon-96x96.png",
+          "/assets/icons/favicon-16x16.png",
+          "/assets/icons/icon-192x192.png",
+          "/assets/sounds/Glass.mp3",
+          "/assets/sounds/Submarine.mp3",
+          "/assets/icons/favicon.ico",
+          "/favicon.ico",
+          "/assets/kia-dark-theme.css",
+          "/assets/spinner.css",
+          "/Material*",
+          "/Neo-Euler*",
+          "/open-sans-*",
+          "/index.html",
+          "/manifest.json",
+          "/*.css",
+          "/*.js",
+          "/*.png",
+          "/*.jpg"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-bypass",
+      "urls": ["**/api/**", "/progress", "**/media/*.m4a"],
+      "cacheConfig": {
+        "maxSize": 250,
+        "maxAge": "0u",
+        "strategy": "freshness"
+      }
+    }
+  ]
+}

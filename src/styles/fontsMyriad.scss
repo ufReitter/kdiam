@@ -1,0 +1,233 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: url('../assets/fonts/myriad-set-pro_thin.woff2') format('woff2'),
+    url('../assets/fonts/myriad-set-pro_thin.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/myriad-set-pro_ultralight.woff2') format('woff2'),
+    url('../assets/fonts/myriad-set-pro_ultralight.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/myriad-set-pro_text.woff2') format('woff2'),
+    url('../assets/fonts/myriad-set-pro_text.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../assets/fonts/myriad-set-pro_text.woff2') format('woff2'),
+    url('../assets/fonts/myriad-set-pro_text.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/myriad-set-pro_medium.woff2') format('woff2'),
+    url('../assets/fonts/myriad-set-pro_medium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/myriad-set-pro_bold.woff2') format('woff2'),
+    url('../assets/fonts/myriad-set-pro_bold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/myriad-pro-condensed-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/myriad-pro-condensed-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../assets/fonts/myriad-pro-condensed-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Roboto Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/myriad-pro-condensed-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'MinionPro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/MinionPro-Regular.woff2') format('woff2'),
+    url('../assets/fonts/MinionPro-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'MinionPro';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../assets/fonts/MinionPro-It.woff2') format('woff2'),
+    url('../assets/fonts/MinionPro-It.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+    url('../assets/fonts/MaterialIcons-Regular.woff') format('woff'),
+    url('../assets/fonts/MaterialIcons-Regular.woff') format('ttf');
+}
+
+@font-face {
+  font-family: 'NeoEuler';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Neo-Euler.woff2') format('woff2');
+}
+
+body,
+html,
+main {
+  height: 100%;
+  width: 100%;
+  font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 15px !important;
+  background: #111;
+}
+h1,
+.h1 {
+  font-family: 'Roboto Condensed', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+h2,
+.h2 {
+  font-family: 'Roboto Condensed', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif;
+  font-size: 38px;
+  font-weight: 400;
+  margin-top: 19px;
+  margin-bottom: 19px;
+}
+h3,
+.h3 {
+  font-family: 'Roboto Condensed', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+h4,
+.h4 {
+  font-size: 18px;
+  line-height: 1em;
+  font-weight: 500;
+  margin-top: 18px;
+  margin-bottom: 9px;
+}
+h5,
+.h5 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.55em;
+  margin-top: 1px;
+  margin-bottom: 0em;
+  opacity: 0.9;
+}
+h6,
+.h6 {
+  font-size: 12px;
+  font-weight: 1000;
+  opacity: 0.75;
+  line-height: 1.55em;
+  margin-top: 0em;
+  margin-bottom: -2px;
+}
+
+.kd-toolbar {
+  font-family: 'Roboto Meduim', 'Helvetica Neue', 'Helvetica',
+    'Arial' sans-serif;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+.kd-button {
+  font-size: 16px !important;
+  font-weight: 500;
+}
+
+.ql-editor {
+  font-size: 15px !important;
+}
+.mat-tree-node,
+.mat-nested-tree-node {
+  font-family: 'Roboto Meduim', 'Helvetica Neue', 'Helvetica',
+    'Arial' sans-serif;
+  font-size: 15px !important;
+}
+.xsmall {
+  font-size: 11px;
+}
+.small {
+  font-size: 13px;
+}
+
+.mat-icon-button {
+}
+
+.mat-button,
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button,
+.mat-fab,
+.mat-mini-fab {
+  font-family: 'Roboto Meduim', 'Helvetica Neue', 'Helvetica',
+    'Arial' sans-serif;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  opacity: 0.8;
+}
+
+.kd-numeration-header {
+  position: absolute;
+  top: 9px;
+  left: -86px;
+  width: 80px;
+  text-align: right;
+  padding: 0;
+  opacity: 0.7;
+  font-size: 17px;
+  font-weight: 600;
+}
+.kd-numeration-header-big {
+  top: 12px;
+  left: -86px;
+  text-align: right;
+}
+
+.kd-numeration-header-small {
+  top: -18px;
+  left: 0px;
+  text-align: left;
+}
+.kd-reference-foot {
+  font-size: 13px;
+  font-weight: 300;
+  margin: 0.42em 1.2em;
+  line-height: 15px;
+}

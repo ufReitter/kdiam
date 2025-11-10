@@ -1,0 +1,11 @@
+<span [innerHTML]="set.state.unit || elm.state.unit || '' | safeHtml" class="kd-unit"></span>
+
+
+<mat-select *ngIf="selection">
+  <mat-select-trigger>
+  
+</mat-select-trigger>
+  <mat-option *ngFor="let it of selection" [value]="it">
+    {{it.name}}
+  </mat-option>
+</mat-select>

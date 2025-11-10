@@ -1,0 +1,112 @@
+<div class="header">
+  <div class="header-field">
+    <div class="dimm-6 small">Nutzer</div>
+    <div class="xbig">{{ userCount }}</div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Sitzungen</div>
+    <div class="xbig">{{ sessionCount }}</div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Absprungrate</div>
+    <div class="xbig">{{ bounceRate }}</div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Sitzungsdauer</div>
+    <div class="xbig">{{ sessionDuration }}</div>
+  </div>
+</div>
+<svg
+  [attr.viewBox]="viewBox"
+  [attr.vector-effect]="'non-scaling-stroke'"
+  class="chart"
+>
+  <line
+    x1="0"
+    [attr.y1]="0"
+    [attr.x2]="width"
+    [attr.y2]="0"
+    vector-effect="non-scaling-stroke"
+    [attr.transform]="transform"
+    stroke="#444444"
+  ></line>
+  <g *ngFor="let d of currentData; let i = index">
+    <text
+      [attr.x]="i * perI - 8"
+      [attr.y]="15"
+      stroke="#888888"
+      class="axis-text"
+      font-family="Roboto, Arial, Helvetica, sans-serif"
+    >
+      {{ d.date | date: 'd' }}
+    </text>
+  </g>
+  <text [attr.x]="width - 13" [attr.y]="-6" stroke="#888888" class="axis-text">
+    0
+  </text>
+  <g *ngFor="let y of grids">
+    <line
+      x1="0"
+      [attr.y1]="y"
+      [attr.x2]="width"
+      [attr.y2]="y"
+      vector-effect="non-scaling-stroke"
+      [attr.transform]="transform"
+      stroke="#444444"
+    ></line>
+    <text
+      [attr.x]="width - 13"
+      [attr.y]="y * -scale + 15"
+      font-family="Roboto, Arial, Helvetica, sans-serif"
+      stroke="#888888"
+      class="axis-text"
+    >
+      {{ y }}
+    </text>
+  </g>
+  <polyline
+    #before
+    class="chart-line"
+    [attr.fill]="'none'"
+    [attr.transform]="transform"
+    vector-effect="non-scaling-stroke"
+    stroke="#888888"
+    stroke-dasharray="4"
+    stroke-width="1px"
+    [attr.points]="beforePoints"
+  />
+  <polyline
+    #current
+    class="kd-sel-dark"
+    fill="none"
+    [attr.transform]="transform"
+    vector-effect="non-scaling-stroke"
+    stroke-width="2px"
+    [attr.points]="currentPoints"
+  />
+</svg>
+
+<!-- stroke="#0074d9" -->
+
+<div style="height: 60px">
+  <mat-form-field style="width: 120px">
+    <mat-label>Zeitraum</mat-label>
+    <mat-select [value]="period" (selectionChange)="changePeriod($event.value)">
+      <mat-option [value]="'day'">
+        <span>Tag</span>
+      </mat-option>
+      <mat-option [value]="'week'">
+        <span>Woche</span>
+      </mat-option>
+      <mat-option [value]="'month'">
+        <span>Monat</span>
+      </mat-option>
+      <mat-option [value]="'year'">
+        <span>Jahr</span>
+      </mat-option>
+      <mat-option [value]="'all'">
+        <span>Gesamt</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,0 +1,29 @@
+<article *ngIf="node && dS.loaded">
+  <mat-card
+    [class.card-poster-handheld]="
+      dS.routeSegments.length <= 2 &&
+      dS.routeSegments[1] !== 'admin' &&
+      (dS.isHandsetPortrait$ | async)
+    "
+    [class.card-poster]="
+      dS.routeSegments.length <= 1 &&
+      dS.routeSegments[1] !== 'admin' &&
+      !(dS.isHandsetPortrait$ | async)!
+    "
+    [class.card-table]="dS.selElm?.datacols || !dS.selElm"
+    [style.min-height]="vS.size.articleMinHeight + 'px'"
+    class="card-article relative h100"
+  >
+    <kd-header [node]="node"></kd-header>
+    <kd-elm [view]="'article-view'" [viewDepth]="99" [node]="node"></kd-elm>
+    <div [style.height]="refsHeight + 'px'"></div>
+    <!-- <div *ngFor="let ref of node.elm.refs" style="height: 15px"></div> -->
+    <div #references class="references">
+      <kd-reference
+        *ngFor="let ref of node.elm.refs"
+        [ref]="ref"
+        [parent]="node.elm"
+      ></kd-reference>
+    </div>
+  </mat-card>
+</article>

@@ -1,0 +1,473 @@
+<div class="relative">
+  <div *ngIf="context === 'ranking'" class="aux-header">
+    <mat-form-field class="form-field">
+      <input
+        matInput
+        type="search"
+        autocomplete="off"
+        placeholder="IP-Filter"
+        (keyup.enter)="reload()"
+        [(ngModel)]="ipFilter"
+        spellcheck="false"
+      />
+      <button
+        mat-button
+        *ngIf="ipFilter"
+        matSuffix
+        mat-icon-button
+        aria-label="Filter"
+        (click)="ipFilter = ''; reload()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div
+    *ngIf="context === 'login' || context === 'client' || context === 'system'"
+    style="padding-top: 8px"
+  >
+    <mat-button-toggle-group [value]="context" (change)="changeContext($event)">
+      <mat-button-toggle value="login">Auth</mat-button-toggle>
+      <mat-button-toggle value="system">System</mat-button-toggle>
+      <mat-button-toggle value="client"
+        >Client</mat-button-toggle
+      > </mat-button-toggle-group
+    > 
+    <mat-button-toggle-group
+      *ngIf="context === 'system' || context === 'client'"
+      [value]="level"
+      (change)="changeLevel($event)"
+    >
+      <mat-button-toggle class="kd-fine" value="INFO">INFO</mat-button-toggle>
+      <mat-button-toggle class="kd-warn" value="WARNING"
+        >WARNING</mat-button-toggle
+      >
+      <mat-button-toggle class="kd-warn" value="DEBUG">DEBUG</mat-button-toggle>
+      <mat-button-toggle class="kd-error" value="ERROR"
+        >ERROR</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+    <mat-button-toggle-group
+      *ngIf="context === 'login'"
+      [value]="success"
+      (change)="changeSuccess($event)"
+    >
+      <mat-button-toggle value="'all'">All</mat-button-toggle>
+      <mat-button-toggle class="kd-fine" value="true">True</mat-button-toggle>
+      <mat-button-toggle class="kd-warn" value="false">False</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div style="min-height: 466px">
+    <table
+      mat-table
+      [dataSource]="data"
+      class="example-tablexxx"
+      matSort
+      [matSortActive]="sortActive"
+      matSortDisableClear
+      matSortDirection="desc"
+    >
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+          First Visit
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.created_at | date : 'medium' }}
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="context === 'login'" matColumnDef="success">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Success</th>
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [class.kd-fine]="row.success"
+          [class.kd-warn]="!row.success"
+        >
+          {{ row.success }}
+        </td>
+      </ng-container>
+      <ng-container
+        *ngIf="context === 'client' || context === 'system'"
+        matColumnDef="level"
+      >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Level</th>
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [class.kd-fine]="row.level === 'INFO'"
+          [class.kd-warn]="row.level === 'WARNING' || row.level === 'DEBUG'"
+          [class.kd-error]="row.level === 'ERROR'"
+        >
+          {{ row.level }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last_active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Active</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.last_active | lastconnected }}
+        </td>
+      </ng-container>
+      <ng-container *ngIf="context === 'webclient'">
+        <ng-container matColumnDef="sessions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sess</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.sessions }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="ip_range">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>IP Range</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.ip_range }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+          <td mat-cell *matCellDef="let row">
+            <div class="with-svg">
+              <div
+                [style.background-image]="
+                  'url(../assets/flags/1x1/' +
+                  row.country?.split(' ')[0].toLowerCase() +
+                  '.svg)'
+                "
+                class="fi fis"
+              ></div>
+              <div>{{ row.country }}</div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="agents">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User agents</th>
+          <td
+            mat-cell
+            *matCellDef="let row"
+            [mat-menu-trigger-for]="showAgents"
+            (click)="createShowAgents(row.agents)"
+            class="hover-pointer"
+          >
+            <div class="with-svg">
+              <div style="min-width: 11px">{{ row.agents?.length }}</div>
+              <div
+                *ngIf="row.agents[0]?.os"
+                [style.background-image]="
+                  'url(../assets/user-agent-icons/' +
+                  row.agents[0]?.os.replace(' ', '-').toLowerCase() +
+                  '.svg)'
+                "
+                class="agent-icon filter-svg"
+              ></div>
+              <div
+                *ngIf="row.agents[0]?.browser"
+                [style.background-image]="
+                  'url(../assets/user-agent-icons/' +
+                  row.agents[0]?.browser.replace(' ', '-').toLowerCase() +
+                  '.svg)'
+                "
+                class="agent-icon filter-svg"
+              ></div>
+              <div
+                *ngIf="row.agents[0]?.type && row.agents[0]?.type !== 'null'"
+                [style.background-image]="
+                  'url(../assets/user-agent-icons/' +
+                  row.agents[0]?.type.replace(' ', '-').toLowerCase() +
+                  '.svg)'
+                "
+                class="agent-icon filter-svg"
+              ></div>
+              <div *ngIf="row.agents[0]?.is_bot">B</div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="whois">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Whois</th>
+          <td
+            mat-cell
+            *matCellDef="let row"
+            [mat-menu-trigger-for]="showWhois"
+            (click)="createShowWhois(row.whois)"
+            class="hover-pointer"
+          >
+            <div class="whois-descr">
+              {{ row.whois?.orgName || row.whois?.descr || row.whois?.address }}
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="user_ids">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User IDs</th>
+          <td mat-cell *matCellDef="let row">
+            <span
+              *ngIf="row.user_ids.length"
+              style="min-width: 11px; display: inline-block"
+            >
+              {{ row.user_ids.length }}</span
+            >
+            <kd-object-id
+              *ngIf="row.user_ids.length"
+              [str]="row.user_ids[0]"
+            ></kd-object-id>
+          </td>
+        </ng-container>
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          context === 'navigation' ||
+          context === 'ranking' ||
+          context === 'referer'
+        "
+        matColumnDef="route"
+      >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Route</th>
+        <td
+          mat-cell
+          *matCellDef="let row"
+          (click)="clickRoute($event, row.route)"
+          class="hover-pointer"
+        >
+          {{ row.route | midellipsis : 65 }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="nickname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nickname</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.nickname }}
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="context === 'ranking'" matColumnDef="elm_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Elm ID</th>
+        <td mat-cell *matCellDef="let row">
+          <kd-object-id [str]="row.elm_id"></kd-object-id>
+        </td>
+      </ng-container>
+
+      <ng-container
+        *ngIf="context === 'webclient' || context === 'ranking'"
+        matColumnDef="impressions"
+      >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Impr</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.impressions }}
+        </td>
+      </ng-container>
+      <ng-container *ngIf="context === 'referer'" matColumnDef="referer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Referer</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.referer | midellipsis : 45 }}
+        </td>
+      </ng-container>
+      <ng-container *ngIf="context === 'referer'" matColumnDef="refered">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Refered</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.refered }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="error">
+        <th mat-header-cell *matHeaderCellDef>Error</th>
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [mat-menu-trigger-for]="showError"
+          (click)="showErrorItem = row.error; popUpIsShown = true"
+          class="hover-pointer"
+        >
+          {{ row.error?.fileName }} - {{ row.error?.lineNumber }} /
+          {{ row.error?.columnNumber }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="agent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User agent</th>
+        <td mat-cell *matCellDef="let row" class="hover-pointer">
+          <div class="with-svg">
+            <div
+              *ngIf="row.agent?.os"
+              [style.background-image]="
+                'url(../assets/user-agent-icons/' +
+                row.agent?.os?.replace(' ', '-').toLowerCase() +
+                '.svg)'
+              "
+              class="agent-icon filter-svg"
+            ></div>
+            <div
+              *ngIf="row.agent?.browser"
+              [style.background-image]="
+                'url(../assets/user-agent-icons/' +
+                row.agent?.browser?.replace(' ', '-').toLowerCase() +
+                '.svg)'
+              "
+              class="agent-icon filter-svg"
+            ></div>
+            <div
+              *ngIf="row.agent?.type && row.agent?.type !== 'null'"
+              [style.background-image]="
+                'url(../assets/user-agent-icons/' +
+                row.agent?.type?.replace(' ', '-').toLowerCase() +
+                '.svg)'
+              "
+              class="agent-icon filter-svg"
+            ></div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="msg">
+        <th mat-header-cell *matHeaderCellDef>Message</th>
+        <td mat-cell *matCellDef="let row">{{ row.msg }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="user_id">
+        <th mat-header-cell *matHeaderCellDef>User</th>
+        <td mat-cell *matCellDef="let row">
+          <kd-object-id [str]="row.user_id"></kd-object-id>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="remote_address">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>IP</th>
+        <td
+          mat-cell
+          *matCellDef="let row"
+          (click)="vS.copyFromContent(row.remote_address); whois(row)"
+          class="hover-pointer"
+        >
+          {{ row.remote_address }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="os">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>OS</th>
+        <td mat-cell *matCellDef="let row">
+          <div
+            [style.background-image]="
+              'url(../assets/user-agent-icons/' +
+              row.os?.replace(' ', '-').toLowerCase() +
+              '.svg)'
+            "
+            class="agent-icon filter-svg"
+          ></div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="browser">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Browser</th>
+        <td mat-cell *matCellDef="let row">
+          <div
+            [style.background-image]="
+              'url(../assets/user-agent-icons/' +
+              row.browser?.replace(' ', '-').toLowerCase() +
+              '.svg)'
+            "
+            class="agent-icon filter-svg"
+          ></div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          let ir = index;
+          let odd = odd;
+          columns: displayedColumns
+        "
+        [class.kd-tr-hilite]="odd"
+        [class.kd-tr-sel]="
+          ((context === 'auth' ||
+            context === 'system' ||
+            context === 'client') &&
+            (row.created_at | isyounger : 7500)) ||
+          (row.last_active && (row.last_active | isyounger : 7500))
+        "
+      ></tr>
+    </table>
+  </div>
+  <div class="relative">
+    <div style="position: absolute; left: 0; top: 0">
+      <mat-form-field
+        *ngIf="
+          context === 'ranking' ||
+          context === 'webclient' ||
+          context === 'referer'
+        "
+        style="width: 120px"
+      >
+        <mat-label>Zeitraum</mat-label>
+        <mat-select
+          [value]="pS.pref.admin?.tabs[context]?.period || period || 'week'"
+          (selectionChange)="changePeriod($event.value)"
+        >
+          <mat-option *ngIf="context !== 'referer'" [value]="'realtime'">
+            <span>Echtzeit</span>
+          </mat-option>
+          <mat-option [value]="'day'">
+            <span>Tag</span>
+          </mat-option>
+          <mat-option [value]="'week'">
+            <span>Woche</span>
+          </mat-option>
+          <mat-option [value]="'month'">
+            <span>Monat</span>
+          </mat-option>
+          <mat-option [value]="'year'">
+            <span>Jahr</span>
+          </mat-option>
+          <mat-option [value]="'all'">
+            <span>Gesamt</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <button
+        *ngIf="context !== 'ranking' && context !== 'webclient'"
+        mat-icon-button
+        class="center"
+      >
+        <mat-icon (click)="reload()">autorenew</mat-icon>
+      </button> -->
+    </div>
+    <mat-paginator
+      [length]="resultsLength"
+      [pageSizeOptions]="[10, 25, 100]"
+      aria-label="Select page of GitHub search results"
+    ></mat-paginator>
+  </div>
+</div>
+
+<mat-menu #showAgents="matMenu" (closed)="popUpIsShown = false" class="menu">
+  <mat-card (click)="$event.stopPropagation()">
+    <div *ngFor="let ua of showElement">
+      <table>
+        <tr *ngFor="let item of ua">
+          <td>{{ item.key }}</td>
+          <td style="width: 300px">{{ item.value }}</td>
+        </tr>
+      </table>
+    </div>
+  </mat-card>
+</mat-menu>
+
+<mat-menu #showWhois="matMenu" (closed)="popUpIsShown = false" class="menu">
+  <mat-card (click)="$event.stopPropagation()">
+    <table>
+      <tr *ngFor="let item of showWhoisElement">
+        <td>{{ item.key }}</td>
+        <td style="width: 300px">{{ item.value }}</td>
+      </tr>
+    </table>
+  </mat-card>
+</mat-menu>
+
+<mat-menu #showError="matMenu" (closed)="popUpIsShown = false" class="menu">
+  <mat-card (click)="$event.stopPropagation()">
+    <div>Additional:</div>
+    <div *ngFor="let add of showErrorItem?.additional" style="width: 640px">
+      {{ add }}
+    </div>
+    <div>Message:</div>
+    <div style="width: 640px">{{ showErrorItem?.message }}</div>
+  </mat-card>
+</mat-menu>

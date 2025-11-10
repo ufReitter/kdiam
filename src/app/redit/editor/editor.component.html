@@ -1,0 +1,1499 @@
+<kd-redit-toolbar [elm]="elm"></kd-redit-toolbar>
+<mat-tab-group
+  [selectedIndex]="pS.pref.edit[this.elm._eid.str]?.tab || 0"
+  (selectedIndexChange)="onTabChange($event)"
+  (animationDone)="onTabChangeDone()"
+  [animationDuration]="'0ms'"
+  [@.disabled]="true"
+  class="relative"
+>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.MAINFEATURES"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >edit</mat-icon
+      >
+    </ng-template>
+
+    <div class="edit-containerxxx">
+      <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+      <mat-form-field class="form-field-65">
+        <input
+          matInput
+          [disabled]="!volNode"
+          [(ngModel)]="slug"
+          (ngModelChange)="slugValidate($event, dS.selVol, dS.locale)"
+          pattern="[a-z]*"
+          [placeholder]="'Slug'"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          [class.warn]="warnSlug"
+        />
+        <button
+          mat-button
+          *ngIf="readySlug"
+          matSuffix
+          mat-icon-button
+          aria-label="Change"
+          (click)="slugChange()"
+        >
+          <mat-icon>check</mat-icon>
+        </button>
+        <button
+          [disabled]="!volNode"
+          mat-button
+          matSuffix
+          mat-icon-button
+          aria-label="Suggest"
+          (click)="slugSuggest()"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <input
+        style="display: none"
+        type="file"
+        name="jsonfield"
+        (change)="onJsonSelected($event)"
+        #jsonInput
+      />
+
+      <mat-form-field class="form-field-65">
+        <input
+          name="lbl"
+          matInput
+          [(ngModel)]="elm.txts.lbl"
+          (ngModelChange)="dS.subject.elmMod.next(elm)"
+          (focusout)="focusout($event)"
+          [placeholder]="dS.system.txts.LABEL"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          *ngIf="dS.checked.length"
+          matSuffix
+          mat-icon-button
+          (click)="multiEdit('lbl')"
+        >
+          <mat-icon>checked</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field [hidden]="elm.attrib.lngInherited" class="form-field-65">
+        <input
+          name="lng"
+          matInput
+          [(ngModel)]="elm.txts.lng"
+          (ngModelChange)="dS.subject.elmMod.next(elm)"
+          (focusout)="focusout($event)"
+          [placeholder]="dS.system.txts.SUBTITLE"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+      </mat-form-field>
+      <mat-form-field [hidden]="!elm.attrib.lngInherited" class="form-field-65">
+        <input
+          name="lng"
+          matInput
+          [disabled]="true"
+          [value]="volNodeParent?.elm.txts.lbl"
+          [placeholder]="dS.system.txts.SUBTITLE"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+      </mat-form-field>
+
+      <mat-checkbox
+        [disabled]="!volNodeParent"
+        [(ngModel)]="elm.attrib.lngInherited"
+        (ngModelChange)="save('attrib.lngInherited')"
+        [labelPosition]="'after'"
+        class="checkbox-label-small"
+      >
+        Geerbt</mat-checkbox
+      >
+
+      <mat-form-field class="form-field-100">
+        <textarea
+          name="cpt"
+          matInput
+          [(ngModel)]="elm.txts.cpt"
+          (focusout)="focusout($event)"
+          [placeholder]="dS.system.txts.CAPTION"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        ></textarea>
+        <button
+          mat-button
+          *ngIf="dS.checked.length"
+          matSuffix
+          mat-icon-button
+          (click)="multiEdit('cpt')"
+        >
+          <mat-icon>checked</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="text-tools">
+        <mat-select
+          [(ngModel)]="elm.attrib.headingFormat"
+          (selectionChange)="elm.dirty = true"
+          class="heading-select"
+        >
+          <mat-option [value]="0"> Überschrift </mat-option>
+          <mat-option [value]="1"> h1 </mat-option>
+          <mat-option [value]="2"> h2 </mat-option>
+          <mat-option [value]="3"> h3 </mat-option>
+          <mat-option [value]="4"> h4 </mat-option>
+          <mat-option [value]="5"> h5 </mat-option>
+          <mat-option [value]="6"> h6 </mat-option>
+        </mat-select>
+        &nbsp;&nbsp;&nbsp;
+        <button mat-icon-button (click)="ipsum()">Lorem ipsum</button>
+        <span class="spacer"></span>
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.bdyLeading"
+          (ngModelChange)="save('attrib.bdyLeading')"
+          [labelPosition]="'after'"
+          class="checkbox-label-small"
+        >
+          Text führend</mat-checkbox
+        >
+      </div>
+      <mat-form-field class="form-field-100 form-field-textarea">
+        <textarea
+          matInput
+          name="bdy"
+          [(ngModel)]="elm.txts.bdy"
+          (focusout)="focusout($event)"
+          [placeholder]="dS.system.txts.TEXTBODY"
+          [cdkTextareaAutosize]="false"
+          #bdyAutoSize="cdkTextareaAutosize"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          class="kd-textarea-bdy"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="form-field-100 form-field-textarea">
+        <textarea
+          matInput
+          name="nte"
+          [(ngModel)]="elm.notes"
+          (ngModelChange)="elm.txts.dirty = true"
+          [placeholder]="dS.system.txts.NOTES"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="form-field-100">
+        <input
+          matInput
+          name="mtit"
+          [(ngModel)]="elm.txts.mtit"
+          (ngModelChange)="elm.txts.dirty = true"
+          [placeholder]="dS.system.txts.MTIT"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          *ngIf="dS.checked.length"
+          matSuffix
+          mat-icon-button
+          (click)="multiEdit('des')"
+        >
+          <mat-icon>checked</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field class="form-field-100 form-field-textarea">
+        <textarea
+          matInput
+          name="mdes"
+          [(ngModel)]="elm.txts.mdes"
+          (ngModelChange)="elm.txts.dirty = true"
+          [placeholder]="dS.system.txts.MDES"
+          [cdkTextareaAutosize]="false"
+          #mdesAutoSize="cdkTextareaAutosize"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          class="kd-textarea-mdes"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field class="form-field-100 form-field-textarea">
+        <textarea
+          matInput
+          name="mkeys"
+          [(ngModel)]="elm.txts.mkeys"
+          (ngModelChange)="elm.txts.dirty = true"
+          [placeholder]="dS.system.txts.MKEYS"
+          [cdkTextareaAutosize]="false"
+          #mkeysAutoSize="cdkTextareaAutosize"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          class="kd-textarea-mkeys"
+        ></textarea>
+      </mat-form-field>
+      <div class="dimm-6">{{ dS.system.txts.CHANGES }}</div>
+
+      <button mat-icon-button (click)="addChanges()" class="btn-icon-tool">
+        <mat-icon class="icon">add_circle</mat-icon>
+      </button>
+      <div *ngFor="let change of elm.txts.changes || []">
+        <mat-form-field class="form-field-100xxx">
+          <input
+            matInput
+            name="date"
+            [(ngModel)]="change.date"
+            (focusout)="focusout($event, 'changes')"
+            [placeholder]="dS.system.txts.DATE"
+            autocomplete="off"
+            autocorrect="off"
+            spellcheck="false"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field-100 form-field-textarea">
+          <textarea
+            matInput
+            name="txt"
+            [(ngModel)]="change.txt"
+            (focusout)="focusout($event, 'changes')"
+            [placeholder]="dS.system.txts.CHANGES"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="on"
+            spellcheck="false"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.FEATURES + ' ' + dS.system.txts.CHILDREN"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >arrow_downwards</mat-icon
+      >
+    </ng-template>
+
+    <ng-container *ngIf="elm.children && elm.children.length">
+      <div
+        cdkDropList
+        class="kd-drop-list"
+        (cdkDropListDropped)="dropChildren($event)"
+      >
+        <div
+          class="kd-drop-box"
+          *ngFor="let child of elm.children; let ic = index"
+          cdkDrag
+        >
+          <kd-child-item
+            [child]="child"
+            [elm]="child.elm"
+            [num]="child.num"
+            [set]="child.set"
+            [setDef]="child.setDef"
+            [parent]="elm"
+            [setMode]="pS.pref.edit[this.elm._eid.str]?.setMode || 'settings'"
+          >
+          </kd-child-item>
+          <div
+            *ngIf="child.elm.sign"
+            class="dim hover-grabbing btn-icon-small"
+            cdkDragHandle
+          >
+            <mat-icon class="icon-small">drag_indicator</mat-icon>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="kd-children-tools">
+      <mat-button-toggle-group
+        (change)="setChldrView($event)"
+        [value]="elm.view"
+        [multiple]="false"
+        #myView="matButtonToggleGroup"
+        (ngModelChange)="setChldrView(myView)"
+        [matTooltip]="dS.system.txts.CHLDRVIEW"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="small"
+      >
+        <mat-button-toggle value="list" class="btn-icon-small">
+          <mat-icon class="icon-small">reorder</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="calc" class="btn-icon-small">
+          <mat-icon class="icon-small">functions</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="grid" class="btn-icon-small">
+          <mat-icon class="icon-small">view_quilt</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="carousel" class="btn-icon-small">
+          <mat-icon class="icon-small">slideshow</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="none" class="btn-icon-small">
+          <mat-icon class="icon-small">not_interested</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <div *ngIf="elm.view === 'grid'">
+        <button mat-icon-button class="center">
+          <mat-icon (click)="setToScale()">fit_screen</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="elm.view === 'grid'">
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.grids[0].cols"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="Cols"
+          autocomplete="off"
+          style="width: 25px"
+        />
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.grids[0].rowHeight"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="Height"
+          autocomplete="off"
+          style="width: 45px"
+        />
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="elm.grids[0].gutterSize"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="Gutt"
+          autocomplete="off"
+          style="width: 40px"
+        />
+      </div>
+
+      <button *ngIf="elm.view === 'calc'" mat-icon-button class="centerxxx">
+        <mat-icon (click)="dS.setVarKeys(elm)">fact_check</mat-icon>
+      </button>
+
+      <div>
+        <mat-button-toggle-group
+          (change)="onSetMode($event)"
+          [value]="pS.pref.edit[this.elm._eid.str]?.setMode || 'settings'"
+          [multiple]="false"
+          #mySetMode="matButtonToggleGroup"
+          (ngModelChange)="onSetMode(mySetMode)"
+          [matTooltip]="dS.system.txts.SETMODE"
+          [matTooltipDisabled]="dS.noToolTips"
+          [matTooltipShowDelay]="1000"
+          class="small"
+        >
+          <mat-button-toggle value="settings" class="btn-icon-small">
+            <mat-icon class="icon-small">settings</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="table" class="btn-icon-small">
+            <mat-icon class="icon-small">table_chart</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="text" class="btn-icon-small">
+            <mat-icon class="icon-small">text_fields</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="attributes" class="btn-icon-small">
+            <mat-icon class="icon-small">edit_attributes</mat-icon>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div>
+        <span *ngIf="dS.checked.length">
+          {{ dS.checked.length }}&nbsp;
+          <button (click)="dS.clearSelection()" mat-icon-button>
+            <mat-icon>playlist_add_check</mat-icon>
+          </button></span
+        >
+        <button mat-icon-button class="center">
+          <mat-icon (click)="addToChildren()">add_circle_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.EDIT_TOC"
+        [matTooltipPosition]="'left'"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >low_priority</mat-icon
+      >
+    </ng-template>
+    <kd-tree-edit [elm]="elm"></kd-tree-edit>
+  </mat-tab>
+  <mat-tab>
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.FIGURE_MEDIA"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >image</mat-icon
+      >
+    </ng-template>
+
+    <div class="edit-tab11-container">
+      <div class="flex">
+        <mat-form-field>
+          <mat-label>Figure Options</mat-label>
+          <mat-select
+            [value]="figureOption"
+            (selectionChange)="onFigureOptionChange($event)"
+          >
+            <mat-option [value]="'none'"> No figure </mat-option>
+            <mat-option [value]="'image'"> Image </mat-option>
+            <mat-option [value]="'video'"> Video </mat-option>
+            <mat-option [value]="'sound'"> Sound </mat-option>
+            <mat-option [value]="'svg'"> Svg </mat-option>
+            <mat-option [value]="'dyn'"> Dyn </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span class="spacer"></span>
+        <span *ngIf="figureOption === 'latex'">
+          <mat-checkbox
+            [(ngModel)]="elm.figure.wideSVG"
+            (ngModelChange)="elm.dirty = true"
+            [labelPosition]="'after'"
+            >wideSVG</mat-checkbox
+          >
+        </span>
+      </div>
+
+      <ng-container *ngIf="figureOption === 'dyn'">
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.figure.rot"
+          (ngModelChange)="svgChange()"
+          placeholder="Rot"
+          autocomplete="off"
+        />
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.figure.height"
+          (ngModelChange)="svgChange()"
+          placeholder="Height"
+          autocomplete="off"
+        />
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.figure.width"
+          (ngModelChange)="svgChange()"
+          placeholder="Width"
+          autocomplete="off"
+        />
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.figure.ratio"
+          (ngModelChange)="svgChange()"
+          placeholder="Ratio"
+          autocomplete="off"
+        /><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.fx"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+          style="width: 100px"
+        >
+          f(x)&nbsp;&nbsp;&nbsp;</mat-checkbox
+        >
+
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.figure.dh"
+          (ngModelChange)="svgChange()"
+          placeholder="dh"
+          autocomplete="off"
+        />
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.figure.dw"
+          (ngModelChange)="svgChange()"
+          placeholder="dw"
+          autocomplete="off"
+        />
+
+        <br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.minimal"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          Minimal</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.watermark"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          Watermark</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.xaxis"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          X-Achse</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.yaxis"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          Y-Achse</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.origin"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          Ursprung</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.btnA"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          Buttons A</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.figure.btnB"
+          (ngModelChange)="elm.dirty = true; svgChange()"
+          [labelPosition]="'after'"
+        >
+          Buttons B</mat-checkbox
+        >
+      </ng-container>
+
+      <ng-container *ngIf="figureOption === 'image'">
+        <span
+          *ngIf="elm.figure && elm.figure.filename"
+          (click)="vS.copyFromContent(elm.figure.filename)"
+          class="hover-pointer"
+          >&nbsp;&nbsp;&nbsp;{{ elm.figure.filename }}</span
+        >
+        <input
+          style="display: none"
+          type="file"
+          accept=".png,.PNG,.jpg,.JPG,.jpeg,.JPEG"
+          name="filefield"
+          (change)="onFileSelected($event)"
+          #fileInput
+        />
+        <!-- <div *ngIf="progressValue" class="kd-edit-img-box">
+          <button
+            *ngIf="!progressValue"
+            type="button"
+            mat-icon-button
+            (click)="fileInput.click()"
+          >
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+        </div> -->
+        <div class="kd-edit-img-box hover-pointer">
+          <mat-progress-spinner
+            *ngIf="progressValue"
+            [diameter]="48"
+            [color]="progressColor"
+            [mode]="progressMode"
+            [value]="progressValue"
+          >
+          </mat-progress-spinner>
+          <img
+            *ngIf="!progressValue && elm.figure"
+            [src]="
+              '/images/scaled/' +
+              elm._eid.str +
+              '-thumb.' +
+              elm.figure.ext +
+              '?cb=' +
+              elm.figure.version
+            "
+            alt="Thumb"
+            width="48"
+            height="48"
+            [class.themed]="elm.figure.themed"
+          />
+          <!-- <input
+            style="display: none"
+            type="file"
+            name="filefield"
+            multiple="multiple"
+            (change)="onFileSelected($event)"
+            #fileInput
+          /> -->
+          <button
+            *ngIf="!progressValue"
+            (click)="fileInput.click()"
+            mat-icon-button
+          >
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+
+          <a
+            *ngIf="!progressValue && elm.figure"
+            [href]="'/images/full/' + elm._eid.str + '.' + elm.figure.ext"
+            download="{{
+              elm.figure.filename || elm._eid.str + '.' + elm.figure.ext
+            }}"
+            mat-icon-button
+          >
+            <mat-icon>save</mat-icon>
+          </a>
+        </div>
+        <div *ngIf="elm.figure">
+          <div class="kd-sizes">
+            <mat-select
+              placeholder="Size"
+              [value]="elm.figure.size"
+              (selectionChange)="figSizeChange($event)"
+              panelClass="scrollbar"
+            >
+              <mat-option
+                *ngFor="let size of dS.style.sizes; let i = index"
+                [value]="i"
+              >
+                {{ size.size }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <mat-checkbox
+            [(ngModel)]="elm.figure.themed"
+            (ngModelChange)="elm.dirty = true"
+            [labelPosition]="'after'"
+          >
+            Themed</mat-checkbox
+          >
+          &nbsp;&nbsp;&nbsp;
+          <mat-checkbox
+            [(ngModel)]="elm.figure.borderless"
+            (ngModelChange)="elm.dirty = true"
+            [labelPosition]="'after'"
+            >Borderless</mat-checkbox
+          ><br />
+          <mat-form-field class="form-field-short">
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="elm.figure.dimx"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="DimX"
+              autocomplete="off"
+            />
+          </mat-form-field>
+          <mat-form-field class="form-field-short">
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="elm.figure.dimy"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="DimY"
+              autocomplete="off"
+            />
+          </mat-form-field>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="figureOption === 'video'">
+        <span
+          *ngIf="elm.figure && elm.figure.filename"
+          (click)="vS.copyFromContent(elm.figure.filename)"
+          class="hover-pointer"
+          >&nbsp;&nbsp;&nbsp;{{ elm.figure.filename }}</span
+        >
+        <input
+          style="display: none"
+          type="file"
+          accept=".mp4,.mov"
+          name="filefield"
+          (change)="onFileSelected($event)"
+          #fileInput
+        />
+        <div class="kd-edit-img-box">
+          <mat-progress-spinner
+            *ngIf="progressValue"
+            [diameter]="48"
+            [color]="progressColor"
+            [mode]="progressMode"
+            [value]="progressValue"
+          >
+          </mat-progress-spinner>
+          <button
+            *ngIf="!progressValue"
+            type="button"
+            mat-icon-button
+            (click)="fileInput.click()"
+          >
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="elm.figure">
+          <div class="kd-sizes">
+            <mat-select
+              placeholder="Size"
+              [value]="elm.figure.size"
+              (selectionChange)="figSizeChange($event)"
+              panelClass="scrollbar"
+            >
+              <mat-option
+                *ngFor="let size of dS.style.sizes; let i = index"
+                [value]="i"
+              >
+                {{ size.size }}
+              </mat-option>
+            </mat-select>
+          </div>
+          <mat-checkbox
+            [(ngModel)]="elm.figure.loop"
+            (ngModelChange)="elm.dirty = true"
+            [labelPosition]="'after'"
+          >
+            Loop</mat-checkbox
+          >&nbsp;&nbsp;&nbsp;
+          <mat-checkbox
+            [(ngModel)]="elm.figure.autoplay"
+            (ngModelChange)="elm.dirty = true"
+            [labelPosition]="'after'"
+          >
+            Autoplay</mat-checkbox
+          >&nbsp;&nbsp;&nbsp;
+          <mat-checkbox
+            [(ngModel)]="elm.figure.muted"
+            (ngModelChange)="elm.dirty = true"
+            [labelPosition]="'after'"
+          >
+            Muted</mat-checkbox
+          >
+        </div>
+      </ng-container>
+      <ng-container *ngIf="figureOption === 'sound'"> </ng-container>
+
+      <ng-container *ngIf="figureOption === 'latex'">
+        <div *ngIf="elm.figure.render" class="kd-edit-svg-box">
+          <div
+            [innerHTML]="elm.figure.render | safeHtml"
+            class="kd-edit-svg"
+          ></div>
+        </div>
+        <mat-form-field class="form-field-100 form-field-textarea-code">
+          <textarea
+            matInput
+            [(ngModel)]="latex"
+            (ngModelChange)="latexChange($event)"
+            placeholder="Latex"
+            [cdkTextareaAutosize]="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="on"
+            spellcheck="false"
+            class="textarea-bdy"
+          ></textarea>
+        </mat-form-field>
+      </ng-container>
+      <ng-container *ngIf="figureOption === 'svg'">
+        <mat-form-field class="form-field-100 form-field-textarea-code">
+          <textarea
+            matInput
+            [(ngModel)]="elm.figure.render"
+            (ngModelChange)="elm.dirty = true"
+            placeholder="SVG"
+            [cdkTextareaAutosize]="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="on"
+            spellcheck="false"
+            class="textarea-svg"
+          ></textarea>
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </mat-tab>
+  <mat-tab class="relative">
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.DATAFIELDS"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >table_chart</mat-icon
+      >
+    </ng-template>
+    <div class="edit-tab12-container">
+      <div class="text-tools">
+        <mat-form-field>
+          <mat-label>Data Host</mat-label>
+          <mat-select
+            [(value)]="dataHostOption"
+            (selectionChange)="onDatahostChange($event)"
+          >
+            <mat-option [value]="'none'"> No data option </mat-option>
+            <mat-option [value]="'isTable'"> Is table </mat-option>
+            <mat-option [value]="'isHost'"> Is data host </mat-option>
+            <mat-option *ngFor="let host of dS.datahosts" [value]="host">
+              {{ host.txts.lbl }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          *ngIf="dataHostOption !== 'none' && dataHostOption !== 'isTable'"
+          type="button"
+          mat-icon-button
+          (click)="navigateDataHost()"
+        >
+          <mat-icon
+            [matTooltip]="dS.system.txts.VIEW"
+            [matTooltipDisabled]="dS.noToolTips"
+            [matTooltipShowDelay]="1000"
+            >open_in_new</mat-icon
+          >
+        </button>
+
+        <button
+          *ngIf="dataHostOption !== 'none' && dataHostOption !== 'isTable'"
+          (click)="saveData()"
+          type="button"
+          mat-icon-button
+        >
+          <mat-icon>save</mat-icon>
+        </button>
+
+        <span class="spacer"></span>
+        <ng-container *ngIf="dataHostOption === 'isTable'"> </ng-container>
+      </div>
+
+      <kd-ed-table
+        *ngIf="dataHostOption === 'isTable'"
+        [elm]="elm"
+      ></kd-ed-table>
+
+      <div
+        cdkDropList
+        *ngIf="dataHostOption === 'isHost'"
+        class="kd-drop-list"
+        (cdkDropListDropped)="dropDataCols($event)"
+      >
+        <div
+          cdkDrag
+          *ngFor="let col of elm.datacols"
+          class="field-colxxx kd-drop-box"
+        >
+          <span class="kd-cell-id">
+            <input
+              matInput
+              [ngModel]="col.width"
+              (ngModelChange)="colWidthChange(col, $event)"
+              [placeholder]="dS.system.txts.WIDTH"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="on"
+              spellcheck="false"
+              style="width: 100px"
+              [class.warn]="warnSlug"
+            />
+            <input
+              matInput
+              [ngModel]="col.field"
+              (ngModelChange)="colFieldChange(col, $event)"
+              [placeholder]="dS.system.txts.FIELD"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="on"
+              spellcheck="false"
+              [class.warn]="warnSlug"
+            />
+          </span>
+          <span
+            *ngIf="col.targetElement"
+            (click)="dS.navigate(col.targetElement)"
+            class="hover-pointer"
+            class="cell"
+          >
+            <span
+              class="kd-cell-sign"
+              [innerHTML]="col.targetElement.sign"
+            ></span>
+          </span>
+          <div class="dim hover-grabbing btn-icon-small" cdkDragHandle>
+            <mat-icon class="icon-small">drag_indicator</mat-icon>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="elm.dataHost && elm.host_id">
+        <div *ngFor="let col of elm.dataHost.datacols" class="field-row">
+          <div *ngIf="!col.targetElement" class="kd-cell-key">
+            {{ col.field }}
+          </div>
+          <div
+            *ngIf="col.targetElement"
+            (click)="dS.navigate(col.targetElement)"
+            class="cell hover-pointer"
+          >
+            <div
+              class="kd-cell-sign"
+              [innerHTML]="col.targetElement.sign"
+            ></div>
+          </div>
+          <div class="field-value-cell">
+            <ng-container *ngIf="col.field === 'designs'">
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="elm.datarow[col.field][0]"
+                (ngModelChange)="elm.dirty = true"
+                autocomplete="off"
+                style="width: 7em"
+              />
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="elm.datarow[col.field][1]"
+                (ngModelChange)="elm.dirty = true"
+                autocomplete="off"
+                style="width: 7em"
+              />
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="elm.datarow[col.field][2]"
+                (ngModelChange)="elm.dirty = true"
+                autocomplete="off"
+                style="width: 7em"
+              />
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="elm.datarow[col.field][3]"
+                (ngModelChange)="elm.dirty = true"
+                autocomplete="off"
+                style="width: 7em"
+              />
+            </ng-container>
+            <ng-container *ngIf="col.field !== 'designs'">
+              <input
+                *ngIf="col.targetElement"
+                matInput
+                type="number"
+                [(ngModel)]="elm.datarow[col.field]"
+                (ngModelChange)="elm.dirty = true"
+                style="width: 6em"
+              />
+              <input
+                *ngIf="!col.targetElement"
+                matInput
+                type="text"
+                [(ngModel)]="elm.datarow[col.field]"
+                (ngModelChange)="elm.dirty = true"
+                autocomplete="off"
+                style="width: 30em"
+              />
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="
+          dS.system.txts.FEATURES + ' ' + dS.system.txts.CALCULATION
+        "
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >code</mat-icon
+      >
+    </ng-template>
+    <div class="edit-tab12-container">
+      <mat-form-field class="form-field-medium">
+        <input
+          matInput
+          [(ngModel)]="elm.sign"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="Sign"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+      </mat-form-field>
+      <ng-container *ngIf="elm.sign">
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            [(ngModel)]="elm.state.rel"
+            (ngModelChange)="elm.dirty = true"
+            placeholder="Rel"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+        </mat-form-field>
+        <br />
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="elm.state.min"
+            (ngModelChange)="elm.dirty = true"
+            placeholder="Min"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="elm.state.max"
+            (ngModelChange)="elm.dirty = true"
+            placeholder="Max"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="elm.state.step"
+            (ngModelChange)="elm.dirty = true"
+            [placeholder]="dS.system.txts.STEP"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="elm.state.val"
+            (ngModelChange)="elm.dirty = true"
+            [placeholder]="dS.system.txts.VALUE"
+            autocomplete="off"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            [(ngModel)]="elm.state.unit"
+            (ngModelChange)="defChange({ unit: $event })"
+            [placeholder]="dS.system.txts.UNIT"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          /> </mat-form-field
+        ><br />
+
+        <mat-form-field class="form-field-long">
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="elm.state.coeff"
+            (ngModelChange)="elm.dirty = true"
+            [placeholder]="dS.system.txts.COEFFICIENT"
+            autocomplete="off"
+            style="width: 170px"
+          />
+        </mat-form-field>
+
+        <mat-form-field class="form-field-short">
+          <input
+            matInput
+            [ngModel]="elm.state.format"
+            (ngModelChange)="formatChange('elm', $event)"
+            placeholder="1.0-3"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [class.warn]="warnFormat"
+          />
+        </mat-form-field>
+      </ng-container>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.FEATURES + ' ' + dS.system.txts.EQUATION"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >functions</mat-icon
+      >
+    </ng-template>
+    <div class="equation-container">
+      <div
+        *ngIf="elm.equ?.svg; else empty"
+        [innerHTML]="elm.equ?.svg | safeHtml"
+      ></div>
+
+      <ng-template #empty>
+        <div>
+          <div>
+            <mat-icon class="equ-empty-icon">not_interested</mat-icon>
+          </div>
+
+          <div class="equ-empty-text">
+            {{ dS.system.txts.EQU_EMPTY }}
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div class="monaco-container">
+      <ngx-monaco-editor
+        class="code-editor"
+        [(ngModel)]="latex"
+        [options]="vS.editorLatexOptions"
+        (onInit)="onInitMonaco($event)"
+        (ngModelChange)="latexChange($event)"
+      >
+      </ngx-monaco-editor>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+    <ng-template mat-tab-label>
+      <mat-icon
+        [matTooltip]="dS.system.txts.ATTRIBUTES"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="tab-icon"
+        >edit_attributes</mat-icon
+      >
+    </ng-template>
+    <div class="kd-row relative">
+      <div style="width: 65%">
+        <button
+          mat-button
+          *ngIf="dS.checked.length"
+          matSuffix
+          mat-icon-button
+          (click)="multiEdit('attributes')"
+          style="position: absolute; top: 0px; right: 0px"
+        >
+          <mat-icon>checked</mat-icon>
+        </button>
+        <mat-form-field>
+          <mat-label>Published to</mat-label>
+          <mat-select
+            [(ngModel)]="elm.attrib.published"
+            (selectionChange)="onPublishedChange($event)"
+          >
+            <mat-option [value]="'none'"> None </mat-option>
+            <mat-option [value]="'user'"> Users </mat-option>
+            <mat-option [value]="'editor'"> Editors </mat-option>
+            <mat-option [value]="'manager'"> Manager </mat-option>
+            <mat-option [value]="'admin'"> Admins </mat-option>
+            <mat-option [value]="'all'"> All </mat-option>
+          </mat-select> </mat-form-field
+        ><br />
+        <mat-form-field>
+          <mat-label>Role</mat-label>
+          <mat-select
+            [(ngModel)]="elm.attrib.role"
+            (selectionChange)="onRoleChange($event)"
+          >
+            <mat-option [value]="'none'"> No Role </mat-option>
+            <mat-option [value]="'feature'"> Feature </mat-option>
+            <mat-option [value]="'volume'"> Volume </mat-option>
+            <mat-option [value]="'impress'"> Impress </mat-option>
+            <mat-option [value]="'contact'"> Contact </mat-option>
+            <mat-option [value]="'error'"> Error </mat-option>
+            <mat-option [value]="'page404'"> Page 404 </mat-option>
+          </mat-select> </mat-form-field
+        ><br />
+        <ng-container *ngIf="elm.attrib.role === 'volume'">
+          <mat-form-field>
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.publicLocales"
+              (ngModelChange)="onLocalesChange($event)"
+              placeholder="publicLocales"
+              autocomplete="off"
+            />
+          </mat-form-field>
+          <br />
+
+          <mat-form-field>
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.editorLocales"
+              (ngModelChange)="onLocalesChange($event)"
+              placeholder="editorLocales"
+              autocomplete="off"
+            />
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 230px">
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.aboutElm"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="aboutElm"
+              autocomplete="off"
+              class="monospace"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Filter"
+              (click)="dS.navigate(elm.attrib.aboutElm)"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 230px">
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.posterElm"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="posterElm"
+              autocomplete="off"
+              class="monospace"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Filter"
+              (click)="dS.navigate(elm.attrib.posterElm)"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 230px">
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.featureElm"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="featureElm"
+              autocomplete="off"
+              class="monospace"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Filter"
+              (click)="dS.navigate(elm.attrib.featureElm)"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 230px">
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.contactElm"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="contactElm"
+              autocomplete="off"
+              class="monospace"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Filter"
+              (click)="dS.navigate(elm.attrib.contactElm)"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+          <mat-form-field style="width: 230px">
+            <input
+              matInput
+              [(ngModel)]="elm.attrib.impressElm"
+              (ngModelChange)="elm.dirty = true"
+              placeholder="impressElm"
+              autocomplete="off"
+              class="monospace"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Filter"
+              (click)="dS.navigate(elm.attrib.impressElm)"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+        </ng-container>
+      </div>
+      <div style="width: 35%">
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.fullHeader"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          fullHeader</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.hideNum"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          hideNum</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.hideCaptionNum"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          hideCaptionNum</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.hideTitle"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          hideTitle</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.hideSubTitle"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          hideSubTitle</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.showAuthor"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          showAuthor</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.globalCollapse"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          globalCollapse</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.centered"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          centered</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.legacy"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          legacy</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.readMore"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          readMore</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.selfRef"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          selfReference</mat-checkbox
+        ><br />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.glossary"
+          (ngModelChange)="elm.dirty = true"
+          [labelPosition]="'after'"
+        >
+          glossary</mat-checkbox
+        >
+        <br />
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.attrib.minViewportWidth"
+          (ngModelChange)="elm.dirty = true"
+          [placeholder]="'minVpW'"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          [class.warn]="warnName"
+          style="width: 100px"
+          autofocus
+        />
+      </div>
+    </div>
+    <mat-form-field style="width: 320px">
+      <input
+        matInput
+        [(ngModel)]="elm.attrib.canonical"
+        (ngModelChange)="elm.dirty = true"
+        placeholder="Canonical"
+        autocomplete="off"
+      />
+    </mat-form-field>
+  </mat-tab>
+</mat-tab-group>
+
+<div *ngIf="!dS.selVol?.flatTree?.length" class="kd-spinner-wrapper">
+  <mat-spinner
+    [diameter]="80"
+    [strokeWidth]="6"
+    style="margin: 0 auto 0 auto"
+  ></mat-spinner>
+</div>

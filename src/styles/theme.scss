@@ -1,0 +1,515 @@
+@use '@angular/material' as mat;
+
+$custom-typography: mat.define-legacy-typography-config(
+  $font-family: 'Roboto, Helvetica Neue, Helvetica, Arial, sans-serif',
+  $display-4: mat.define-typography-level(112px, 112px, 300),
+  $display-3: mat.define-typography-level(56px, 56px, 400),
+  $display-2: mat.define-typography-level(45px, 48px, 400),
+  $display-1: mat.define-typography-level(34px, 40px, 400),
+  $headline: mat.define-typography-level(24px, 32px, 400),
+  $title: mat.define-typography-level(20px, 32px, 500),
+  $subheading-2: mat.define-typography-level(16px, 28px, 400),
+  $subheading-1: mat.define-typography-level(15px, 24px, 400),
+  $body-2: mat.define-typography-level(14px, 24px, 500),
+  $body-1: mat.define-typography-level(14px, 20px, 400),
+  $caption: mat.define-typography-level(12px, 20px, 400),
+  $button: mat.define-typography-level(14px, 14px, 500),
+  $input: mat.define-typography-level(inherit, 1.125, 400),
+);
+
+@include mat.legacy-typography-hierarchy($custom-typography);
+
+@include mat.legacy-checkbox-typography($custom-typography);
+
+@include mat.all-legacy-component-typographies($custom-typography);
+
+// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
+//  The following line adds:
+//    1. Default typography styles for all components
+//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
+//  If you specify typography styles for the components you use elsewhere, you should delete this line.
+//  If you don't need the default component typographies but still want the hierarchy styles,
+//  you can delete this line and instead use:
+//    `@include mat.legacy-typography-hierarchy($custom-typography);`
+@include mat.all-legacy-component-typographies($custom-typography);
+@include mat.legacy-core();
+
+$md-formred2: (
+  50: #f8eae8,
+  100: #edcac6,
+  200: #e1a6a0,
+  300: #d48279,
+  400: #cb685d,
+  500: #c24d40,
+  600: #bc463a,
+  700: #b43d32,
+  800: #ac342a,
+  900: #9f251c,
+  A100: #ffd9d7,
+  A200: #ffa9a4,
+  A400: #ff7971,
+  A700: #ff6058,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$base-colors: (
+  500: #ba4c46,
+);
+
+// 50: #f7eae9,
+// 100: #eac9c8,
+// 200: #dda6a3,
+// 300: #cf827e,
+// 400: #c46762,
+// 500: #c4513c,
+// 600: #b3453f,
+// 700: #ab3c37,
+// 800: #a3332f,
+// 900: #942420,
+// A100: #ffd1cf,
+// A200: #ff9f9c,
+// A400: #ff6d69,
+// A700: #ff5450,
+
+$md-formred: (
+  50: #f6eae7,
+  100: #eacac4,
+  200: #dca69d,
+  300: #cd8275,
+  400: #c36858,
+  500: #b84d3a,
+  600: #b14634,
+  700: #a83d2c,
+  800: #a03425,
+  900: #912518,
+  A100: #ffccc8,
+  A200: #ff9e95,
+  A400: #ff6f62,
+  A700: #ff5848,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  ),
+);
+
+$md-formblue: (
+  50: #e7f0f9,
+  100: #c2daf0,
+  200: #99c2e6,
+  300: #70aadb,
+  400: #5297d4,
+  500: #3385cc,
+  600: #2e7dc7,
+  700: #2772c0,
+  800: #2068b9,
+  900: #1455ad,
+  A100: #e0ecff,
+  A200: #adccff,
+  A400: #7aadff,
+  A700: #609dff,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  ),
+);
+
+$kompendia-app-primary: mat.define-palette($md-formblue);
+$kompendia-app-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
+
+$kia-app-theme: mat.define-light-theme(
+  $kompendia-app-primary,
+  $kompendia-app-accent
+);
+
+$dark-primary: mat.define-palette($md-formred, 500);
+$dark-accent: mat.define-palette(mat.$blue-palette); // (mat.$yellow-palette);
+$dark-warn: mat.define-palette(mat.$yellow-palette);
+
+$my-dark-theme-background: (
+  status-bar: green,
+  app-bar: map_get(mat.$blue-palette, 900),
+  background: #111,
+  hover: rgba(white, 0.04),
+  card: map_get(mat.$grey-palette, 900),
+  dialog: map_get(mat.$grey-palette, 900),
+  disabled-button: rgba(white, 0.12),
+  raised-button: map-get(mat.$grey-palette, 800),
+  focused-button: rgba(white, 0.06),
+  selected-button: map_get(mat.$grey-palette, 900),
+  selected-disabled-button: map_get(mat.$grey-palette, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get(mat.$grey-palette, 700),
+  disabled-list-option: black,
+);
+$my-dark-theme-foreground: (
+  base: #eee,
+  divider: rgba(white, 0.12),
+  dividers: rgba(white, 0.12),
+  disabled: rgba(#ffffff00, 0.3),
+  disabled-button: rgba(white, 0.3),
+  disabled-text: rgba(white, 0.3),
+  hint-text: rgba(white, 0.3),
+  bold-text: rgba(white, 0.9),
+  secondary-text: rgba(white, 0.7),
+  icon: #eee,
+  icons: #eee,
+  text: rgba(white, 0.95),
+  slider-min: white,
+  slider-off: rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+@function create-wonky-theme(
+  $primary,
+  $accent,
+  $warn: mat.define-palette(mat.$red-palette)
+) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: true,
+    foreground: $my-dark-theme-foreground,
+    background: $my-dark-theme-background,
+  );
+}
+
+$dark-theme: create-wonky-theme($dark-primary, $dark-accent, $dark-warn);
+
+// @include mat.all-component-themes($kia-app-theme);
+
+.kia-dark-theme {
+  @include mat.all-legacy-component-themes($dark-theme);
+  $background: map-get($dark-theme, background);
+  //background-color: mat.get-color-from-palette($background, background);
+  $foreground: map-get($dark-theme, foreground);
+  //color: mat.get-color-from-palette($foreground, text);
+}
+
+.kia-light-theme {
+  @include mat.all-legacy-component-themes($kia-app-theme);
+  //background-color: #ccc;
+  //color: #333;
+}
+
+.kia-light-theme a {
+  color: map_get(mat.$blue-palette, 800);
+}
+.kia-light-theme a:hover {
+  color: map_get(mat.$blue-palette, 700);
+}
+
+.kia-dark-theme a {
+  color: map_get(mat.$blue-palette, 500);
+}
+
+.kia-dark-theme a:hover {
+  color: map_get(mat.$blue-palette, 600);
+}
+
+.kia-light-theme .kd-amber {
+  color: #b96f0e;
+}
+
+.kia-dark-theme .kd-amber {
+  color: #dd9367;
+}
+
+.kia-light-theme .kd-sel {
+  color: map_get(mat.$blue-palette, 800) !important;
+  stroke: map_get(mat.$blue-palette, 800) !important;
+}
+
+.kia-dark-theme .kd-sel {
+  color: map_get(mat.$blue-palette, 500) !important;
+  stroke: map_get(mat.$blue-palette, 500) !important;
+}
+
+.kia-light-theme .kd-sel-dark {
+  color: map_get(mat.$blue-palette, 800) !important;
+  stroke: map_get(mat.$blue-palette, 800) !important;
+}
+
+.kia-dark-theme .kd-sel-dark {
+  color: map_get(mat.$blue-palette, 700) !important;
+  stroke: map_get(mat.$blue-palette, 700) !important;
+}
+
+.kia-light-theme .kd-fine {
+  color: #23d357 !important;
+}
+.kia-dark-theme .kd-fine {
+  color: #23d357 !important;
+}
+
+.kia-light-theme .kd-warn {
+  color: rgb(241, 161, 12) !important;
+}
+.kia-dark-theme .kd-warn {
+  color: rgb(234, 238, 17) !important;
+}
+
+.kia-light-theme .kd-warn-background {
+  background-color: rgb(241, 161, 12) !important;
+}
+.kia-dark-theme .kd-warn-background {
+  background-color: rgb(234, 238, 17) !important;
+}
+
+.kia-light-theme .kd-error {
+  color: #f44336 !important;
+}
+.kia-dark-theme .kd-error {
+  color: #f54d41 !important;
+  // color: map_get(mat.$red-palette, 300) !important;
+}
+
+.mat-tooltip {
+  background: rgba(97, 97, 97, 0.9);
+}
+
+.kia-dark-theme .element-subtitle {
+  color: #fff;
+}
+
+.kia-light-theme .element-subtitle {
+  color: #fff;
+}
+
+.kia-dark-theme .kd-drop-list {
+  $foreground: map-get($dark-theme, foreground);
+  border: solid 1px mat.get-color-from-palette($foreground, divider);
+}
+.kia-light-theme .kd-drop-list {
+  $foreground: map-get($kia-app-theme, foreground);
+  border: solid 1px mat.get-color-from-palette($foreground, divider);
+}
+.kia-dark-theme .kd-drop-box {
+  $foreground: map-get($dark-theme, foreground);
+  border-bottom: solid 1px mat.get-color-from-palette($foreground, divider);
+  $background: map-get($dark-theme, background);
+  background: mat.get-color-from-palette($background, dialog);
+}
+.kia-light-theme .kd-drop-box {
+  $foreground: map-get($kia-app-theme, foreground);
+
+  border-bottom: solid 1px mat.get-color-from-palette($foreground, divider);
+  $background: map-get($kia-app-theme, background);
+  background: mat.get-color-from-palette($background, dialog);
+}
+.kia-dark-theme .cdk-drag-preview {
+  $background: map-get($dark-theme, background);
+  background: mat.get-color-from-palette($background, dialog);
+}
+.kia-light-theme .cdk-drag-preview {
+  $background: map-get($kia-app-theme, background);
+  background: mat.get-color-from-palette($background, dialog);
+}
+
+.kia-dark-theme .kd-reference {
+  color: map_get(mat.$red-palette, 300);
+}
+.kia-light-theme .kd-reference {
+  color: map_get(mat.$red-palette, 900);
+}
+.kia-dark-theme .kd-reference-big {
+  color: map_get(mat.$red-palette, 300);
+}
+.kia-light-theme .kd-reference-big {
+  color: map_get(mat.$red-palette, 900);
+}
+
+.kia-dark-theme .red {
+  color: map_get(mat.$red-palette, 300);
+}
+.kia-light-theme .red {
+  color: map_get(mat.$red-palette, 900);
+}
+
+.kia-dark-theme figure img {
+  $foreground: map-get($dark-theme, foreground);
+  /*
+  border: solid 1px mat.get-color-from-palette($foreground, divider);
+	filter: invert(95%);
+  */
+}
+
+.kia-dark-theme .themed {
+  $foreground: map-get($dark-theme, foreground);
+  /*
+  border: solid 1px mat.get-color-from-palette($foreground, divider);
+  */
+  filter: invert(95%);
+}
+
+.kia-dark-theme figure figcaption {
+  $foreground: map-get($dark-theme, foreground);
+  color: mat.get-color-from-palette($foreground, bold-text);
+}
+
+.kia-dark-theme strong {
+  $foreground: map-get($dark-theme, foreground);
+  color: mat.get-color-from-palette($foreground, bold-text);
+}
+
+.kia-dark-theme input[type='number'] {
+  // border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.kia-dark-theme .form-field-search,
+.form-field-login {
+  $foreground: map-get($dark-theme, foreground);
+  color: mat.get-color-from-palette($foreground, text);
+  /*
+  $background: map-get($dark-theme, background);
+  background: mat.get-color-from-palette($background, dialog) !important;
+  */
+}
+
+.kia-dark-theme .form-field-search-back {
+  $background: map-get($dark-theme, background);
+  background: mat.get-color-from-palette($background, dialog) !important;
+}
+
+.kia-dark-theme .mat-card-title {
+  $foreground: map-get($dark-theme, foreground);
+  color: mat.get-color-from-palette($foreground, bold-text);
+}
+
+.kia-light-theme .mat-card-title {
+  color: rgba(black, 0.85);
+}
+
+.kia-dark-theme .kd-result {
+  $foreground: map-get($dark-theme, foreground);
+  // color: mat.get-color-from-palette($foreground, bold-text);
+}
+
+.kia-light-theme .kd-result {
+  // color: rgba(black, 0.85);
+}
+
+.kia-light-theme .kd-img-border {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.kia-dark-theme .kd-img-border {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.kia-dark-theme .kd-buttons {
+  $foreground: map-get($dark-theme, foreground);
+  color: mat.get-color-from-palette($foreground, bold-text);
+}
+
+.kia-light-theme .kd-buttons {
+  color: rgba(black, 0.85);
+}
+
+.mat-drawer-container {
+  background-color: #ccc;
+  color: #111;
+}
+
+.kia-dark-theme .mat-drawer-container {
+  background-color: #161616 !important;
+}
+.kia-light-theme .mat-drawer-container {
+  background-color: #b1b1b1 !important;
+}
+
+.kia-dark-theme .fav-arrow-down {
+  border-top: 6px solid #eee !important;
+}
+.kia-light-theme .fav-arrow-down {
+  border-top: 6px solid #212121 !important;
+}
+
+.kia-dark-theme sup {
+  color: map_get(mat.$red-palette, 300) !important;
+}
+.kia-dark-theme sub {
+  color: map_get(mat.$red-palette, 300) !important;
+}
+
+.kia-light-theme sup {
+  color: map_get(mat.$red-palette, 900);
+}
+
+.kia-light-theme sub {
+  color: map_get(mat.$red-palette, 900);
+}
+
+.kia-dark-theme .equ-sub {
+  color: map_get(mat.$red-palette, 300);
+  fill: map_get(mat.$red-palette, 300);
+}
+
+.kia-light-theme .equ-sub {
+  color: map_get(mat.$red-palette, 900);
+  fill: map_get(mat.$red-palette, 900);
+}
+
+.kia-dark-theme .svg-background {
+  background-color: #161616 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.kia-light-theme .svg-background {
+  background-color: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.kia-dark-theme .svg-caption {
+  background-color: #161616 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.kia-light-theme .buttons-a {
+  background-color: #ddd !important;
+}
+.kia-light-theme .buttons-b {
+  background-color: #ddd !important;
+}
+
+.kia-light-theme .svg-caption {
+  background-color: #fff !important;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}

@@ -1,0 +1,60 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/static-public
+/dist-public
+/dist
+/tmp
+/out-tsc
+/dist
+/src/environments/cachebust.js
+/src/environments/version.ts
+package-lock.json
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.angular
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.chrome-vscode-debug-profile
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.angular/cache
+.snyk
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typingsj
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+scully.log
+scullyStats.json
+.scully
+/scully/**/*.js
+/scully/**/*.js.map
+/scully/**/*.d.ts
+/src/assets/scully-routes.json

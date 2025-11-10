@@ -1,0 +1,139 @@
+<div class="tools">
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput [(ngModel)]="filterValue" (keyup)="applyFilter($event)" />
+    <button
+      mat-button
+      *ngIf="filterValue"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="filterValue = ''; dataSource.filter = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <mat-form-field *ngIf="elm._eid.str === '5d3b78c08770d2664a24dee9 xxx'">
+    <mat-label>Scrape</mat-label>
+    <input matInput [(ngModel)]="scrapeId" />
+    <button
+      mat-button
+      *ngIf="scrapeId"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="applyScrape($event); scrapeId = ''"
+    >
+      <mat-icon>check</mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="small">{{ dataSource.filteredData.length }}</div>
+</div>
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  [class.color-alternate]="true"
+  styles="caption-side: bottom;"
+>
+  <ng-container
+    *ngIf="elm._eid.str === '5d440a14f338af0586baf31d'"
+    matColumnDef="svg"
+  >
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      [style.width]="'50px'"
+    >
+      svg
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div
+        [innerHTML]="element.equ.svg | safeHtml"
+        style="padding: 4px 0"
+      ></div>
+    </td>
+  </ng-container>
+  <ng-container
+    *ngIf="elm._eid.str === '5d440a14f338af0586baf31d'"
+    matColumnDef="latex"
+  >
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      [style.width]="'50px'"
+    >
+      latex
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <div
+        (click)="vS.copyFromContent(element.equ.tex)"
+        class="latex monospace hover-pointer"
+      >
+        {{ element.equ.tex }}
+      </div>
+    </td>
+  </ng-container>
+  <ng-container *ngFor="let col of datacols" [matColumnDef]="col.field">
+    <ng-container *ngIf="col.targetElement">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        [style.width]="col.width + 'px'"
+      >
+        <span [innerHTML]="col.targetElement.sign | safeHtml"></span>
+        <span *ngIf="col.targetElement.state?.unit" class="xsmall">
+             [{{ col.targetElement.state?.unit }}]
+        </span>
+      </th>
+    </ng-container>
+    <ng-container *ngIf="!col.targetElement">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        [style.width]="col.width + 'px'"
+      >
+        {{ col.header || col.field }}
+      </th>
+    </ng-container>
+    <ng-container *ngIf="col.targetElement">
+      <td mat-cell *matCellDef="let element" [style.text-align]="col.align">
+        <div [innerHTML]="element[col.field] || '' | safeHtml"></div>
+      </td>
+    </ng-container>
+    <ng-container *ngIf="!col.targetElement && col.field !== 'designs'">
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [style.text-align]="col.align"
+        [style.width]="col.width"
+      >
+        <div [innerHTML]="element[col.field] || '' | safeHtml"></div>
+      </td>
+    </ng-container>
+    <ng-container *ngIf="!col.targetElement && col.field === 'designs'">
+      <td mat-cell *matCellDef="let element" [style.text-align]="col.align">
+        <div
+          [innerHTML]="
+            element[col.field][0] ||
+              element[col.field][1] ||
+              element[col.field][2] | safeHtml
+          "
+        ></div>
+      </td>
+    </ng-container>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    (click)="edit(row)"
+    [class.hover-pointer]="pS.profile.role.editor"
+    [class.kd-tr-hilite]="odd"
+    mat-row
+    *matRowDef="let row; let odd = odd; columns: displayedColumns"
+  ></tr>
+</table>

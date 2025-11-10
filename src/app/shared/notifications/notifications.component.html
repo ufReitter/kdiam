@@ -1,0 +1,53 @@
+<button
+  mat-icon-button
+  [mat-menu-trigger-for]="notificationsMenu"
+  [matTooltip]="dS.system.txts.NOTIFICATIONS"
+  [matTooltipDisabled]="dS.noToolTips"
+  [matTooltipShowDelay]="1000"
+  (click)="showNotifications()"
+>
+  <mat-icon *ngIf="countNewShow">notifications_active</mat-icon>
+  <mat-icon *ngIf="!countNewShow">notifications_none</mat-icon>
+  <div *ngIf="countNewShow" class="indicator">{{ countNewShow }}</div>
+</button>
+
+<mat-menu
+  #notificationsMenu="matMenu"
+  (closed)="closeNotifications()"
+  class="menu"
+>
+  <div class="kd-menu-title center w100 color-foreground color-background">
+    <div></div>
+    <div>Benachrichtigungen</div>
+    <div></div>
+  </div>
+
+  <!-- <mat-divider></mat-divider> -->
+  <div
+    *ngFor="let art of articles; index as i"
+    mat-menu-item
+    (click)="dS.navigate(art.elm)"
+    [class.fit-content]="art.i18n"
+    class="menu-item"
+  >
+    <div
+      *ngIf="i < countNew"
+      class="vertical-line kd-warn-background dimm-7"
+    ></div>
+    <div class="title">{{ art.elm.txts.lbl || art.elm._eid.str }}</div>
+
+    <div *ngIf="art.i18n" class="changes small">
+      {{ art.i18n[dS.locale] || art.i18n.de }}
+    </div>
+    <div class="small ago">
+      <span class="dim small ago">{{ art.date | ago : dS.locale }}</span>
+      <span *ngIf="!art.i18n" class="dimm-8 small ago">
+        {{ dS.system.txts.ARTIKEL }} {{ dS.system.txts.NEW }}</span
+      >
+      <span *ngIf="art.i18n" class="dimm-8 small ago">
+        {{ dS.system.txts.ARTIKEL }}
+        {{ dS.system.txts.CHANGES }}</span
+      >
+    </div>
+  </div>
+</mat-menu>

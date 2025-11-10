@@ -1,0 +1,30 @@
+<button
+  mat-icon-button
+  (click)="checkStatus()"
+  [matMenuTriggerFor]="volumePicker"
+>
+  <mat-icon
+    [matTooltip]="dS.system.txts.VOL_SELECTION"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+    class="icon-xbig"
+    >arrow_drop_down</mat-icon
+  >
+</button>
+
+<mat-menu #volumePicker="matMenu">
+  <button
+    mat-menu-item
+    *ngFor="let ed of editions"
+    (click)="onVolumeChanged(ed)"
+  >
+    <span [ngSwitch]="ed.loadStatus">
+      <mat-icon *ngSwitchCase="'cloud'" class="icon-small"
+        >file_download</mat-icon
+      >
+      <mat-icon *ngSwitchCase="'local'" class="icon-small">xxx</mat-icon
+      ><mat-icon *ngSwitchCase="'active'" class="icon-small">check</mat-icon>
+    </span>
+    {{ ed.i18n[dS.locale].lbl }}
+  </button>
+</mat-menu>

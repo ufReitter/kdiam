@@ -1,0 +1,10 @@
+<span
+  [class.kd-warn]="set.state.warn"
+  [class.kd-error]="set.state.error"
+  class="kd-result hover-pointer"
+  (click)="copyResult($event)"
+  >{{
+    set.state.val * (set.state.coeff || elm.state.coeff || 1.0)
+      | number : set.state.format || elm.state.format || '1.0-2' : dS.locale
+  }}</span
+>

@@ -1,0 +1,32 @@
+<div
+  *ngIf="node.elm && !node.elm.attrib.hideTitle"
+  class="relative bdy-indent header"
+>
+  <h1
+    class="heading"
+    [class.hover-pointer]="pS.profile.role.editor"
+    (click)="dS.edit(node.elm)"
+  >
+    {{ node.elm?.txts.lbl || node.elm?._eid.str }}
+  </h1>
+
+  <div
+    *ngIf="!node.elm?.attrib.hideNum && node.num"
+    [class]="
+      (dS.isHandsetPortrait$ | async)
+        ? 'kd-numeration-header-small'
+        : 'kd-numeration-header-big'
+    "
+    class="kd-numeration-header"
+  >
+    {{ node.num }}
+  </div>
+  <div *ngIf="!node.elm.attrib.hideSubTitle" class="subtitle">
+    <div *ngIf="!node.elm.attrib.lngInherited">
+      {{ node.elm.txts.lng }}
+    </div>
+    <div *ngIf="node.elm.attrib.lngInherited && node.parents?.length">
+      {{ node.parents?.at(-1).elm.txts.lbl }}
+    </div>
+  </div>
+</div>

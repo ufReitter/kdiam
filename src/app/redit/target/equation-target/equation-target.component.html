@@ -1,0 +1,12 @@
+<div
+  (click)="dS.navigate(elm)"
+  class="kd-numeration numeration-equation hover-pointer"
+>
+  {{ dS.system.i18n[target].strs.EQUATION_ABR }} {{ node.no }}
+</div>
+<div
+  [innerHTML]="elm.i18n[target].strs?.svg || elm.equ.svg | safeHtml"
+  (click)="vS.copyFromContent(elm.i18n[target].strs?.tex || elm.equ.tex)"
+  class="kd-equ-svg cell hover-pointer"
+  style="max-width: 320px"
+></div>

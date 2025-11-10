@@ -1,0 +1,133 @@
+<div
+  #wrapper
+  *ngIf="elm && vS.size.mainW >= (elm.attrib.minViewportWidth || 100)"
+  [class.fullscreen]="isFullscreen"
+  [class.color-background]="isFullscreen"
+>
+  <mat-divider
+    *ngIf="set.attrib.divider"
+    class="elm-wrapper-wide-margin"
+  ></mat-divider>
+  <div *ngIf="set.attrib.showTitle" class="h3 bdy-indent">
+    {{ elm.txts.lbl }}
+  </div>
+
+  <div
+    [class.kd-elm-selected]="
+      elm.selected && view === 'article-view' && viewDepth !== 1
+    "
+    [class.kd-paragraph]="viewDepth === 1 && !grid"
+    class="elm-wrapper"
+    style="display: block; z-index: 0"
+  >
+    <canvas *ngIf="elm.figure?.ext === 'ctx'" class="canvas" #canvas></canvas>
+
+    <kd-text-target
+      *ngIf="
+        node.elm.txts.bdy && node.elm.attrib.bdyLeading && !set.attrib.hideBody
+      "
+      [elm]="node.elm"
+      [parent]="parent"
+      [pos]="'bdy'"
+      [view]="view"
+      [viewDepth]="viewDepth"
+    ></kd-text-target>
+
+    <kd-figure-target
+      *ngIf="elm.figure && !set.attrib.hideFigure && view !== 'body'"
+      [node]="node"
+      [elm]="elm"
+      [set]="set"
+      [grid]="grid"
+      [parent]="parent"
+      [viewDepth]="viewDepth"
+      [target]="target"
+    >
+    </kd-figure-target>
+
+    <kd-equation-target
+      *ngIf="elm.equ && !set.attrib.hideEqu"
+      [node]="node"
+      [elm]="elm"
+      [parent]="parent"
+      [target]="target"
+    >
+    </kd-equation-target>
+    <div
+      [class.vp-fullscreen]="isFullscreen"
+      [class.color-background]="isFullscreen"
+    >
+      <kd-viewport
+        *ngIf="dS.isBrowser && elm.attrib.viewport"
+        [elm]="elm"
+        (fullscreen)="toggleFullScreen()"
+      ></kd-viewport>
+
+      <kd-children-target
+        *ngIf="
+          node.elm.view !== 'none' &&
+          node.elm.children?.length &&
+          view === 'article-view'
+        "
+        [elm]="elm"
+        [target]="target"
+      ></kd-children-target>
+
+      <kd-project-target
+        [hidden]="elm.view === 'none'"
+        *ngIf="
+          (elm.view === 'calc' || elm.view === 'none') &&
+          view === 'article-view'
+        "
+        [node]="node"
+        [parent]="parent"
+        [target]="target"
+      >
+      </kd-project-target>
+    </div>
+    <kd-table
+      *ngIf="node.elm.table && !set.attrib.hideTable"
+      [node]="node"
+      [parent]="parent"
+    ></kd-table>
+
+    <figcaption *ngIf="elm.view === 'grid' && node.no" class="figcaption">
+      <div>
+        <div
+          (click)="dS.edit(elm)"
+          [class.hover-pointer]="pS.profile.role.editor"
+          class="kd-numeration"
+        >
+          {{ dS.system.txts.FIGURE_ABR }} {{ node.no }}
+        </div>
+        <div class="cell cell-caption-figure">
+          <kd-text-target
+            [elm]="elm"
+            [view]="view"
+            [pos]="'cpt'"
+          ></kd-text-target>
+        </div>
+      </div>
+    </figcaption>
+
+    <kd-text-target
+      *ngIf="
+        node.elm.txts.bdy && !node.elm.attrib.bdyLeading && !set.attrib.hideBody
+      "
+      [elm]="node.elm"
+      [parent]="parent"
+      [pos]="'bdy'"
+      [view]="view"
+      [viewDepth]="viewDepth"
+    ></kd-text-target>
+
+    <ng-container *ngIf="elm && grid">
+      <ng-container *ngIf="grid.tab && !elm.figure">
+        <td>{{ elm.txts.lbl }}</td>
+        <td>{{ elm.txts.lbl }}</td>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+
+<!-- <div class="page-break">{{ viewDepth }}</div> -->

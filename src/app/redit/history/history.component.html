@@ -1,0 +1,69 @@
+<div #wrapper *ngIf="elm" class="hist-wrapper color-background relative">
+  <!-- <div *ngIf="!elm.checkout" class="kd-blocker"></div> -->
+  <mat-form-field class="form-field-100">
+    <textarea
+      matInput
+      [(ngModel)]="elm.txts.chn"
+      (ngModelChange)="elm.dirty = true"
+      [placeholder]="dS.system.txts.CHANGES"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="on"
+      spellcheck="false"
+      class="kd-textarea-3"
+    ></textarea>
+  </mat-form-field>
+  <div class="hist-toolbar">
+    <!-- <div
+      (click)="vS.copyFromContent(elm.history.active.elm._eid.str)"
+      class="monospace xsmall hover-pointer"
+    >
+      {{ elm.history.active.elm._eid.str }}
+    </div>
+    <div class="check-out-delxxx">
+      <mat-checkbox
+        [ngModel]="elm.history.active.elm.outdated"
+        (ngModelChange)="setOutdate($event)"
+        >{{ dS.system.txts.OUTDATED }}</mat-checkbox
+      >&nbsp;&nbsp;
+      <mat-checkbox
+        [ngModel]="elm.history.active.elm.deleted"
+        (ngModelChange)="setDelete($event)"
+        >{{ dS.system.txts.DELETED }}</mat-checkbox
+      >
+    </div>
+    <div>
+      <button mat-icon-button (click)="prev()">
+        <mat-icon>arrow_upwards</mat-icon>
+      </button>
+      <button mat-icon-button (click)="next()">
+        <mat-icon>arrow_downwards</mat-icon>
+      </button>
+    </div> -->
+
+    <mat-button-toggle-group [value]="kind" (change)="changeKind($event.value)">
+      <mat-button-toggle value="de">DE</mat-button-toggle>
+      <mat-button-toggle value="en">EN</mat-button-toggle>
+      <mat-button-toggle value="elm">Elm</mat-button-toggle>
+      <mat-button-toggle value="all"
+        >All</mat-button-toggle
+      ></mat-button-toggle-group
+    >
+    <div>{{ rS.history.items.length }}     </div>
+  </div>
+
+  <!-- <kd-table
+    [table]="table"
+    [selected]="elm.history.active.elm._eid.str"
+    [refresh]="tableRefresh"
+    (rowclick)="rowclick($event)"
+  ></kd-table> -->
+
+  <mat-divider></mat-divider>
+  <kd-history-item
+    *ngFor="let hist of rS.history.items; let i = index"
+    [item]="hist"
+    [kind]="kind"
+    [index]="i"
+  ></kd-history-item>
+</div>

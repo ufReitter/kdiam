@@ -1,0 +1,42 @@
+{
+  "/api/*": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/upload": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/media": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/videos": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/assets": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/redirect": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/resources": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/images": {
+    "target": "http://localhost:3100",
+    "secure": false,
+    "logLevel": "info"
+  }
+}

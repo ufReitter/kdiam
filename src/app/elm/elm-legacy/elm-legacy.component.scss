@@ -1,0 +1,19 @@
+.header {
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 667px) {
+  .header {
+    margin-bottom: 16px;
+  }
+}
+.heading {
+  margin-bottom: 0px !important;
+  margin-block-start: 18px;
+  margin-block-end: 0;
+}
+.loading {
+  width: 100%;
+  text-align: center;
+  padding-top: 15px;
+}

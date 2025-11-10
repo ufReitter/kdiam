@@ -1,0 +1,104 @@
+<div class="wrapper relative">
+  <div class="content">
+    <mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodeToggle
+        matTreeNodePadding
+        (dragover)="handleDragOver($event, node)"
+        (dragend)="handleDragEnd($event, node)"
+        (drop)="handleDrop($event, node)"
+        [ngClass]="getStyle(node)"
+      >
+        <button mat-icon-button (click)="deleteItem(node)">
+          <mat-icon class="icon-small">delete_outline</mat-icon>
+        </button>
+        <!-- <button mat-icon-button disabled></button> -->
+        <span (click)="viewElement($event, node)" class="nodeNumeration">{{
+          node.num
+        }}</span>
+        <span
+          class="checklist-leaf-node"
+          draggable="true"
+          (dragstart)="handleDragStart($event, node)"
+        >
+          <span
+            class="nodeContent"
+            [ngClass]="{ 'drag-start': dragNode === node }"
+          >
+            <div>{{ node.elm.txts.lbl || node.id }}</div>
+            <div class="small dimm-8">
+              {{ node.elm.txts.slug }}
+            </div>
+          </span>
+        </span>
+      </mat-tree-node>
+
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        (dragover)="handleDragOver($event, node)"
+        (dragend)="handleDragEnd($event, node)"
+        (drop)="handleDrop($event, node)"
+        [ngClass]="getStyle(node)"
+      >
+        <button
+          mat-icon-button
+          matTreeNodeToggle
+          [attr.aria-label]="'toggle ' + node.item"
+        >
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon></button
+        ><span (click)="viewElement($event, node)" class="nodeNumeration">{{
+          node.num
+        }}</span>
+        <span
+          class="checklist-leaf-node"
+          draggable="true"
+          (dragstart)="handleDragStart($event, node)"
+        >
+          <span
+            class="nodeContent"
+            [ngClass]="{ 'drag-start': dragNode === node }"
+          >
+            <div>{{ node.elm.txts.lbl || node.id }}</div>
+            <div class="small dimm-8">{{ node.elm.txts.slug }}</div>
+          </span>
+        </span>
+        <!-- <button mat-icon-button (click)="addNewItem(node)">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button> -->
+      </mat-tree-node>
+    </mat-tree>
+
+    <span #emptyItem></span>
+  </div>
+
+  <div class="kd-top-toolbar toolbar">
+    <div>
+      <button
+        type="button"
+        mat-icon-button
+        (click)="reloadOpus()"
+        [matTooltip]="dS.system.txts.APPLY_SCRIPT"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        <mat-icon [class.warnCodeButton]="opusDirty">autorenew</mat-icon>
+      </button>
+    </div>
+
+    <div>
+      <span *ngIf="dS.checked.length">
+        {{ dS.checked.length }}&nbsp;
+        <button (click)="dS.clearSelection()" mat-icon-button>
+          <mat-icon>playlist_add_check</mat-icon>
+        </button></span
+      >
+      <button mat-icon-button class="center">
+        <mat-icon (click)="addToTree()">add_circle_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

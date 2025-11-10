@@ -1,0 +1,30 @@
+<div
+  *ngIf="text && role === 'feature' && vS.size.feature"
+  [innerHtml]="text[dS.locale].bdy || dS.system.txts.FEATURE | safeHtml"
+  [style.padding]="0 + ' ' + vS.size.paddingX + 'px'"
+  [routerLink]="
+    '/' + dS.locale + '/' + dS.selVol.roleElm.about.slugs[dS.locale]
+  "
+  class="kd-feature-text kd-feature-div hover-pointer"
+></div>
+<ng-container *ngIf="news.array.length && role === 'news' && vS.size.news">
+  <div
+    *ngIf="vS.size.headerIndex === 2"
+    [innerHtml]="
+      news.array[news.index][dS.locale] || dS.system.txts.FEATURE | safeHtml
+    "
+    [style.padding]="0 + ' ' + vS.size.paddingX + 'px'"
+    class="kd-feature-text kd-feature-div hover-pointer"
+    [routerLink]="'/' + dS.locale + '/' + dS.navSlugs[dS.locale].about"
+  ></div>
+  <div
+    *ngIf="vS.size.headerIndex === 1"
+    [style.padding]="0 + ' ' + vS.size.paddingX + 'px'"
+    class="kd-feature-text kd-feature-div hover-pointer"
+    [routerLink]="'/' + dS.locale + '/' + dS.navSlugs[dS.locale].about"
+  >
+    Über Kompendia
+  </div>
+</ng-container>
+
+<!-- (click)="dS.navigate(dS.obj['629c46fcc67b07794a027a62'])" -->

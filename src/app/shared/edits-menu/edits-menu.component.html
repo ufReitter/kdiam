@@ -1,0 +1,87 @@
+<button
+  *ngIf="dS.rS.editsList?.length"
+  mat-button
+  [mat-menu-trigger-for]="checkoutMenu"
+  (click)="updateEdits()"
+  class="edits kd-warn"
+>
+  {{ dS.rS.editsList?.length }}
+</button>
+
+<mat-menu #checkoutMenu="matMenu" class="menu">
+  <div
+    style="min-width: 350px"
+    class="kd-menu-title color-foreground color-background"
+  >
+    <mat-checkbox
+      style="margin-right: 10px"
+      [(ngModel)]="checkedAll"
+      [(indeterminate)]="indeterminateAll"
+      (change)="updateSelectionAll()"
+      (click)="$event.stopPropagation()"
+    ></mat-checkbox>
+    <div>
+      <mat-checkbox
+        style="margin-right: 10px"
+        [(ngModel)]="pS.pref.editor.showEdits"
+        (change)="dS.rS.showEdits(pS.pref.editor.showEdits)"
+        (click)="$event.stopPropagation()"
+        labelPosition="before"
+        class="checkbox-label-small"
+        >Show</mat-checkbox
+      >
+
+      <button
+        mat-icon-button
+        [disabled]="!checkedAll && !indeterminateAll"
+        (click)="createSnapshot()"
+        class="btn-icon-tool"
+        [matTooltip]="'Snapshot erzeugen'"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        <mat-icon class="icon">add_a_photo</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        [disabled]="!checkedAll && !indeterminateAll"
+        (click)="$event.stopPropagation()"
+        class="btn-icon-tool"
+        [matTooltip]="'Auf Server speichern'"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        <mat-icon class="icon">upload</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [disabled]="!checkedAll && !indeterminateAll"
+        (click)="$event.stopPropagation(); refreshCheckouts()"
+        class="btn-icon-tool"
+        [matTooltip]="'Von Server lokal aktualisieren'"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        <mat-icon class="icon">refresh</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <button
+    *ngFor="let item of dS.rS.editsList"
+    mat-menu-item
+    (click)="$event.stopPropagation(); dS.navigate(item.elm)"
+    [class.kd-sel]="item.elm === dS.selElm"
+  >
+    <mat-checkbox
+      style="margin-right: 10px"
+      [checked]="item.checked"
+      (click)="$event.stopPropagation()"
+      (change)="updateSelection($event.checked, item)"
+    ></mat-checkbox>
+    <span>{{ item.elm.txts.lbl || item.elm._eid.str }}</span>
+  </button>
+</mat-menu>

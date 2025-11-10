@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>{{ dS.selVol?.txts.lbl }}</h2>
+<div mat-dialog-content class="kd-dialog-content">
+  <h4 *ngIf="noMenu || fachbuch">Hinweis</h4>
+  <p *ngIf="noMenu && !fachbuch">{{ introNoMenu }}</p>
+  <p *ngIf="noMenu && fachbuch">{{ introNoMenuFachbuch }}</p>
+  <p *ngIf="!noMenu && fachbuch">{{ introFachbuch }}</p>
+  <h5 *ngIf="!noMenu && !fachbuch">
+    {{ introMenu }}
+  </h5>
+  <h4>Cookies</h4>
+  <p>{{ cookies }}</p>
+
+  <div mat-dialog-actions [align]="'end'">
+    <!-- <button
+    mat-button
+    (click)="dismiss()"
+    class="mat-focus-indicator mat-button mat-button-base"
+  >
+    Ohne Statistik
+  </button> -->
+    <button
+      mat-button
+      cdkFocusInitial
+      (click)="accept()"
+      class="mat-focus-indicator mat-button mat-button-base kd-bordered"
+    >
+      OK In Ordnung
+    </button>
+  </div>
+
+  <!-- [mat-dialog-close]="data.accept" -->
+</div>

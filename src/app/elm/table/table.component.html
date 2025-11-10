@@ -1,0 +1,500 @@
+<!-- *ngIf="show" -->
+
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  [hidden]="dS.isHandsetPortrait$ | async"
+  [class.color-alternate]="true"
+  [class.fit-content]="!table.full"
+  [class.bdy-indent]="!table.full"
+  styles="caption-side: bottom;"
+  class="table"
+>
+  <ng-container matColumnDef="item-description">
+    <th mat-header-cell *matHeaderCellDef [attr.colspan]="2"></th>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <th
+      [innerHTML]="elm.txts.des | safeHtml"
+      mat-header-cell
+      *matHeaderCellDef
+      [attr.colspan]="20"
+    ></th>
+  </ng-container>
+  <ng-container *ngIf="table">
+    <ng-container
+      *ngFor="let col of table.cols; index as i"
+      [matColumnDef]="col.field"
+    >
+      <ng-container *ngIf="!col.mult">
+        <ng-container *ngIf="!table.nhead">
+          <th
+            mat-sort-header
+            [disabled]="!col.sortable"
+            mat-header-cell
+            *matHeaderCellDef
+            [style.width]="col.width + 'px'"
+            [style.text-align]="col.align"
+            [class.header-center]="col.align === 'center'"
+            [class.dynamic-ui]="col.field === 'dynamicUi'"
+          >
+            <div
+              *ngIf="show"
+              [innerHTML]="
+                dS.system.txts[col.header] ||
+                  col.header ||
+                  col.elm?.sign ||
+                  col.field ||
+                  '' | safeHtml
+              "
+              class="header"
+            ></div>
+            <div
+              *ngIf="col.unit"
+              [innerHTML]="'[' + col.elm?.state.unit + ']' | safeHtml"
+              class="header xsmall"
+            ></div>
+          </th>
+        </ng-container>
+        <ng-container *ngIf="table.nhead">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [style.width]="col.width + 'px'"
+            [style.text-align]="col.align"
+            [class.header-center]="col.align === 'center'"
+          >
+            <div class="header">xxx </div>
+          </th>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="col.mult">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [style.width]="col.width + 'px'"
+          [style.text-align]="col.align"
+          [class.header-center]="col.align === 'center'"
+        >
+          <div *ngFor="let head of col.headers" class="header">
+            {{ head.val }}
+          </div>
+        </th>
+      </ng-container>
+      <ng-container>
+        <td
+          mat-cell
+          *matCellDef="let element; let i = index"
+          [style.text-align]="col.align"
+          [class.header-center]="col.align === 'center'"
+          [style.width]="col.width + 'px'"
+          class="relative"
+        >
+          <div
+            [ngSwitch]="col.mode"
+            [class.kd-sel]="selected && element.id && selected === element.id"
+          >
+            <div
+              *ngSwitchCase="
+                ['html', 'string', 'number', 'sign']
+                  | switchMultiCase : col.mode
+              "
+              class="relative"
+            >
+              <div *ngIf="i !== editIndex && col.mode === 'string'">
+                {{ element[col.field] || '-' }}
+              </div>
+
+              <div *ngIf="i !== editIndex && col.mode === 'number'">
+                {{
+                  (element.elm?.datarow[col.field] || element[col.field]
+                    | number : col.format || '1.0-3' : dS.locale) || '-'
+                }}
+              </div>
+
+              <div
+                *ngIf="i !== editIndex && col.mode === 'html'"
+                [hidden]="i === editIndex"
+                [innerHTML]="element[col.field] || '' | safeHtml"
+                [class.kd-sign]="col.mode === 'sign'"
+                class="text"
+              ></div>
+
+              <input
+                *ngIf="i === editIndex"
+                matInput
+                type="text"
+                style="
+                  width: calc(100% - 15px);
+                  position: absolute;
+                  top: -13px;
+                  left: -5px;
+                "
+                [(ngModel)]="element[col.field]"
+                (ngModelChange)="onValueChange($event, element, col)"
+                (keyup.enter)="enterValueChange($event, element, col)"
+                class="color-background"
+              />
+            </div>
+            <div *ngSwitchCase="'date'">
+              {{ element[col.field] | date : 'medium' }}
+            </div>
+            <div
+              *ngSwitchCase="'objectId'"
+              (click)="
+                $event.stopPropagation();
+                vS.copyFromContent(element[col.field].str || element[col.field])
+              "
+              class="small monospace dimm-8"
+            >
+              {{ element[col.field].str || element[col.field] }}
+            </div>
+            <mat-checkbox
+              *ngSwitchCase="'check'"
+              [disabled]="col.disabled"
+              [checked]="element[col.field]"
+              (change)="setBoolean($event, element, col.field)"
+              (click)="$event.stopPropagation()"
+            ></mat-checkbox>
+
+            <div *ngSwitchCase="'radio'">
+              <mat-radio-button value="i"></mat-radio-button>
+            </div>
+
+            <ng-container *ngSwitchCase="'array'">
+              <div
+                *ngIf="i !== editIndex"
+                [innerHTML]="element[col.field][0] || '-' | safeHtml"
+                [class.kd-sign]="col.field.includes('sign')"
+              ></div>
+              <mat-select
+                placeholder="    Array ( {{ element[col.field].length }} )"
+                *ngIf="i === editIndex"
+              >
+                <mat-option
+                  *ngFor="let item of element[col.field]; let i = index"
+                  [value]="item"
+                  ><div (click)="editArrayItem($event, element[col.field], i)">
+                    {{ item }}
+                  </div>
+                </mat-option>
+                <mat-option>
+                  <div (click)="$event.stopPropagation()">
+                    <input
+                      matInput
+                      [(ngModel)]="arrayItem"
+                      (ngModelChange)="
+                        onEditArrayItem(
+                          $event,
+                          element[col.field],
+                          editArrayIndex
+                        )
+                      "
+                      (keydown.enter)="
+                        enterEditArrayItem($event, element, col, editArrayIndex)
+                      "
+                      (keydown)="$event.stopPropagation()"
+                      autocomplete="off"
+                      autocorrect="off"
+                      autocapitalize="on"
+                      spellcheck="false"
+                    />{{ editArrayIndex }}
+                  </div>
+                </mat-option>
+              </mat-select>
+            </ng-container>
+          </div>
+          <!-- <ng-container *ngIf="i === editIndex">
+              <div [ngSwitch]="col.mode">
+                <input
+                  *ngSwitchCase="undefined"
+                  matInput
+                  type="text"
+                  style="
+                    width: calc(100%);
+                    box-sizing: border-box;
+                    height: 28px;
+                    margin: -5px;
+                  "
+                  [(ngModel)]="element[col.field]"
+                  (ngModelChange)="onValueChange($event, element, col)"
+                  (keyup.enter)="enterValueChange($event, element, col)"
+                  class="color-background"
+                />
+
+                <div *ngSwitchCase="'objectId'" class="small monospace dimm-8">
+                  {{ element[col.field].str || element[col.field] }}
+                </div>
+                <mat-checkbox
+                  *ngSwitchCase="'check'"
+                  [disableRipple]="element[col.disabeled]"
+                  [checked]="element[col.field]"
+                  (change)="setBoolean($event, element, col.field)"
+                ></mat-checkbox>
+              </div>
+            </ng-container> -->
+        </td>
+      </ng-container>
+      <!-- <ng-container *ngIf="!col.text">
+        <td
+          mat-cell
+          *matCellDef="let element; let i = index"
+          [style.text-align]="col.align"
+          [class.header-center]="col.align === 'center'"
+          [class.dynamic-ui]="col.field === 'dynamicUi'"
+        >
+          <ng-container *ngIf="col.field !== 'dynamicUi'">
+            <div *ngIf="i !== editIndex">
+              {{
+                (element.elm?.datarow[col.field] || element[col.field]
+                  | number : col.format || '1.0-3' : dS.locale) || '-'
+              }}
+            </div>
+            <input
+              *ngIf="i === editIndex"
+              matInput
+              type="text"
+              style="width: 95%"
+              [(ngModel)]="element[col.field]"
+              (ngModelChange)="onValueChange($event, element, col)"
+              (keyup.enter)="save()"
+              [class.kd-error]="errorField === col.field"
+            />
+          </ng-container>
+          <ng-container *ngIf="col.field === 'dynamicUi'">
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              [disabled]="!element.elm"
+              (click)="onDynamicUi(element); $event.stopPropagation()"
+              class="btn-icon-xsmall"
+            >
+              <mat-icon class="icon-xsmallxxx">arrow_right</mat-icon>
+            </button>
+          </ng-container>
+        </td>
+      </ng-container> -->
+    </ng-container>
+  </ng-container>
+  <!-- <ng-container matColumnDef="caption">
+    <td
+      mat-footer-cell
+      *matFooterCellDef
+      [attr.colspan]="table.cols.length"
+      style="padding-left: 0px"
+    >
+      <div class="caption">
+        <div>
+          <div
+            *ngIf="node.no"
+            (click)="dS.edit(elm)"
+            [class.hover-pointer]="pS.profile.role.editor"
+            class="kd-numeration"
+          >
+            {{ dS.system.txts.TABLE_ABR }} {{ node.no }}
+          </div>
+          <div class="cell">
+            <kd-text
+              *ngIf="dS.isBrowser"
+              [node]="node"
+              [parent]="parent"
+              [pos]="'cpt'"
+            ></kd-text>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            pS.profile.role.editor &&
+            elm._eid.str === '6100264be682ad1b0457a727'
+          "
+        >
+          GAPI Glossar aktualisieren
+          <button
+            type="button"
+            mat-icon-button
+            [disabled]="glossaryPending | async"
+            (click)="replaceGapiGlossary()"
+          >
+            <mat-icon>update</mat-icon>
+          </button>
+
+          <mat-progress-bar
+            *ngIf="glossaryPending | async"
+            mode="indeterminate"
+            [color]="'warn'"
+            class="kd-button-progress"
+          ></mat-progress-bar>
+        </div>
+        <div *ngIf="pS.profile.role.editor">
+          <div *ngIf="dS.checked.length">
+            {{ dS.checked.length }}&nbsp;
+            <button
+              (click)="includeElms(dS.checked)"
+              mat-icon-button
+              class="btn-icon-small"
+            >
+              <mat-icon>playlist_add_check</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="!dS.checked.length">
+            <button
+              mat-button
+              *ngIf="editIndex > -1"
+              matSuffix
+              mat-icon-button
+              aria-label="Change"
+              (click)="save()"
+              class="btn-icon-small"
+            >
+              <mat-icon>check</mat-icon>
+            </button>
+            <button
+              mat-button
+              *ngIf="editIndex > -1"
+              matSuffix
+              mat-icon-button
+              aria-label="Change"
+              (click)="removeRow()"
+              class="btn-icon-small"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Change"
+              (click)="addRow()"
+              class="btn-icon-small"
+            >
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </td>
+  </ng-container> -->
+  <ng-container *ngIf="table.desc">
+    <tr
+      mat-header-row
+      *matHeaderRowDef="['item-description', 'description']"
+      class="example-second-header-row"
+    ></tr>
+  </ng-container>
+
+  <ng-container *ngIf="!table.nhead">
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns"
+      [class.no-header-row]="table.nhead"
+    ></tr>
+  </ng-container>
+
+  <mat-radio-group
+    (ngModelChange)="radioclick.emit($event)"
+    aria-label="Select an option"
+  >
+    <tr
+      (click)="edit($event, row, ir)"
+      [class.hover-pointer]="table.rowclick || vS.inlineEditor"
+      [class.kd-tr-hilite]="rowHilite && odd"
+      mat-row
+      *matRowDef="
+        let row;
+        let ir = index;
+        let odd = odd;
+        columns: displayedColumns
+      "
+    ></tr>
+  </mat-radio-group>
+  <ng-container *ngIf="node">
+    <!-- <tr mat-footer-row *matFooterRowDef="['caption']"></tr> -->
+  </ng-container>
+</table>
+
+<figcaption class="caption">
+  <div *ngIf="node">
+    <div (click)="dS.edit(elm)" class="kd-numeration">
+      <span [class.hover-pointer]="pS.profile.role.editor">
+        <span>{{ dS.system.txts.TABLE_ABR }}</span>
+        <span> {{ node.no }}</span>
+      </span>
+    </div>
+    <div class="cell-caption">
+      <kd-text [node]="node" [parent]="parent" [pos]="'cpt'"></kd-text>
+    </div>
+  </div>
+
+  <div *ngIf="!node"></div>
+
+  <div
+    *ngIf="
+      pS.profile.role.editor && elm?._eid.str === '6100264be682ad1b0457a727'
+    "
+  >
+    GAPI Glossar aktualisieren
+    <button
+      type="button"
+      mat-icon-button
+      [disabled]="glossaryPending | async"
+      (click)="replaceGapiGlossary()"
+    >
+      <mat-icon>update</mat-icon>
+    </button>
+
+    <mat-progress-bar
+      *ngIf="glossaryPending | async"
+      mode="indeterminate"
+      [color]="'warn'"
+      class="kd-button-progress"
+    ></mat-progress-bar>
+  </div>
+  <div *ngIf="vS.inlineEditor">
+    <div *ngIf="dS.checked.length">
+      {{ dS.checked.length }}&nbsp;
+      <button
+        (click)="includeElms(dS.checked)"
+        mat-icon-button
+        class="btn-icon-small"
+      >
+        <mat-icon>playlist_add_check</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="!dS.checked.length">
+      <button
+        mat-button
+        *ngIf="editIndex > -1"
+        matSuffix
+        mat-icon-button
+        aria-label="Change"
+        (click)="save()"
+        class="btn-icon-small"
+      >
+        <mat-icon>check</mat-icon>
+      </button>
+      <button
+        mat-button
+        *ngIf="editIndex > -1"
+        matSuffix
+        mat-icon-button
+        aria-label="Change"
+        (click)="removeRow()"
+        class="btn-icon-small"
+      >
+        <mat-icon>remove_circle</mat-icon>
+      </button>
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        aria-label="Change"
+        (click)="addRow()"
+        class="btn-icon-small"
+      >
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+  </div>
+</figcaption>

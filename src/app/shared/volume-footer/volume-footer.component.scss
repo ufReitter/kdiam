@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 92px;
+}
+.content-status {
+  opacity: 0.75;
+  padding: 12px 0 0 28px;
+}
+.toolbar {
+  padding: 0 6px 0 12px;
+  height: 42px;
+}

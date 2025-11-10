@@ -1,0 +1,166 @@
+<div>
+  <mat-checkbox
+    [(ngModel)]="elm.table.full"
+    (ngModelChange)="rS.save(elm, 'table.full', elm.table.full)"
+    class="checkbox-label-small"
+  >
+    Full</mat-checkbox
+  >
+  &nbsp;&nbsp;
+  <mat-checkbox
+    [(ngModel)]="elm.table.desc"
+    (ngModelChange)="rS.save(elm, 'table.desc', elm.table.desc)"
+    class="checkbox-label-small"
+  >
+    Desc</mat-checkbox
+  >
+  &nbsp;&nbsp;
+  <mat-checkbox
+    [(ngModel)]="elm.table.nhead"
+    (ngModelChange)="rS.save(elm, 'table.nhead', elm.table.nhead)"
+    class="checkbox-label-small"
+  >
+    No Header</mat-checkbox
+  >
+  &nbsp;&nbsp;
+  <mat-checkbox
+    [(ngModel)]="elm.table.rowh"
+    (ngModelChange)="rS.save(elm, 'table.rowh', elm.table.rowh)"
+    class="checkbox-label-small"
+  >
+    Row Hilite</mat-checkbox
+  >
+  &nbsp;&nbsp;
+  <mat-form-field style="width: 120px; position: relative; top: 3px">
+    <mat-label>Sort</mat-label>
+    <mat-select
+      [(value)]="elm.table.sortId"
+      (selectionChange)="rS.save(elm, 'table.sortId', elm.table.sortId)"
+    >
+      <mat-option *ngFor="let col of elm.table.cols" [value]="col.field">
+        {{ col.field }}
+      </mat-option>
+      <mat-option [value]="''"> Keine </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div> </div>
+<div cdkDropList class="kd-drop-list" (cdkDropListDropped)="dropCols($event)">
+  <div
+    cdkDrag
+    *ngFor="let col of elm.table.cols; let i = index"
+    class="kd-drop-box"
+    style="height: 72px; padding-left: 0"
+  >
+    <div class="col-edit">
+      <!-- <span style="width: 65px" class="monospace">{{ col.field }}</span> -->
+      <!-- <mat-checkbox
+            [ngModel]="col.mult"
+            (ngModelChange)="changeColMult($event, col)"
+            class="checkbox-label-small"
+            >Multiheader</mat-checkbox
+          >&nbsp;&nbsp; -->
+      <!-- <mat-checkbox
+        [ngModel]="col.text"
+        (ngModelChange)="changeText($event, col)"
+        class="checkbox-label-small"
+        >String</mat-checkbox
+      > &nbsp;&nbsp; -->
+      <input
+        *ngIf="!col.mult"
+        matInput
+        type="text"
+        [(ngModel)]="col.header"
+        (ngModelChange)="elm.dirty = true"
+        placeholder="Header"
+        autocomplete="off"
+        style="width: 120px"
+      />
+      <ng-container *ngIf="col.mult && !col.text">
+        <input
+          *ngFor="let head of col.headers"
+          matInput
+          type="number"
+          [(ngModel)]="head.val"
+          (ngModelChange)="elm.dirty = true"
+          autocomplete="off"
+          autocorrect="off"
+          style="width: 45px"
+        />
+      </ng-container>
+      <ng-container *ngIf="col.mult && col.text">
+        <input
+          *ngFor="let head of col.headers"
+          matInput
+          type="text"
+          [(ngModel)]="head.val"
+          (ngModelChange)="elm.dirty = true"
+          autocomplete="off"
+          autocorrect="off"
+          style="width: 60px"
+        /> </ng-container
+      >  
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="col.width"
+        (ngModelChange)="elm.dirty = true"
+        placeholder="Width"
+        autocorrect="off"
+        autocomplete="off"
+        style="width: 50px"
+      />  
+      <mat-checkbox
+        [(ngModel)]="col.sortable"
+        (ngModelChange)="elm.dirty = true"
+        class="checkbox-label-small"
+      >
+        Sortable</mat-checkbox
+      >
+      <kd-align [elm]="elm" [obj]="col" [keypath]="'table.cols'"></kd-align>
+      <input
+        matInput
+        type="text"
+        [ngModel]="col.format"
+        (ngModelChange)="changeColFormat($event, col)"
+        placeholder="1.0-3"
+        autocorrect="off"
+        autocomplete="off"
+        style="width: 70px"
+      />
+    </div>
+    <div class="dim hover-grabbing btn-icon-small" cdkDragHandle>
+      <mat-icon class="icon-small">drag_indicator</mat-icon>
+    </div>
+  </div>
+</div>
+<div>
+  <input
+    style="display: none"
+    type="file"
+    name="tablefield"
+    (change)="onTableImportSelected($event)"
+    #tableInput
+  />
+
+  <span *ngIf="dS.checked.length">
+    {{ dS.checked.length }}&nbsp;
+    <button (click)="dS.clearSelection()" mat-icon-button>
+      <mat-icon>playlist_add_check</mat-icon>
+    </button></span
+  >
+  <button mat-icon-button class="center">
+    <mat-icon (click)="addCol()">add_circle</mat-icon>
+  </button>
+  <button
+    (click)="tableInput.click()"
+    type="button"
+    mat-icon-button
+    class="btn-file-tablexxx"
+  >
+    <mat-icon class="icon-smallxxx">cloud_upload</mat-icon>
+  </button>
+  <button (click)="updateTable()" mat-icon-button>
+    <mat-icon>build</mat-icon>
+  </button>
+</div>

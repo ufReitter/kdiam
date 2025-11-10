@@ -1,0 +1,52 @@
+<div
+  data-nosnippet
+  [style.padding-left]="vS.size.paddingX / 2"
+  class="kd-module"
+>
+  <kd-search></kd-search>
+  <kd-user-picker></kd-user-picker>
+  <kd-notifications *ngIf="pS.profile.role.editor"></kd-notifications>
+  <button mat-icon-button [mat-menu-trigger-for]="moreMenu">
+    <mat-icon
+      [matTooltip]="dS.system.txts.MORE_VERT"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+    >
+      more_vert</mat-icon
+    >
+  </button>
+  <mat-menu #moreMenu="matMenu" class="menu">
+    <button (click)="aboutKompendia()" mat-menu-item>
+      <span>{{ dS.system.txts.ABOUT_KOMPENDIA }}</span>
+    </button>
+    <button
+      *ngIf="!dS.deviceInfo.isTablet"
+      mat-menu-item
+      (click)="onChangeTooltips()"
+    >
+      <mat-icon *ngIf="!dS.noToolTips" class="icon-xsmall">check</mat-icon>
+      <span>Tooltips</span>
+    </button>
+    <theme-picker></theme-picker>
+    <button mat-menu-item (click)="vS.fullscreenToggle()">
+      <mat-icon *ngIf="vS.isFullscreen" class="icon-xsmall">check</mat-icon>
+      {{ dS.system.txts.FULLSCREEN }}
+    </button>
+    <ng-container *ngIf="pS.profile.role.editor">
+      <button mat-menu-item (click)="dS.deleteDb()">
+        {{ dS.system.txts.DELETE_LOCAL_STORAGE }}
+      </button></ng-container
+    >
+    <ng-container *ngIf="pS.profile.role.manager">
+      <mat-divider></mat-divider>
+      <button (click)="router.navigate([dS.locale, 'admin'])" mat-menu-item>
+        <span>Admin</span>
+      </button>
+    </ng-container>
+    <button mat-menu-item (click)="reload()">
+      {{ dS.system.txts.RELOAD }}
+    </button>
+  </mat-menu>
+
+  <kd-lang-picker *ngIf="dS.locales.length > 1"></kd-lang-picker>
+</div>

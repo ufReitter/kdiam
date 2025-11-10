@@ -1,0 +1,216 @@
+<mat-toolbar
+  *ngIf="vS.header"
+  color="primary"
+  class="mat-elevation-z6 relative kd-toolbar toolbar"
+  [style.height]="vS.size.header + 'px'"
+  [hidden]="vS.onlyMain"
+>
+  <kd-main-nav [pos]="'top-left'"></kd-main-nav>
+  <div [style.width]="vS.size.paddingX + 'px'"></div>
+  <div
+    *ngIf="dS.viewMode.collection"
+    (click)="edit()"
+    class="element-title element-label hover-pointer"
+  >
+    {{ dS.system.txts.COLLECTION }}
+  </div>
+  <kd-users-online></kd-users-online>
+  <span class="spacer"></span>
+  <mat-checkbox
+    *ngIf="false"
+    [checked]="pS.pref.debugMode"
+    (change)="dS.debugModeChange($event)"
+    labelPosition="before"
+    class="small"
+    >Debug:</mat-checkbox
+  >
+  <span class="spacer"></span>
+  <kd-jobs></kd-jobs>
+  <!-- <kd-feature [role]="'news'" [pos]="'top-right'"></kd-feature> -->
+
+  <kd-main-tools
+    [class.prerender-display]="vS.userAgentIsPrerender"
+    [pos]="'top-right'"
+  ></kd-main-tools>
+  <div
+    data-nosnippet
+    *ngIf="vS.userAgentIsPrerender"
+    style="position: absolute; bottom: 0; left: 0; width: 100%; height: 36px"
+  >
+    <div
+      class="noscript-show kd-warn blink"
+      style="display: none; width: 100%; text-align: center"
+    >
+      App needs javascript enabled...
+    </div>
+    <div
+      class="noscript-hide kd-warn blink"
+      style="width: 100%; text-align: center"
+    >
+      App loading...
+    </div>
+    <mat-progress-bar
+      mode="indeterminate"
+      color="warn"
+      class="noscript-hide"
+    ></mat-progress-bar>
+  </div>
+</mat-toolbar>
+<kd-debug *ngIf="pS.pref?.debug?.show"></kd-debug>
+<mat-sidenav-container
+  #container
+  [style.top]="vS.size.header + 'px'"
+  [style.height]="'calc(100% - ' + vS.size.header + 'px)'"
+  [class.prerender-display]="vS.userAgentIsPrerender"
+  class="sidenav-container kd-trans-05"
+  autosize
+  fullscreen
+>
+  <mat-sidenav
+    #drawerSidenav
+    [@.disabled]="false"
+    fixedInViewport="true"
+    [fixedTopGap]="vS.size.header"
+    [attr.role]="
+      (dS.isXSmall$ | async) || (dS.isSmall$ | async) ? 'dialog' : 'navigation'
+    "
+    [mode]="(dS.isXSmall$ | async) || (dS.isSmall$ | async) ? 'over' : 'side'"
+    [(opened)]="pS.pref.snavOpened"
+    (openedStart)="onOpenedStart()"
+    (closedStart)="onClosedStart()"
+    (openedChange)="onOpenedChange($event)"
+    [style.width]="vS.size.snav + 'px'"
+    [class.kd-trans-top-05]="trans05"
+    [hidden]="vS.onlyMain"
+    class="relative"
+  >
+    <div
+      [style.height]="
+        'calc(100vh - ' + (vS.size.header + vS.size.snavFooter) + 'px)'
+      "
+      class="relative kd-trans-05"
+    >
+      <kd-volume-content
+        [hidden]="vS.buttons.volume !== 'toc'"
+        *ngIf="dS.selVol"
+        [drawer]="drawerSidenav"
+      >
+      </kd-volume-content>
+      <router-outlet name="volume"></router-outlet>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div
+      *ngIf="vS.buttons.volume === 'toc' && dS.selVol?.flatTree?.length"
+      data-nosnippet
+      class="kd-top-toolbar content-status"
+    >
+      <div *ngIf="vS.size.snavFooter === 42">
+        {{ dS.selVol?.flatTree?.length || 0 }}
+        {{ dS.system.txts.ARTICLES }}  {{ dS.arr.length }}
+        {{ dS.system.txts.ELEMENTS }}
+      </div>
+      <kd-carousel
+        *ngIf="vS.size.snavFooter === 300"
+        [pos]="'snav'"
+        [indicator]="'top'"
+        [width]="vS.size.snav"
+      ></kd-carousel>
+    </div>
+    <!-- <div *ngIf="!dS.volumeLoaded" class="kd-spinner-wrapper">
+      <mat-spinner
+        [diameter]="75"
+        [strokeWidth]="5"
+        style="margin: 0 auto 0 auto"
+      ></mat-spinner>
+    </div> -->
+  </mat-sidenav>
+  <div
+    #drawerContentView
+    (scroll)="onScroll($event)"
+    class="scrolling-content w100"
+    [class.drawer-dark]="dS.isDark"
+  >
+    <kd-widget *ngIf="false && pS.profile.role.editor"></kd-widget>
+
+    <button
+      *ngIf="showScrollTotop"
+      type="button"
+      mat-icon-button
+      (click)="scrollToTop()"
+      class="totop-button btn-icon-xbig color-background"
+    >
+      <mat-icon
+        [matTooltip]="dS.system.txts.SCROLLTOTOP"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="icon-xbig"
+        >vertical_align_top</mat-icon
+      >
+    </button>
+
+    <kd-favorites></kd-favorites>
+    <kd-edit-tools *ngIf="pS.profile.role.editor"></kd-edit-tools>
+    <div #article [class.kd-row]="dS.routeSegments.length > 1" class="w100xxx">
+      <router-outlet #mainOutlet name="primary"></router-outlet>
+      <router-outlet name="right"></router-outlet>
+    </div>
+    <mat-toolbar
+      *ngIf="vS.footer"
+      color="primary"
+      class="mat-elevation-z6 footer kd-toolbar relative"
+    >
+      <div data-nosnippet>
+        <kd-branding></kd-branding>
+        <div class="kd-button">
+          <span>Kdia v{{ dS.version }}</span>
+        </div>
+      </div>
+
+      <div data-nosnippet *ngIf="vS.size.centerFooter"></div>
+
+      <div data-nosnippet>
+        <div class="cell">
+          <kd-feature [pos]="'top-left'" [role]="'feature'"></kd-feature>
+        </div>
+        <div class="cell">
+          <button
+            mat-button
+            class="kd-button"
+            routerLinkActive="link-active"
+            [routerLink]="
+              '/' + dS.locale + '/' + dS.navSlugs[dS.locale].contact
+            "
+          >
+            <span>{{ dS.system.txts.CONTACT }}</span></button
+          ><br />
+          <button
+            mat-button
+            class="kd-button"
+            routerLinkActive="link-active"
+            [routerLink]="
+              '/' + dS.locale + '/' + dS.navSlugs[dS.locale].impress
+            "
+          >
+            <span>{{ dS.system.txts.IMPRESS }}</span>
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
+    <div data-nosnippet *ngIf="dS.isHandsetPortrait$ | async">
+      <kd-volume-content *ngIf="dS.selVol" [drawer]="drawerSidenav">
+      </kd-volume-content>
+      <!-- <div *ngIf="!dS.selVol?.flatTree?.length" class="spinner-wrapper">
+        <mat-spinner
+          [diameter]="80"
+          [strokeWidth]="6"
+          style="margin: 0 auto 0 auto"
+        ></mat-spinner>
+      </div> -->
+    </div>
+  </div>
+</mat-sidenav-container>
+<div
+  *ngIf="vS.userAgentIsPrerender"
+  class="cdk-overlay-backdrop cdk-overlay-transparent-backdrop cdk-overlay-backdrop-showing"
+></div>

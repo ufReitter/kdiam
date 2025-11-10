@@ -1,0 +1,85 @@
+<div
+  *ngIf="dS.loaded && pS.pref.debug?.show"
+  cdkDrag
+  class="wrapper"
+  [cdkDragFreeDragPosition]="pS.pref.debug.position"
+  (cdkDragEnded)="onDragEnded($event)"
+>
+  <!-- <div class="kd-drag-handle" cdkDragHandle>
+    <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+      <path
+        d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"
+      ></path>
+      <path d="M0 0h24v24H0z" fill="none"></path>
+    </svg>
+  </div> -->
+
+  <div class="toolbar">
+    <mat-select
+      [value]="className"
+      [matTooltip]="dS.system.txts.SELECT_CLASS"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="class-select btn-icon-toolxxx"
+    >
+      <mat-option
+        *ngFor="let class of classes; let i = index"
+        [value]="class.name"
+        (click)="changeClass(i)"
+        class="option"
+        ><div>{{ class.name }}</div>
+      </mat-option> </mat-select
+    >  
+    <mat-select
+      *ngIf="class?.length > 1"
+      [(ngModel)]="primIndex"
+      (selectionChange)="changeIndex()"
+      [matTooltip]="dS.system.txts.SELECT_CLASS"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="prim-select btn-icon-toolxxx"
+    >
+      <mat-option
+        *ngFor="let prim of prims; let i = index"
+        [value]="i"
+        class="option"
+        ><div>{{ '[ ' + i + ' ]' }}</div>
+      </mat-option>
+    </mat-select>
+  </div>
+  <table *ngIf="!cS.compilerErrors; else errors">
+    <tr *ngFor="let prop of props" class="row">
+      <td [class.kd-fine]="prop.changed" class="label color-foreground">
+        {{ prop.path }}
+      </td>
+      <td
+        *ngIf="!prop.isArray"
+        class="value"
+        [class]="prop.class"
+        [class.kd-fine]="prop.changed"
+      >
+        {{ prop.value || 0 | number: '1.2-2':dS.locale }}
+      </td>
+      <td
+        *ngIf="prop.isArray && !prop.showArray"
+        class="value"
+        [class]="prop.class"
+      >
+        Array {{ prop.value.length }}
+      </td>
+      <ng-container *ngIf="prop.isArray && prop.showArray">
+        <td class="value" [class]="prop.class">
+          <div *ngFor="let val of prop.value; let i = index">
+            {{ prop.value[i] | number: '1.2-2':dS.locale }}
+          </div>
+        </td>
+      </ng-container>
+    </tr>
+  </table>
+  <ng-template #errors
+    ><div
+      [innerHTML]="cS.compilerErrors | safeHtml"
+      class="color-foreground"
+    ></div
+  ></ng-template>
+</div>

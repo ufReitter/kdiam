@@ -1,0 +1,13 @@
+.no-cell {
+  display: table-cell;
+  font-weight: 400;
+  vertical-align: top;
+  min-width: 2em;
+}
+
+.reference-cell {
+  display: table-cell;
+  vertical-align: top;
+  min-width: 2em;
+  overflow: hidden;
+}

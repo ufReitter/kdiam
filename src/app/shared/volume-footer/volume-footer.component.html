@@ -1,0 +1,10 @@
+<div [style.height]="vS.size.volumeFooter + 'px'" class="wrapper">
+  <div></div>
+  <div *ngIf="pS.profile.role.editor" class="kd-top-toolbar toolbar">
+    <div *ngIf="dS.selVol?.flatTree?.length">
+      {{ dS.selVol?.flatTree?.length || 0 }}
+      {{ dS.system.txts.ARTICLES }}  {{ dS.arr.length }}
+      Elms
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{dS.selVol?.txts.lbl}}</h2>
+<div mat-dialog-content class="mat-typographyxxx">
+  <div> </div>
+  <!-- <h4>Inhaltsverzeichnis</h4> -->
+  <p>
+    Interaktive Berechnungen für Ihre Methodenplanung Blechumformung. Das
+    Inhaltsverzeichnis öffnet mit dem Button in der linken oberen
+    Bildschirm-Ecke.
+  </p>
+  <h4>Cookies</h4>
+  <p>
+    Wir verwenden Google Analytics Cookies für eine Zugriffsstatistik zu unserem
+    Internet Angebot. Wir bitten Sie das mit "OK In Ordnung" zu akzeptieren.
+  </p>
+
+  <div> </div>
+  <div mat-dialog-actions [align]="'end'">
+    <!-- <button
+    mat-button
+    (click)="dismiss()"
+    class="mat-focus-indicator mat-button mat-button-base"
+  >
+    Ohne Statistik
+  </button> -->
+    <button
+      mat-button
+      cdkFocusInitial
+      (click)="accept()"
+      class="mat-focus-indicator mat-button mat-button-base kd-bordered"
+    >
+      OK In Ordnung
+    </button>
+  </div>
+
+  <!-- [mat-dialog-close]="data.accept" -->
+</div>

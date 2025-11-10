@@ -1,0 +1,95 @@
+<button
+  *ngIf="!show && dS.selVol !== dS.system"
+  mat-icon-button
+  [mat-menu-trigger-for]="searchMenu"
+  (click)="openMenue()"
+>
+  <mat-icon
+    [matTooltip]="dS.system.txts.SEARCH_VOL"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+    >search</mat-icon
+  >
+</button>
+
+<mat-menu #searchMenu="matMenu" [xPosition]="'before'">
+  <div class="tools color-background">
+    <mat-spinner
+      *ngIf="loading"
+      [diameter]="50"
+      [strokeWidth]="5"
+      style="margin: 0 auto 0 auto"
+    ></mat-spinner>
+    <mat-form-field [hidden]="loading" class="form-field color-foreground">
+      <input
+        #input
+        matInput
+        [(ngModel)]="filter"
+        (ngModelChange)="onInputChange($event)"
+        (keyup.enter)="onInputEnter($event)"
+        (keydown)="$event.stopPropagation()"
+        (click)="$event.stopPropagation()"
+        placeholder="{{ dS.system.txts.SEARCH_VOL }}"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="on"
+        spellcheck="false"
+      />
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        (click)="clearInput(); $event.stopPropagation()"
+        class="btn-icon-xsmallxxx"
+      >
+        <mat-icon class="icon-xsmallxxx">close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <button
+    *ngFor="let res of searchResults"
+    mat-menu-item
+    [routerLink]="
+      '/' +
+      dS.locale +
+      '/' +
+      (dS.selVol.txts.slug || dS.selVol._eid.str) +
+      '/' +
+      (res.node.slugs[dS.locale] || res.node.id)
+    "
+    [class.kd-selected]="res.elm === dS.selElm"
+    [class.kd-sel]="res.elm === dS.selElm"
+  >
+    <div class="item">
+      <div class="menu-item-title">
+        <div>
+          <span class="numeration">{{ res.node.numeration }}</span>
+          {{ res.elm.txts.lbl || res.elm._eid.str }}
+        </div>
+      </div>
+      <!-- <div *ngFor="let sig of res.hitSignatures" class="menu-item-body">
+        <span class="numeration"> </span>
+        <span
+          [innerHTML]="sig | highlightSearch : dS.searchTerm | safeHtml"
+        ></span>
+      </div> -->
+    </div>
+  </button>
+  <!-- <div *ngFor="let res of dS.searchResults" (click)="dS.nav(res.node)">
+    <div class="item">
+      <div class="menu-item-title">
+        <div>
+          <span class="numeration">{{ res.node.numeration }}</span>
+          yyy {{ res.node.elm.txts.lbl || res.node.elm._eid.str }}
+        </div>
+      </div>
+      <div *ngFor="let sig of res.hitSignatures" class="menu-item-body">
+        <span class="numeration"> </span>
+        <span
+          [innerHTML]="sig | highlightSearch: dS.searchTerm | safeHtml"
+        ></span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </div> -->
+</mat-menu>

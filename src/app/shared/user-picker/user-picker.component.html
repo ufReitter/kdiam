@@ -1,0 +1,101 @@
+<ng-container [ngSwitch]="pS.profile.role.user">
+  <button
+    *ngSwitchCase="false"
+    mat-icon-button
+    [mat-menu-trigger-for]="userMenu"
+    [matTooltip]="dS.system.txts.USER_MENUE"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+  >
+    <mat-icon>person_outline</mat-icon>
+  </button>
+  <button
+    *ngSwitchCase="true"
+    mat-icon-button
+    [mat-menu-trigger-for]="userMenu"
+    [matTooltip]="dS.system.txts.USER_MENUE"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+    class="kd-dark"
+  >
+    <mat-icon>person</mat-icon>
+  </button>
+</ng-container>
+<mat-menu #userMenu="matMenu" class="menu">
+  <div *ngIf="pS.profile.role.user" class="user-menu">
+    <div
+      (click)="$event.stopPropagation()"
+      class="menu-title color-foreground color-background"
+    >
+      {{ dS.system.txts.SIGNED_IN_AS }}:&nbsp;&nbsp;{{ pS.profile.nickname }}
+    </div>
+    <mat-divider></mat-divider>
+    <div class="user-menu-item color-foreground color-background">
+      {{ dS.system.txts.PRIVILEGES }}
+      <mat-radio-group [(ngModel)]="privileg" (change)="changePrivileg($event)">
+        <mat-radio-button
+          value="view"
+          (click)="$event.stopPropagation()"
+        ></mat-radio-button>
+        <mat-radio-button
+          value="edit"
+          (click)="$event.stopPropagation()"
+        ></mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button mat-menu-item>{{ dS.system.txts.MY_PROFILE }}</button>
+    <button mat-menu-item (click)="checkInGlobal()">
+      {{ dS.system.txts.GLOBAL_CHECKIN }}
+    </button>
+    <button mat-menu-item (click)="logout()">
+      {{ dS.system.txts.ABMELDEN }}
+    </button>
+  </div>
+  <div
+    *ngIf="!pS.profile.role.user"
+    class="login-menu"
+    (click)="stopPropagation($event)"
+  >
+    <mat-form-field class="form-field-login">
+      <input
+        matInput
+        #myUsername
+        name="identifier"
+        id="username"
+        type="text"
+        autocomplete="username"
+        autocapitalize="none"
+        autocorrect="off"
+        (keydown.enter)="
+          login({ name: myUsername.value, password: myPassword.value })
+        "
+        [class.loginFail]="failed"
+      />
+      <mat-placeholder>{{ dS.system.txts.EMAIL_USERNAME }}</mat-placeholder>
+    </mat-form-field>
+    <mat-form-field class="form-field-login">
+      <input
+        matInput
+        #myPassword
+        type="password"
+        id="password"
+        name="passwd"
+        autocomplete="current-password"
+        autocapitalize="none"
+        autocorrect="off"
+        (keydown.enter)="
+          login({ name: myUsername.value, password: myPassword.value })
+        "
+        [class.loginFail]="failed"
+      />
+      <mat-placeholder>{{ dS.system.txts.PASSWORD }}</mat-placeholder>
+    </mat-form-field>
+    <button
+      *ngIf="!pS.profile.role.user"
+      mat-menu-item
+      (click)="login({ name: myUsername.value, password: myPassword.value })"
+    >
+      {{ dS.system.txts.ANMELDEN }}
+    </button>
+  </div>
+</mat-menu>

@@ -1,0 +1,22 @@
+
+.buttons{
+  position: absolute;
+  top:0;
+  right: -50px;
+}
+
+.info-panel {
+  position: absolute;
+  padding: 20px 20px 20px 20px;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-size: 14px;
+  line-height: 20px;
+  height: calc(100% - 40px);
+  width: calc(100% - 40px);
+  max-width: calc(100% - 40px);
+  background: inherit;
+  overflow-y: scroll;
+}
+

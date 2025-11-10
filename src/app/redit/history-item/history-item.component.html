@@ -1,0 +1,26 @@
+<div class="item-box">
+  <div
+    [class.kd-sel]="item === rS.history.selected"
+    [class.hover-pointer]="item !== rS.history.selected"
+    (click)="rS.viewHistory(item)"
+  >
+    <span *ngIf="kind === 'all'" style="display: inline-block; width: 36px">
+      {{ item.lang || 'elm' }}
+    </span>
+    <span style="display: inline-block; width: 145px">
+      {{ item.updated_at | date : 'medium' }}
+    </span>
+    <span style="display: inline-block; width: 120px">
+      {{ dS.usersObj[item.updated_id]?.nickname || item.updated_id }}
+    </span>
+  </div>
+  <div *ngIf="index > 0">
+    <button mat-button mat-icon-button (click)="rS.makeCurrent(item)">
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+    <button mat-button mat-icon-button (click)="rS.deleteItem(item)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>
+<mat-divider></mat-divider>

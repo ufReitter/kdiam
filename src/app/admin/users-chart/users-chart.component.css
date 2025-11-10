@@ -1,0 +1,36 @@
+.wrapper {
+  width: 634px;
+  height: 370px;
+  /* overflow: visible; */
+  /* padding: 20px 20px 20px 0; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.chart {
+  width: 634px;
+  height: 381px;
+  /* overflow: visible; */
+  /* padding: 20px 20px 20px 0; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.header {
+  display: flex;
+
+  height: 85px;
+}
+.header-field {
+  flex: 1;
+
+  padding: 13px 10px 7px 10px;
+}
+
+.axis-text {
+  font-size: 12px;
+  /* font-family: 'Roboto, Arial, Helvetica, sans-serif'; */
+  z-index: 5000;
+  opacity: 0.5;
+}

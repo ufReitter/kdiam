@@ -1,0 +1,280 @@
+.left-container {
+  height: 100%;
+  position: sticky;
+  top: 0;
+  right: 0;
+}
+.right-container {
+  height: 100%;
+  position: sticky;
+  top: 0;
+  right: 0;
+}
+
+.totop-button {
+  position: absolute;
+  right: 25px;
+  bottom: 120px;
+  font-weight: 700;
+  z-index: 3001;
+  border: 1px solid rgba(124, 124, 124, 0.507);
+}
+
+.content-status {
+  padding: 0 10px 0 10px;
+  height: 42px;
+}
+
+.card-table {
+  width: clamp(640px, 1280px, 1280px) !important;
+}
+
+.card-poster-handheld {
+  transition: all 0 !important;
+  position: relative;
+  width: 100% !important;
+  min-height: 100% !important;
+}
+
+.card-poster {
+  transition: all 0 !important;
+  position: relative;
+  width: 100% !important;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 900;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.5s;
+}
+
+.footer {
+  position: relative;
+  z-index: 1000;
+  height: 92px;
+  min-height: 52px;
+  font-size: 14px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.prerender-display {
+}
+
+@media screen and (max-width: 1179px) {
+  .prerender-display {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 539px) {
+  .card-article {
+    padding: 25px 10px 25px 10px;
+  }
+
+  .toolbar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .footer {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+.card-svg {
+  min-width: 520px;
+  min-height: calc(100vh - 185px);
+  padding: 25px 25px 25px 25px;
+  border-radius: 0px;
+}
+
+.card-scrollmode {
+  position: relative;
+  max-width: 768px;
+  margin: 0 auto 0 auto;
+  min-height: calc(100vh - 174px);
+  padding: 0px 0px 0px 25px;
+  border-radius: 0px;
+}
+
+.card-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 100vw;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto 0 auto;
+  padding: 0px 0px 0px 0px;
+  border-radius: 0px;
+  z-index: 20010;
+}
+
+.right-outlet-wrapper {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+}
+.right-outlet {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.warn-handset-portrait {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.25em;
+  z-index: 100001;
+}
+.logo {
+  position: fixed;
+  top: 1em;
+  left: 1.6em;
+}
+.toolbar-edit {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 80px;
+  height: 52px;
+  padding: 0 8px 0 8px;
+  z-index: 2000;
+  background-color: transparent;
+}
+.full-buttons {
+  position: fixed;
+  bottom: 8px;
+  left: 8px;
+  z-index: 5000;
+  opacity: 0.8;
+}
+.copyright {
+  position: fixed;
+  bottom: 1em;
+  left: 1.6em;
+}
+.logo-main {
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #bbb;
+}
+.logo-minor {
+  font-size: 1.6em;
+  font-weight: 400;
+  color: rgb(202, 82, 46);
+}
+
+.toolbar-none {
+  height: 52px;
+}
+
+.toolbar-small {
+  transition: all 0.5s;
+  height: 52px;
+}
+.toolbar-big {
+  transition: all 0.5s;
+  height: 92px;
+}
+
+.sidenav-container {
+  overflow-y: hidden;
+}
+
+.sidebar-edit-desktop {
+  height: 500px;
+  overflow-y: hidden;
+}
+.sidebar-edit-laptop {
+  height: 500px;
+  overflow-y: hidden;
+}
+
+.sidenav-container-edit {
+  height: 500px;
+  overflow-y: hidden;
+}
+.sidenav-container-test {
+  height: 500px;
+  overflow-y: hidden;
+}
+
+.element-info {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  z-index: 1010;
+}
+
+.info-panel {
+  position: absolute;
+  padding: 20px 20px 20px 20px;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-size: 14px;
+  line-height: 20px;
+  height: calc(100% - 40px);
+  width: calc(100% - 40px);
+  max-width: calc(100% - 40px);
+  background: inherit;
+  overflow-y: scroll;
+}
+
+.scrolling-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+
+  /* height: 100% !important;
+  width: 100%;
+  position: static;
+  display: block !important;
+  float: none;
+  flex: none; */
+}
+
+.element-title {
+  position: relative;
+  display: table-cell;
+  margin-left: 10px;
+  top: 0;
+  left: 0;
+}
+
+.element-title {
+  display: table-cell;
+}
+
+.element-label {
+  font-family: 'Roboto Condensed', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif;
+  font-size: 20px;
+  vertical-align: middle;
+  font-weight: 400;
+  width: 100%;
+  padding: 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

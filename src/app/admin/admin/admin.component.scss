@@ -1,0 +1,18 @@
+.admin-tab {
+  font-size: 17px;
+  min-width: 100px !important;
+  width: 105px !important;
+}
+
+.aux-header {
+  display: flex;
+  vertical-align: middle;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  justify-content: space-between;
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 6000;
+}

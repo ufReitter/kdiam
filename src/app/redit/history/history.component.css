@@ -1,0 +1,18 @@
+.hist-wrapper {
+  width: 585px;
+  padding-right: 8px;
+}
+.hist-toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.hist-toolbar-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

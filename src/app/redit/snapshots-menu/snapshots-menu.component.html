@@ -1,0 +1,34 @@
+<button
+  mat-button
+  [mat-menu-trigger-for]="snapshotMenu"
+  (click)="rS.getSnapshotList(dS.selVol._eid.str)"
+  class="snapshots kd-warn"
+>
+  <mat-icon
+    *ngIf="!rS.snapshotList.length"
+    [matTooltip]="dS.system.txts.VOL_SELECTION"
+    [matTooltipDisabled]="dS.noToolTips"
+    [matTooltipShowDelay]="1000"
+    class="icon-xbig"
+    >arrow_drop_down</mat-icon
+  >
+  <span *ngIf="rS.snapshotList.length">{{ rS.snapshotList.length }}</span>
+</button>
+
+<mat-menu #snapshotMenu="matMenu" class="menu">
+  <button mat-menu-item (click)="rS.loadSnapshot('published')">
+    <mat-icon *ngIf="rS.activeSnapshot === 'published'" class="icon-small"
+      >check</mat-icon
+    ><span class="capitalize">{{ dS.system.txts.PUBLISHED }}</span>
+  </button>
+  <button
+    *ngFor="let sl of rS.snapshotList"
+    mat-menu-item
+    (click)="rS.loadSnapshot(sl._id)"
+  >
+    <mat-icon *ngIf="sl.checked" class="icon-small">check</mat-icon>
+    <span *ngIf="sl.created_at" class="monospace"
+      >{{ sl.created_at | date }}  </span
+    >{{ sl.name }}
+  </button>
+</mat-menu>

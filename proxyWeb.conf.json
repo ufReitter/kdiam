@@ -1,0 +1,47 @@
+{
+  "/api/*": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/upload": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/media": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/videos": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/assets": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/flatdata": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/flatdata2": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/resources": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  },
+  "/images": {
+    "target": "https://4ming.de",
+    "secure": false,
+    "logLevel": "info"
+  }
+}

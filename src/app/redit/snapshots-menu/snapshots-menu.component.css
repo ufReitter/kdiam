@@ -1,0 +1,7 @@
+.snapshots {
+  position: absolute;
+  right: 32px;
+  top: 0px;
+  z-index: 8000;
+  min-width: 0px;
+}

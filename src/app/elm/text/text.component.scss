@@ -1,0 +1,110 @@
+.html-text {
+  max-height: 999999px;
+}
+
+.textbody {
+  margin-bottom: 5px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.editor-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 600px;
+  z-index: 1000;
+}
+.buttons {
+  position: absolute;
+  top: -32px;
+  right: 3px;
+  z-index: 3000;
+}
+
+.centered {
+  margin-left: 110px;
+}
+
+.insert-button {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  opacity: 0.5;
+}
+
+/* h6 {
+  font-size: 0.2 !important;
+} */
+
+a {
+  white-space: nowrap;
+}
+
+.figure-caption {
+  display: table-cell;
+  max-width: 70ch;
+  /*
+  font-size: 0.8 !important;
+  */
+  line-height: 1em !important;
+  padding-top: 0px !important;
+  margin-bottom: 1em !important;
+
+  margin-block-end: 0em !important;
+
+  word-wrap: initial !important;
+  -webkit-hyphens: none !important;
+  -ms-hyphens: none !important;
+  -moz-hyphens: none !important;
+  hyphens: none !important;
+}
+
+p .figure-caption {
+  font-size: 8px !important;
+}
+
+.editor-parent-bdy-active {
+  position: relative;
+  top: 0;
+  left: -11px;
+  min-width: 450px;
+  padding: 0 0 10px 10px;
+  width: 44em !important;
+  /*
+  width: 667px !important;
+  margin-bottom: -10px !important;
+  */
+  border: 1px solid #999 !important;
+  border-top: none !important;
+  border-radius: 0 0 5px 5px !important;
+  height: auto !important;
+}
+
+.editor-parent-cpt-active {
+  position: relative !important;
+  top: 0;
+  left: 0;
+  margin-bottom: 15px;
+}
+.view {
+  display: inline-block;
+}
+.editor {
+  position: relative;
+  display: inline-block;
+  z-index: 3005;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3001;
+}

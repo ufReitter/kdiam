@@ -1,0 +1,151 @@
+<figure
+  *ngIf="
+    elm.figure.ext === 'jpg' ||
+    elm.figure.ext === 'png' ||
+    elm.figure.ext === 'mp4' ||
+    elm.figure.ext === 'mov'
+  "
+  [class.fig-grid]="grid"
+  [class.title-figure]="viewDepth === 0 && elm.children"
+>
+  <ng-container *ngIf="!isFullscreen">
+    <div
+      [class.bdy-indent]="!grid"
+      [class.kd-img-border]="
+        !elm.figure.borderless &&
+        !grid &&
+        elm.figure.ext !== 'mov' &&
+        elm.figure.ext !== 'mp4'
+      "
+      [style.max-width]="
+        (set.figure?.customSize || dS.style.sizes[size].width) + 'px'
+      "
+      [style.max-height]="
+        set.figure?.customSize ||
+        dS.style.sizes[size].width / (figure?.mratio || elm.figure?.ratio) +
+          'px'
+      "
+      class="img-container"
+    >
+      <div
+        *ngIf="
+          !elm.figure.image &&
+          (elm.figure.ext === 'jpg' || elm.figure.ext === 'png')
+        "
+        [style.width]="
+          (set.figure?.customSize ||
+            dS.style.sizes[size].width * (figure.magnification || 1.0)) + 'px'
+        "
+        [style.height]="
+          (set.figure?.customSize ||
+            dS.style.sizes[size].width * (figure.magnification || 1.0)) /
+            elm.figure.ratio +
+          'px'
+        "
+        style="position: relative"
+        [style.top]="(figure.top || 0) + 'px'"
+        [style.left]="(figure.left || 0) + 'px'"
+      >
+         
+      </div>
+      <img
+        *ngIf="elm.figure.image"
+        [src]="dS.domSanitizer.bypassSecurityTrustResourceUrl(elm.figure.image)"
+        [alt]="elm.txts.lbl"
+        [width]="
+          set.figure?.customSize ||
+          dS.style.sizes[size].width * (figure.magnification || 1.0)
+        "
+        [height]="
+          (set.figure?.customSize ||
+            dS.style.sizes[size].width * (figure.magnification || 1.0)) /
+          elm.figure.ratio
+        "
+        (click)="toggleFullScreen()"
+        class="hover-pointer"
+        style="position: relative"
+        [style.top]="(figure.top || 0) + 'px'"
+        [style.left]="(figure.left || 0) + 'px'"
+        [class.themed]="elm.figure.themed"
+      />
+
+      <video
+        *ngIf="elm.figure.ext === 'mp4' || elm.figure.ext === 'mov'"
+        [src]="'/videos/' + elm._eid.str + '.' + elm.figure.ext"
+        [width]="dS.style.sizes[elm.figure.size].width"
+        [height]="dS.style.sizes[elm.figure.size].width / elm.figure.ratio"
+        controls
+        [loop]="elm.figure.loop"
+        [autoplay]="elm.figure.autoplay"
+        [muted]="elm.figure.muted"
+        class="noSelect"
+      >
+        <!-- <source [src]="'/media/'+elm._eid.str+'.'+ elm.figure.ext" type="video/mp4"> -->
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </ng-container>
+  <div *ngIf="isFullscreen" (click)="toggleFullScreen()" class="kd-full-view">
+    <img
+      [src]="
+        '/images/scaled/' +
+        elm._eid.str +
+        '-' +
+        dS.style.sizes[6].width +
+        dS.retina.suffix +
+        '.' +
+        elm.figure.ext
+      "
+      alt="Place image title"
+      (click)="toggleFullScreen()"
+      class="hover-pointer"
+      [class.themed]="elm.figure.themed"
+    />
+  </div>
+
+  <figcaption
+    *ngIf="viewDepth > 0 && !grid && node.elm.txts.cpt"
+    class="figcaption"
+  >
+    <div>
+      <div (click)="dS.navigate(elm)" class="kd-numeration">
+        <span [class.hover-pointer]="pS.profile.role.editor">
+          <span *ngIf="elm.figure.ext === 'png' || elm.figure.ext === 'jpg'">{{
+            dS.system.i18n[target].strs.FIGURE_ABR
+          }}</span>
+          <span *ngIf="elm.figure.ext === 'mp4' || elm.figure.ext === 'mov'">{{
+            dS.system.i18n[target].strs.VIDEO_ABR
+          }}</span>
+          <span> {{ node.no }}</span>
+        </span>
+      </div>
+      <div class="cell-caption-figure">
+        <kd-text-target
+          [elm]="elm"
+          [parent]="parent"
+          [pos]="'cpt'"
+        ></kd-text-target>
+      </div>
+    </div>
+  </figcaption>
+
+  <figcaption
+    *ngIf="
+      (viewDepth === 0 && elm.txts.cpt) || (viewDepth === 0 && !elm.children)
+    "
+    class="figcaption"
+  >
+    <div (click)="dS.navigate(elm)" class="kd-numeration">
+      <span [class.hover-pointer]="pS.profile.role.editor">
+        {{ dS.system.i18n[target].strs.FIGURE_ABR }} {{ node.no }}
+      </span>
+    </div>
+    <div class="cell-caption-figure">
+      <kd-text-target
+        [elm]="elm"
+        [parent]="parent"
+        [pos]="'cpt'"
+      ></kd-text-target>
+    </div>
+  </figcaption>
+</figure>

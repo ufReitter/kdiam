@@ -1,0 +1,105 @@
+.logo-wrapper {
+  padding: 0 8px 0 8px;
+  height: 100%;
+}
+.logo-none {
+  position: relative;
+  top: -1px;
+  left: 0px;
+  padding: 0 5px;
+}
+
+.logo-small {
+  display: block;
+  transition: all 0.5s;
+  position: relative;
+  top: -2px;
+  height: calc(120px / 3);
+  width: 120px;
+}
+.logo-big {
+  display: block;
+  transition: all 0.5s;
+  position: relative;
+  top: -1px;
+  height: calc(180px / 3);
+  width: 180px;
+}
+.logo-main {
+  /* transition: all 0.5s; */
+  /* margin-left: 16px; */
+  position: relative;
+  top: -1px;
+}
+.logo-trademark {
+  position: absolute;
+  font-weight: 600;
+  line-height: 0;
+}
+
+.logo-svg-none {
+  height: 42px;
+  width: 126px;
+}
+.logo-svg-small {
+  transform: scale(0.6, 0.6) translate(-45px, -1px);
+}
+@media screen and (max-width: 539px) {
+  .logo-svg {
+    padding-left: 6px;
+  }
+}
+.logo-svg-big {
+  transition: all 0.5s;
+  height: calc(200px / 3);
+  width: 200px;
+}
+.logo-button {
+  padding: 0 28px;
+  opacity: 1 !important;
+}
+.wrapper {
+  width: 280px;
+}
+
+.Aligner {
+  height: 92px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Aligner-item {
+  text-align: left;
+  /*  */
+  /* max-width: 50%; */
+  /* width: 240px; */
+}
+
+.Aligner-item-top {
+  align-self: flex-start;
+}
+
+.Aligner-item-bottom {
+  align-self: flex-end;
+}
+
+.logo-text {
+  position: relative;
+  left: 0px;
+  top: 1px;
+  /* font-family: 'Roboto Condensed'; */
+  font-size: 62px;
+  line-height: 65px;
+  font-weight: 700;
+}
+.chevron {
+  font-size: 30px;
+  font-weight: 700;
+  height: 30px;
+  width: 30px;
+}
+.logo-wrapper {
+  vertical-align: middle;
+}

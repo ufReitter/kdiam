@@ -1,0 +1,146 @@
+<div [hidden]="vS.animated" class="logo-main hover-pointer">
+  <div
+    [innerHTML]="
+      dS.selVol?.attrib.logo?.svg || dS.system.attrib.logo?.svg | safeHtml
+    "
+    [style.width]="
+      vS.size.logoZoom *
+        (dS.selVol?.attrib.logo?.width || dS.system.attrib.logo?.width) +
+      'px'
+    "
+    [style.height]="
+      (vS.size.logoZoom *
+        (dS.selVol?.attrib.logo?.width || dS.system.attrib.logo?.width)) /
+        (dS.selVol?.attrib.logo?.aspect || dS.system.attrib.logo?.aspect) +
+      'px'
+    "
+    (click)="
+      router.navigate([{ outlets: { primary: dS.locale, right: null } }])
+    "
+  ></div>
+
+  <span
+    [style.font-size]="vS.size.logoZoom * 2 + 'em'"
+    [style.left]="
+      vS.size.logoZoom *
+        (dS.selVol?.attrib.logo?.width || dS.system.attrib.logo?.width - 6) +
+      'px'
+    "
+    [style.bottom]="vS.size.logoZoom * 52 + 'px'"
+    class="logo-trademark logo-cls-1"
+  >
+    ®
+  </span>
+</div>
+
+<!-- && dS.selVol?._eid.str === '5c81b1cc8df0b13e5a079cd5' ||
+        !dS.selVol -->
+<!-- <div class="wrapper">
+  <div class="Aligner">
+    <div class="Aligner-item">
+      <div class="logo-wrapper">
+        <a
+          *ngIf="!dS.selVol.attrib.logoSvg"
+          mat-button
+          [routerLink]="'/' + dS.locale"
+          aria-label="Logo"
+          class="logo-button kd-dark"
+        >
+          <div class="logo-text kd-dark">Kdia</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <svg 
+    [innerHTML]="svg | safeHtml"
+      *ngIf="svg"
+      id="Ebene_1"
+      data-name="Ebene 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 900 300"
+      [class]="'logo-svg-' + dS.view.toolbar"
+    >
+      <g id="body">
+        <path
+          class="logo-cls-1"
+          d="M711.56219,94.701v132.017H683.78793l-72.86855-84.57791v84.57791h-32.8863V94.701h30.15606l70.48721,80.70344V94.701Z"
+        />
+        <path
+          class="logo-cls-1"
+          d="M867.20451,103.86776v28.82236q-25.23141-12.19044-49.32922-12.19043-23.2468,0-35.81572,11.71813Q769.49065,143.9362,769.49112,162.08q0,17.38866,12.56845,28.16106,12.56752,10.77285,33.07531,10.77309a54.77573,54.77573,0,0,0,21.82946-4.72525V180.88528H817.87529V156.69342h52.06963v53.95973q-7.84484,7.84482-23.86144,12.8046a106.7368,106.7368,0,0,1-31.70464,4.96139q-34.4938,0-56.653-19.04192-22.162-19.04123-22.16034-48.43131,0-30.05115,22.16034-48.99834,22.15989-18.94625,57.409-18.94764Q844.23983,92.99993,867.20451,103.86776Z"
+        />
+        <path
+          class="logo-cls-1"
+          d="M544.51228,94.701v132.017H511.626V94.701Z"
+        />
+        <path
+          class="logo-cls-1"
+          d="M430.88324,22.35583l-65.6825,75.77643L299.4679,22.35583H255.26648V179.50537H208.83063V0H167.12927L28.05511,179.50537v47.20484H143.42126V300h65.40937V226.71021l46.43585.00781h50.90784V99.15637l55.19775,64.07337h7.64587l55.20929-64.07337V226.718h50.90784V22.35583Zm-287.462,157.14954H80.00269l63.41857-80.82916Z"
+        />
+      </g>
+      <g id="dot">
+        <circle class="logo-cls-2" cx="528.98924" cy="45.74886" r="29.04692" />
+      </g>
+      <g id="ornament">
+        <rect
+          class="logo-cls-3"
+          x="226.14932"
+          y="245.98168"
+          width="673.85068"
+          height="35.77642"
+        />
+        <rect
+          class="logo-cls-3"
+          y="245.98168"
+          width="125.77133"
+          height="35.77642"
+        />
+      </g>
+    </svg>
+    <svg
+      *ngIf="svg && dS.selVol?._eid.str === '5c40af3f4f5eb4199613c5e1'"
+      id="Ebene_1"
+      data-name="Ebene 1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 900 300"
+      [class]="'logo-svg-' + dS.view.toolbar"
+    >
+      <g id="body">
+        <path
+          class="logo-cls-1"
+          d="M875.05664,226.70459H835.21121l-10.51994-26.702H768.647l-10.70613,26.702H718.09543L775.16377,95h43.01072Zm-59.30266-49.603-18.89866-48.08263-19.08484,48.08263Z"
+        />
+        <path
+          class="logo-cls-1"
+          d="M700.77942,226.70459H661.865V95h38.91446Z"
+        />
+        <path
+          class="logo-cls-1"
+          d="M644.73514,226.70459H597.25577l-49.34131-61.6712v61.6712H509V95h38.91446v58.91547L594.64906,95h42.266l-48.038,61.6712Z"
+        />
+        <path
+          class="logo-cls-1"
+          d="M430.88324,22.35583l-65.6825,75.77643L299.4679,22.35583H255.26648V179.50537H208.83063V0H167.12927L28.05511,179.50537v47.20484H143.42126V300h65.40937V226.71021l46.43585.00781h50.90784V99.15637l55.19775,64.07337h7.64587l55.20929-64.07337V226.718h50.90784V22.35583Zm-287.462,157.14954H80.00269l63.41857-80.82916Z"
+        />
+      </g>
+      <g id="dot">
+        <circle class="logo-cls-2" cx="680.98924" cy="45.74886" r="29.04692" />
+      </g>
+      <g id="ornament">
+        <rect
+          class="logo-cls-3"
+          x="226.14932"
+          y="245.98168"
+          width="673.85068"
+          height="35.77642"
+        />
+        <rect
+          class="logo-cls-3"
+          y="245.98168"
+          width="125.77133"
+          height="35.77642"
+        />
+      </g>
+    </svg> -->

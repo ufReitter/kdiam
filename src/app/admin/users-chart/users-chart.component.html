@@ -1,0 +1,215 @@
+<div class="header">
+  <div class="header-field">
+    <div class="dimm-6 small">Nutzer</div>
+    <div class="xbig">{{ userCount }}</div>
+    <div
+      [class.kd-fine]="userCountChange > 0"
+      [class.kd-error]="userCountChange < 0"
+      class="small"
+    >
+      <mat-icon *ngIf="userCountChange > 0" class="icon-xxsmall"
+        >arrow_upward</mat-icon
+      >
+      <mat-icon *ngIf="userCountChange < 0" class="icon-xxsmall"
+        >arrow_downward</mat-icon
+      >
+      <mat-icon *ngIf="userCountChange === 0" class="icon-xxsmall"
+        >trending_flat</mat-icon
+      >
+      {{ userCountChange | abs | number : '1.1-1' }}%
+    </div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Sitzungen</div>
+    <div class="xbig">{{ sessionCount }}</div>
+    <div
+      [class.kd-fine]="sessionCountChange > 0"
+      [class.kd-error]="sessionCountChange < 0"
+      class="small"
+    >
+      <mat-icon *ngIf="sessionCountChange > 0" class="icon-xxsmall"
+        >arrow_upward</mat-icon
+      >
+      <mat-icon *ngIf="sessionCountChange < 0" class="icon-xxsmall"
+        >arrow_downward</mat-icon
+      >
+      <mat-icon *ngIf="sessionCountChange === 0" class="icon-xxsmall"
+        >trending_flat</mat-icon
+      >
+      {{ sessionCountChange | abs | number : '1.1-1' }}%
+    </div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Impressionen</div>
+    <div class="xbig">{{ impressions }}</div>
+    <div
+      [class.kd-fine]="impressionsChange > 0"
+      [class.kd-error]="impressionsChange < 0"
+      class="small"
+    >
+      <mat-icon *ngIf="impressionsChange > 0" class="icon-xxsmall"
+        >arrow_upward</mat-icon
+      >
+      <mat-icon *ngIf="impressionsChange < 0" class="icon-xxsmall"
+        >arrow_downward</mat-icon
+      >
+      <mat-icon *ngIf="impressionsChange === 0" class="icon-xxsmall"
+        >trending_flat</mat-icon
+      >
+      {{ impressionsChange | abs | number : '1.1-1' }}%
+    </div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Absprungrate</div>
+    <div class="xbig">{{ bounceRate | number : '1.1-1' }}%</div>
+    <div
+      [class.kd-fine]="bounceRateChange < 0"
+      [class.kd-error]="bounceRateChange > 0"
+      class="small"
+    >
+      <mat-icon *ngIf="bounceRateChange > 0" class="icon-xxsmall"
+        >arrow_upward</mat-icon
+      >
+      <mat-icon *ngIf="bounceRateChange < 0" class="icon-xxsmall"
+        >arrow_downward</mat-icon
+      >
+      <mat-icon *ngIf="bounceRateChange === 0" class="icon-xxsmall"
+        >trending_flat</mat-icon
+      >
+      {{ bounceRateChange | abs | number : '1.1-1' }}%
+    </div>
+  </div>
+  <div class="header-field">
+    <div class="dimm-6 small">Sitzungsdauer</div>
+    <div class="xbig">{{ sessionDuration }}</div>
+    <div
+      [class.kd-fine]="sessionDurationChange > 0"
+      [class.kd-error]="sessionDurationChange < 0"
+      class="small"
+    >
+      <mat-icon *ngIf="sessionDurationChange > 0" class="icon-xxsmall"
+        >arrow_upward</mat-icon
+      >
+      <mat-icon *ngIf="sessionDurationChange < 0" class="icon-xxsmall"
+        >arrow_downward</mat-icon
+      >
+      <mat-icon *ngIf="sessionDurationChange === 0" class="icon-xxsmall"
+        >trending_flat</mat-icon
+      >
+      {{ sessionDurationChange | abs | number : '1.1-1' }}%
+    </div>
+  </div>
+</div>
+<div class="relative wrapper">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    [attr.viewBox]="viewBox"
+    [attr.vector-effect]="'non-scaling-stroke'"
+    class="chart"
+  >
+    <line
+      x1="0"
+      [attr.y1]="0"
+      [attr.x2]="width"
+      [attr.y2]="0"
+      vector-effect="non-scaling-stroke"
+      [attr.transform]="transform"
+      stroke="#444444"
+    ></line>
+    <g *ngFor="let d of currentData; let i = index"></g>
+    <g *ngFor="let y of grids">
+      <line
+        x1="0"
+        [attr.y1]="y"
+        [attr.x2]="width"
+        [attr.y2]="y"
+        vector-effect="non-scaling-stroke"
+        [attr.transform]="transform"
+        stroke="#444444"
+      ></line>
+    </g>
+    <polyline
+      #before
+      class="chart-line"
+      [attr.fill]="'none'"
+      [attr.transform]="transform"
+      vector-effect="non-scaling-stroke"
+      stroke="#888888"
+      stroke-dasharray="4"
+      stroke-width="1px"
+      [attr.points]="beforePoints"
+    />
+    <polyline
+      #current
+      class="kd-sel-dark"
+      fill="none"
+      [attr.transform]="transform"
+      vector-effect="non-scaling-stroke"
+      stroke-width="2px"
+      [attr.points]="currentPoints"
+    />
+  </svg>
+  <span
+    *ngFor="let d of currentData; let i = index"
+    class="axis-text"
+    [style]="
+      'position: absolute; bottom:16px; left: ' + (i * perI - 12) + 'px;'
+    "
+    ><span *ngIf="period === 'day'">{{ d.date | date : 'H' }}</span
+    ><span *ngIf="period === 'week' || period === 'month'">{{
+      d.date | date : 'd'
+    }}</span
+    ><span *ngIf="period === 'year'">{{ d.date | date : 'w' }}</span></span
+  >
+  <span
+    *ngFor="let y of grids"
+    class="axis-text"
+    [style]="
+      'position: absolute; right:0px; bottom: ' + (y * scale + 17) + 'px;'
+    "
+    >{{ y }}</span
+  >
+  <span
+    class="axis-text"
+    [style]="'position: absolute; right:0px; bottom: 38px;'"
+    >0</span
+  >
+</div>
+
+<!-- stroke="#0074d9" -->
+
+<div
+  style="
+    height: 60px;
+    display: flex;
+    vertical-align: middle;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    justify-content: space-between;
+  "
+>
+  <mat-form-field style="width: 120px">
+    <mat-label>Zeitraum</mat-label>
+    <mat-select
+      [value]="pS.pref.admin?.tabs.chart?.period || period"
+      (selectionChange)="changePeriod($event.value)"
+    >
+      <mat-option [value]="'day'">
+        <span>Tag</span>
+      </mat-option>
+      <mat-option [value]="'week'">
+        <span>Woche</span>
+      </mat-option>
+      <mat-option [value]="'month'">
+        <span>Monat</span>
+      </mat-option>
+      <mat-option [value]="'year'">
+        <span>Jahr</span>
+      </mat-option>
+      <mat-option [value]="'all'">
+        <span>Gesamt</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

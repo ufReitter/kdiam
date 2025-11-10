@@ -1,0 +1,53 @@
+<ng-container *ngIf="dS.deviceInfo.isTablet || dS.deviceInfo.isMobile">
+  <mat-icon
+    [color]="'warn'"
+    class="icon-step-down hover-pointer"
+    [class.invisible]="!blink"
+    (press)="mouseDownMinus()"
+    (pressup)="mouseUpMinus()"
+    (click)="mouseUpMinus()"
+    >arrow_drop_down</mat-icon
+  >
+  <mat-icon
+    class="icon-input hover-pointer"
+    (press)="inputPress()"
+    (pressup)="inputPressup()"
+    (click)="inputTap()"
+    >arrow_drop_down</mat-icon
+  >
+  <mat-icon
+    [color]="'warn'"
+    class="icon-step-up hover-pointer"
+    [class.invisible]="!blink"
+    (press)="mouseDownPlus()"
+    (pressup)="mouseUpPlus()"
+    (click)="mouseUpPlus()"
+    >arrow_drop_up</mat-icon
+  >
+</ng-container>
+<input
+  #myNumber
+  matInput
+  type="number"
+  [hidden]="vS.userAgentIsPrerender"
+  [value]="set.state.val"
+  (change)="input($event)"
+  (click)="emitSlider()"
+  placeholder="Value"
+  autocomplete="off"
+  [step]="set.state.step || elm.state.step"
+  [min]="set.state.min || elm.state.min"
+  [max]="set.state.max || elm.state.max"
+  [class.kd-error]="set.state.error"
+  [class.kd-warn]="set.state.warn"
+  style="width: 58px"
+/>
+
+<span
+  *ngIf="vS.userAgentIsPrerender"
+  [class.kd-warn]="set.state.warn"
+  [class.kd-error]="set.state.error"
+  class="kd-result"
+  style="width: 58px"
+  >{{ set.state.val | number : '1.0-2' : dS.locale }}</span
+>

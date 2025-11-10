@@ -1,0 +1,61 @@
+.wrapperxxx {
+  overflow: visible;
+}
+.positioner {
+  position: absolute;
+  top: 0;
+  width: 585px;
+}
+.wrapper-editor {
+  width: 585px;
+}
+.container {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+.tran-toolbar-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.button-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.button-peek {
+  position: absolute;
+  top: -32px;
+  right: -5px;
+}
+
+.glossary-api {
+  position: relative;
+  top: -12px;
+  left: 0;
+}
+.gapi {
+  position: relative;
+  top: -12px;
+  left: 0;
+  height: 0px;
+  padding-bottom: 15px;
+}
+
+.gapi2 {
+  position: relative;
+  top: -20px;
+  left: 0;
+  height: 0px;
+}
+.sign {
+  display: inline-block;
+  width: 160px;
+  text-align: right;
+  margin-right: 15px;
+}

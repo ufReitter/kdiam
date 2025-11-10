@@ -1,0 +1,6 @@
+<ng-container *ngIf="elm">
+    <button *ngIf="elm.checkout_id" mat-icon-button class="btn-icon-xsmall">
+        <mat-icon class="icon-xsmall" [class.checkout-self]="elm.checkedOut" [class.checkout-other]="!elm.checkedOut">
+            lens</mat-icon>
+    </button>
+</ng-container>

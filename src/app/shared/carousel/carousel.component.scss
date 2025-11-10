@@ -1,0 +1,111 @@
+.wrapper {
+  overflow: hidden;
+}
+.article {
+  width: 500px;
+  height: 450px;
+}
+.snav {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 320px;
+  height: 300px;
+}
+
+.carousel {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  /* width: 100%;
+    height: 100%; 
+  transition: transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.84);
+  border-radius: 0.5em;
+  */
+}
+
+.slide:hover {
+  /* transform: scale(1.025); */
+}
+
+.image {
+  object-fit: cover;
+  /* border-radius: 0.5em; */
+}
+
+.control-prev {
+  display: block;
+  position: absolute;
+  left: 0;
+  height: 100%;
+}
+.control-next {
+  display: block;
+  position: absolute;
+  right: 0;
+  height: 100%;
+}
+
+.control {
+  border: none;
+  background-color: transparent;
+  outline: 0;
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5em;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  user-select: none;
+  height: 100%;
+  opacity: 0%;
+  transition: opacity 150ms cubic-bezier(0.25, 0.46, 0.45, 0.84);
+  z-index: 100;
+}
+
+.control:hover {
+  opacity: 1;
+}
+
+.right {
+  right: 0;
+}
+.left {
+  left: 0;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  z-index: 100;
+}
+.top {
+  top: 0;
+}
+.bottom {
+  bottom: 0;
+}

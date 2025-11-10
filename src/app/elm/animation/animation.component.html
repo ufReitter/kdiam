@@ -1,0 +1,27 @@
+<span data-nosnippet>
+  <button
+    *ngIf="set.parent && set.parent.figure && set.parent.figure.ext === 'dyn'"
+    class="btn-icon-input"
+    mat-icon-button
+    (click)="pressButton()"
+  >
+    <mat-icon
+      *ngIf="!play"
+      [matTooltip]="dS.system.txts.ANIMATE"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="icon-small"
+    >
+      play_arrow</mat-icon
+    >
+    <mat-icon
+      *ngIf="play"
+      [matTooltip]="dS.system.txts.PAUSE"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      class="icon-small"
+    >
+      pause</mat-icon
+    >
+  </button>
+</span>

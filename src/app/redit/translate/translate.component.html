@@ -1,0 +1,481 @@
+<div *ngIf="elm && glossary">
+  <div class="relative">
+    <div
+      *ngIf="elm === dS.selectedEditElement && !elm.checkout"
+      class="kd-blocker"
+    ></div>
+
+    <form>
+      <mat-form-field class="form-field-65">
+        <input
+          matInput
+          [disabled]="!slugNode"
+          [(ngModel)]="slug"
+          (ngModelChange)="slugValidate($event, dS.selVol, dS.locale)"
+          pattern="[a-z]*"
+          [placeholder]="'Slug'"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          [class.warn]="warnSlug"
+        />
+        <button
+          mat-button
+          *ngIf="readySlug"
+          matSuffix
+          mat-icon-button
+          aria-label="Change"
+          (click)="slugChange()"
+        >
+          <mat-icon>check</mat-icon>
+        </button>
+        <button
+          [disabled]="!slugNode"
+          mat-button
+          matSuffix
+          mat-icon-button
+          aria-label="Suggest"
+          (click)="slugSuggest()"
+        >
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field *ngIf="from.lbl" class="form-field-100">
+        <input
+          matInput
+          name="lbl"
+          [(ngModel)]="to.lbl"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="{{ dS.system.txts.LABEL }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.lbl"
+          (click)="translateApi('lbl')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+      <div *ngIf="from.lbl" (click)="translateApi('gapi')" class="relative">
+        <span class="gapi small dim hover-pointer">{{
+          to.gapi || 'gapi'
+        }}</span>
+      </div>
+      <div class="relative">
+        <button
+          (click)="showFrom = !showFrom"
+          type="button"
+          mat-icon-button
+          class="button-peek btn-icon-small"
+        >
+          <mat-icon class="icon-small">help</mat-icon>
+        </button>
+      </div>
+      <div *ngFor="let set of sets; let i = index">
+        <mat-form-field class="form-field-100">
+          <input
+            matInput
+            [(ngModel)]="set.attrib[toLocale]"
+            (ngModelChange)="set.parent.dirty = true"
+            (keydown.enter)="dS.save(set.parent)"
+            placeholder="{{ dS.system.txts.LOCAL_LABEL }} &rarr; {{
+              set.parent.txts.lbl
+            }}"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="on"
+            spellcheck="false"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            (click)="translateApi('locallabel', set)"
+          >
+            <mat-icon>translate</mat-icon>
+          </button>
+        </mat-form-field>
+        <div
+          (click)="translateApi('localgapi', set)"
+          class="gapi small dim hover-pointer"
+        >
+          {{ set.gapi || 'gapi' }}
+        </div>
+      </div>
+      <mat-form-field *ngIf="from.lng" class="form-field-100">
+        <input
+          matInput
+          name="lng"
+          [(ngModel)]="to.lng"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="{{ dS.system.txts.SUBTITLE }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.lng"
+          (click)="translateApi('lng')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div
+        *ngIf="from.cpt"
+        [class.invisible]="translationPending === 'cpt'"
+        class="html relative"
+      >
+        <div
+          *ngIf="!showFrom; else fromCpt"
+          [innerHTML]="to.cpt || '' | safeHtml"
+        ></div>
+
+        <ng-template #fromCpt
+          ><div [innerHTML]="from.cpt || '' | safeHtml"></div>
+        </ng-template>
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.cpt"
+          (click)="translateApi('cpt')"
+          class="button-right btn-icon-xsmall"
+        >
+          <mat-icon class="icon-xsmall">translate</mat-icon>
+        </button>
+        <div> </div>
+        <div> </div>
+      </div>
+      <div
+        *ngIf="from.bdy"
+        [class.invisible]="translationPending === 'bdy'"
+        class="html relative"
+      >
+        <ng-container *ngIf="!showFrom; else fromBdy">
+          <!-- <quill-view-html
+            *ngIf="to.bdy"
+            [content]="to.bdy"
+            [theme]="'snow'"
+          ></quill-view-html> -->
+        </ng-container>
+        <ng-template #fromBdy>
+          <!-- <quill-view-html
+            *ngIf="from.bdy"
+            [content]="from.bdy"
+            [theme]="'snow'"
+          ></quill-view-html> -->
+        </ng-template>
+        <div class="button-right">
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            [disabled]="!from.bdy"
+            (click)="showFrom = false; translateApi('bdy')"
+            class="btn-icon-xsmall"
+          >
+            <mat-icon class="icon-xsmall">translate</mat-icon>
+          </button>
+        </div>
+        <div> </div>
+        <div> </div>
+      </div>
+
+      <mat-form-field *ngIf="from.des" class="form-field-100">
+        <input
+          matInput
+          name="des"
+          [(ngModel)]="to.des"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="Description"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.des"
+          (click)="translateApi('des')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field *ngIf="from.mtit" class="form-field-100">
+        <input
+          matInput
+          name="mtit"
+          [(ngModel)]="to.mtit"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="{{ dS.system.txts.MTIT }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.mtit"
+          (click)="translateApi('mtit')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field *ngIf="from.mdes" class="form-field-100">
+        <textarea
+          matInput
+          name="mdes"
+          [(ngModel)]="to.mdes"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="{{ dS.system.txts.MDES }}"
+          [cdkTextareaAutosize]="false"
+          #mdesAutoSize="cdkTextareaAutosize"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          class="kd-textarea-3"
+        ></textarea>
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.mdes"
+          (click)="translateApi('mdes')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field *ngIf="from.mkeys" class="form-field-100">
+        <textarea
+          matInput
+          name="mkeys"
+          [(ngModel)]="to.mkeys"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="{{ dS.system.txts.MKEYS }}"
+          [cdkTextareaAutosize]="false"
+          #mkeysAutoSize="cdkTextareaAutosize"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          class="kd-textarea-3"
+        ></textarea>
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.mkeys"
+          (click)="translateApi('mkeys')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+      <div *ngIf="elm.sign">
+        <div
+          [innerHTML]="to.sign || elm.sign | safeHtml"
+          class="sign kd-sign"
+        ></div>
+
+        <mat-form-field class="form-field-60xxx">
+          <input
+            matInput
+            name="sign"
+            [(ngModel)]="to.sign"
+            (ngModelChange)="to.dirty = true; findSigns()"
+            placeholder="Sign"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="on"
+            spellcheck="false"
+          />
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            [disabled]="!elm.sign"
+            (click)="to.sign = elm.sign"
+          >
+            <mat-icon>translate</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div
+        *ngIf="elm.equ?.svg"
+        [innerHTML]="to.svg || elm.equ.svg | safeHtml"
+        class="kd-edit-svg"
+      ></div>
+      <mat-form-field *ngIf="elm.equ?.tex" class="form-field-100">
+        <textarea
+          matInput
+          name="tex"
+          [(ngModel)]="to.tex"
+          (ngModelChange)="elm.dirty = true"
+          placeholder="Latex"
+          [cdkTextareaAutosize]="false"
+          #mkeysAutoSize="cdkTextareaAutosize"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          class="kd-textarea-3"
+        ></textarea>
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!from.tex"
+          (click)="getTex()"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
+    <div class="toolbar-footer">
+      <div>
+        <button mat-button (click)="checkTex()" [class.kd-error]="warnSigns">
+          Check signs
+        </button>
+        <span
+          *ngFor="let rep of signReplaces"
+          (click)="replaceSign(rep)"
+          class="hover-pointer"
+          [class.kd-warn]="rep.warn"
+          ><span [innerHTML]="rep.from | safeHtml" class="kd-sign"></span>&nbsp;
+          &rarr;&nbsp;
+          <span [innerHTML]="rep.to | safeHtml" class="kd-sign"></span
+          >&nbsp;&nbsp;&nbsp;</span
+        >
+      </div>
+      <div>
+        <button
+          (click)="deleteTo()"
+          type="button"
+          mat-icon-button
+          class="btn-icon-smallxxx"
+        >
+          <mat-icon class="icon-smallxxx">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="toolbar-footer">
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          name="gfrom"
+          [(ngModel)]="glossaryFrom"
+          (ngModelChange)="findGlossary()"
+          placeholder="{{ dS.system.txts.GLOSSARY + ' ' + fromLocale }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          [class.kd-warn]="this.warnGlossary"
+        />
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!glossaryItem?.elm"
+          (click)="dS.edit(glossaryItem.elm)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-form-field>
+
+      &nbsp;&nbsp;
+      <mat-form-field>
+        <input
+          matInput
+          name="gto"
+          [(ngModel)]="glossaryTo"
+          placeholder="{{ dS.system.txts.GLOSSARY + ' ' + toLocale }}"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+        />
+        <button
+          mat-button
+          matSuffix
+          mat-icon-button
+          [disabled]="!glossaryFrom"
+          (click)="translateApi('glossary')"
+        >
+          <mat-icon>translate</mat-icon>
+        </button>
+      </mat-form-field>
+      <button
+        (click)="setGlossary()"
+        type="button"
+        mat-icon-button
+        [disabled]="!glossaryFrom || !glossaryTo || !glossaryApi"
+      >
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+    <button
+      *ngIf="elm?.dirty"
+      (click)="elm.defSubject.next(elm.def); dS.save(elm)"
+      type="button"
+      mat-icon-button
+    >
+      <mat-icon>save</mat-icon>
+    </button>
+    <div>
+      <mat-checkbox
+        *ngIf="elm"
+        [(ngModel)]="elm.attrib.glossary"
+        (ngModelChange)="
+          elm.defSubject.next(elm.def); elm.dirty = true; gl = createGl()
+        "
+        >&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox
+      >
+    </div>
+    <!-- <button (click)="deleteTo()" type="button" mat-icon-button class="buttons">
+        <mat-icon>delete</mat-icon>
+      </button> -->
+  </div>
+  <div (click)="translateApi('ggapi')" class="gapi2 small dim hover-pointer">
+    {{ glossaryApi || 'gapi' }}
+  </div>
+  <div class="toolbar">
+    <div>
+      <button mat-button (click)="replaceGapiGlossary()">
+        Replace GAPI Glossary
+        <mat-progress-bar
+          *ngIf="glossaryPending"
+          mode="indeterminate"
+          [color]="'warn'"
+          class="kd-button-progress"
+        ></mat-progress-bar>
+      </button>
+    </div>
+    <mat-form-field>
+      <mat-label>Glossary mode</mat-label>
+      <mat-select [(value)]="glossaryMode">
+        <mat-option [value]="'direct'">Direct replacement</mat-option>
+        <mat-option [value]="'gapi'">Google API</mat-option>
+        <mat-option [value]="'none'">None</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

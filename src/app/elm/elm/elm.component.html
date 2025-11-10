@@ -1,0 +1,242 @@
+<div
+  #wrapper
+  *ngIf="elm && vS.size.mainW >= (elm.attrib.minViewportWidth || 100)"
+  [class.fullscreen]="isFullscreen"
+  [class.color-background]="isFullscreen"
+>
+  <mat-divider
+    *ngIf="set.attrib.divider"
+    class="elm-wrapper-wide-margin"
+  ></mat-divider>
+  <div *ngIf="set.attrib.showTitle" class="h3 bdy-indent">
+    {{ elm.txts.lbl }}
+  </div>
+
+  <div
+    [class.kd-elm-selected]="
+      elm.selected && view === 'article-view' && viewDepth !== 1
+    "
+    [class.kd-paragraph]="viewDepth === 1 && !grid"
+    class="elm-wrapper"
+    style="display: block; z-index: 0"
+  >
+    <ng-container *ngIf="viewDepth === 199">
+      <div
+        *ngIf="elm.task === 14"
+        (click)="dS.edit(elm)"
+        [class.hover-pointer]="pS.profile.role.editor"
+      >
+        {{ elm.txts.lbl || elm._eid.str }}
+      </div>
+      <div
+        *ngIf="elm.task === 0 && !elm.txts.bdy"
+        (click)="dS.edit({ src: 'main-view', elm: elm })"
+        [class.hover-pointer]="pS.profile.role.editor"
+      >
+        {{ elm.txts.lbl || elm._eid.str }}
+      </div>
+    </ng-container>
+
+    <canvas *ngIf="elm.figure?.ext === 'ctx'" class="canvas" #canvas></canvas>
+
+    <kd-datarows *ngIf="elm.datarows" [elm]="elm"></kd-datarows>
+
+    <kd-text
+      *ngIf="
+        node.elm.txts.bdy && node.elm.attrib.bdyLeading && !set.attrib.hideBody
+      "
+      [elm]="node.elm"
+      [parent]="parent"
+      [pos]="'bdy'"
+      [view]="view"
+      [viewDepth]="viewDepth"
+    ></kd-text>
+
+    <kd-figure
+      *ngIf="elm.figure && !set.attrib.hideFigure && view !== 'body'"
+      [node]="node"
+      [elm]="elm"
+      [set]="set"
+      [grid]="grid"
+      [parent]="parent"
+      [viewDepth]="viewDepth"
+    >
+    </kd-figure>
+
+    <kd-equation
+      *ngIf="elm.equ && !set.attrib.hideEqu"
+      [node]="node"
+      [elm]="elm"
+      [parent]="parent"
+    >
+    </kd-equation>
+    <div
+      [class.vp-fullscreen]="isFullscreen"
+      [class.color-background]="isFullscreen"
+    >
+      <kd-viewport
+        *ngIf="dS.isBrowser && elm.attrib.viewport"
+        [elm]="elm"
+        (fullscreen)="toggleFullScreen()"
+      ></kd-viewport>
+
+      <p
+        *ngIf="
+          node.elm.view == 'carousel' &&
+          node.elm.children?.length &&
+          view === 'article-view'
+        "
+        class="kd-indent"
+      >
+        <kd-carousel
+          [pos]="'article'"
+          [width]="500"
+          (push)="cd.detectChanges()"
+        ></kd-carousel>
+      </p>
+      <kd-children
+        *ngIf="
+          (node.elm.view !== 'carousel' &&
+            node.elm.view !== 'none' &&
+            node.elm.children?.length &&
+            view === 'article-view') ||
+          view === 'poster-view'
+        "
+        [node]="node"
+      ></kd-children>
+
+      <kd-project
+        [hidden]="elm.view === 'none'"
+        *ngIf="
+          (elm.view === 'calc' || elm.view === 'none') &&
+          (view === 'article-view' || view === 'poster-view')
+        "
+        [node]="node"
+        [parent]="parent"
+      >
+      </kd-project>
+    </div>
+    <kd-table
+      *ngIf="node.elm.table && !set.attrib.hideTable"
+      [node]="node"
+      [parent]="parent"
+    ></kd-table>
+
+    <figcaption *ngIf="elm.view === 'grid' && node.no" class="figcaption">
+      <div>
+        <div
+          (click)="dS.edit(elm)"
+          [class.hover-pointer]="pS.profile.role.editor"
+          class="kd-numeration"
+        >
+          {{ dS.system.txts.FIGURE_ABR }} {{ node.no }}
+        </div>
+        <div class="cell cell-caption-figure">
+          <kd-text [elm]="elm" [view]="view" [pos]="'cpt'"></kd-text>
+        </div>
+      </div>
+    </figcaption>
+
+    <ng-container *ngIf="elm.calc?.srcs && elm.calc?.srcs.length">
+      <ng-container *ngFor="let src of elm.calc.srcs">
+        <kd-func *ngIf="src.args" [elm]="elm" [set]="set" [src]="src"></kd-func>
+      </ng-container>
+    </ng-container>
+
+    <div
+      *ngIf="elm.sign && elm.view !== 'calc'"
+      (click)="dS.edit(elm)"
+      [class.hover-pointer]="pS.profile.role.editor"
+    >
+      <div class="cell" style="min-width: 120px; text-align: right">
+        {{ elm.txts.lbl }}
+      </div>
+      <div [innerHTML]="elm.sign | safeHtml" class="kd-sign sign-cell"></div>
+      <div class="cell kd-padding-relation">
+        {{ elm.state.rel || '=' }}
+      </div>
+      <div class="cell">
+        <kd-result [elm]="elm" [set]="set"></kd-result>&nbsp;
+      </div>
+      <div
+        [innerHTML]="elm.state.unit || '' | safeHtml"
+        class="unit-cell"
+      ></div>
+      <div class="unit-cell">
+        &nbsp;&nbsp;
+        <kd-check [elm]="elm" [set]="set"></kd-check>
+        <kd-button [elm]="elm" [set]="set"></kd-button>
+      </div>
+    </div>
+    <kd-text
+      *ngIf="
+        node.elm.txts.bdy && !node.elm.attrib.bdyLeading && !set.attrib.hideBody
+      "
+      [elm]="node.elm"
+      [parent]="parent"
+      [pos]="'bdy'"
+      [view]="view"
+      [viewDepth]="viewDepth"
+    ></kd-text>
+
+    <ng-container *ngIf="elm && grid">
+      <ng-container *ngIf="grid.tab && !elm.figure">
+        <td>{{ elm.txts.lbl }}</td>
+        <td>{{ elm.txts.lbl }}</td>
+      </ng-container>
+    </ng-container>
+
+    <!-- <ng-container
+      *ngIf="
+        viewDepth === 0 ||
+        view === 'article-datarow' ||
+        view === 'article-reference'
+      "
+    >
+      <ng-container *ngIf="elm.datarow">
+        <kd-reference
+          *ngIf="elm.datarow.author"
+          [elm]="elm"
+          [parent]="elm"
+        ></kd-reference>
+        <div *ngIf="elm.datarow.designs">
+          <div *ngFor="let col of elm.dataHost.datacols" class="kd-field-row">
+            <div *ngIf="!col.targetElement" class="kd-cell-key">
+              {{ col.field }}
+            </div>
+            <div
+              *ngIf="col.targetElement"
+              (click)="dS.navigate(col.targetElement)"
+              class="cell hover-pointer"
+            >
+              <div
+                class="kd-cell-sign"
+                [innerHTML]="col.targetElement.sign"
+              ></div>
+            </div>
+            <div *ngIf="col.field !== 'designs'" class="cell">
+              = {{ elm.datarow[col.field] }}
+            </div>
+
+            <ng-container *ngIf="col.field === 'designs'">
+              <div class="cell">
+                {{ elm.datarow[col.field][0] }}&nbsp;&nbsp;{{
+                  elm.datarow[col.field][1]
+                }}&nbsp;&nbsp;{{ elm.datarow[col.field][2] }}
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container> -->
+  </div>
+  <!-- <a
+    *ngIf="elm.attrib.readMore"
+    [routerLink]="dS.readMoreLink"
+    class="bdy-indent read-more"
+  >
+    {{ dS.system.txts.READ_MORE }}
+  </a> -->
+</div>
+
+<!-- <div class="page-break">{{ viewDepth }}</div> -->

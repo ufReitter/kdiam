@@ -1,0 +1,25 @@
+<!-- <div class="relative cell"> -->
+<!-- <button type="button" mat-icon-button class="btn-icon-small">
+  <mat-icon class="icon-small"> {{ activeIcon }}</mat-icon>
+</button> -->
+<mat-select
+  (selectionChange)="changeAlign($event.value)"
+  [value]="obj.align || 'left'"
+  style="width: auto"
+>
+  <mat-select-trigger
+    ><mat-icon class="icon-small">
+      {{ activeIcon }}</mat-icon
+    ></mat-select-trigger
+  >
+  <mat-option [value]="'left'">
+    <mat-icon class="icon-small">format_align_left</mat-icon>
+  </mat-option>
+  <mat-option [value]="'center'">
+    <mat-icon class="icon-small">format_align_center</mat-icon>
+  </mat-option>
+  <mat-option [value]="'right'">
+    <mat-icon class="icon-small">format_align_right</mat-icon>
+  </mat-option>
+</mat-select>
+<!-- </div> -->

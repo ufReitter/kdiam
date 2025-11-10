@@ -1,0 +1,28 @@
+<button
+  class="kd-button"
+  mat-button
+  [mat-menu-trigger-for]="change"
+  data-nosnippet
+>
+  <div class="relative">
+    {{ dS.system.txts.CHANGELOG }}
+    <div class="indicator kd-warnxxx">9+</div>
+  </div>
+</button>
+
+<mat-menu
+  [xPosition]="'after'"
+  [yPosition]="'below'"
+  #change="matMenu"
+  class="kd-changelog-menu"
+>
+  <button *ngFor="let ch of changeLogs" mat-menu-item>
+    <div class="menu-item-title">
+      {{ ch.lbl }}
+    </div>
+    <div class="menu-item-body">
+      {{ ch.chn }} xxx xxxxxxx xxxxxxx xxxxxxxx xxxxxxx xxxxxxx xxxxxxx xxxx xx
+      xxxxxxxxxx xxxxxxx xxxxxxxxx xxxxxxxxx
+    </div>
+  </button>
+</mat-menu>

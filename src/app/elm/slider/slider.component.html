@@ -1,0 +1,4 @@
+
+<mat-slider [hidden]="set.state.noslider" [min]="set.state.min" [max]="set.state.max" [step]="set.state.step"
+[value]="set.state.val" class="slider" [color]="'primary'" (input)="input($event)" (change)="change($event)"></mat-slider>
+<div [hidden]="!set.state.noslider" style="height: 16px"></div> 

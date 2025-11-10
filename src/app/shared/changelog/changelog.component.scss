@@ -1,0 +1,30 @@
+.indicator {
+  position: absolute;
+  top: 0;
+  right: -18px;
+  font-size: 12px;
+  line-height: 18px;
+  /* width: 17px; */
+  height: 16px;
+  text-align: center;
+  padding: 0 5px;
+  border-radius: 8px;
+  background-color: rgb(204, 0, 0);
+}
+
+button.mat-menu-item {
+  height: auto !important;
+  padding: 8px 16px !important;
+  white-space: normal !important;
+}
+.menu-item-title {
+  line-height: 18px;
+  white-space: nowrap !important;
+}
+.menu-item-body {
+  font-size: small;
+  line-height: 16px !important;
+  white-space: normal !important;
+  opacity: 0.8;
+  max-width: 400px !important;
+}

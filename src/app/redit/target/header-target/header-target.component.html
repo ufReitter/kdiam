@@ -1,0 +1,12 @@
+<div
+  *ngIf="!elm?.attrib.hideTitle"
+  [class.kd-warn]="elm.i18n[target].hasWarning"
+  class="relative bdy-indent header"
+>
+  <h1 class="heading">
+    {{ elm.i18n[target].strs?.lbl || elm?._eid.str }}
+  </h1>
+  <div *ngIf="elm.i18n[target].strs?.lng && !elm.attrib.hideSubTitle">
+    {{ elm.i18n[target].strs.lng }}
+  </div>
+</div>

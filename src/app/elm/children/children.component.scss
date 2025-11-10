@@ -1,0 +1,87 @@
+.kd-tables {
+  width: min-content;
+  display: inline-block;
+  margin: 0 auto 0 auto;
+  /*
+  width: 100%;
+  vertical-align: top;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  */
+}
+
+.fullscreen-children {
+  height: 54px;
+  margin-bottom: -54px;
+  width: 100%;
+  text-align: center;
+  transform: scale(1.2);
+}
+
+.grid-handset {
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8);
+  width: 100%;
+}
+
+.grid-handset-landscape {
+  display: none !important;
+}
+
+.table-cell {
+  vertical-align: top;
+  display: table-cell;
+  border-spacing: 3px 0 !important;
+}
+
+.table {
+}
+.table tr {
+  height: 30px;
+}
+
+.slider {
+  width: 100%;
+  margin: -12px 0 -20px 0;
+}
+
+.buttons {
+  text-align: left;
+  display: flex;
+  vertical-align: middle;
+  align-items: center;
+  height: 28px;
+}
+
+.input-elm {
+  display: flex;
+  position: absolute;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  top: 23px;
+  left: 200px;
+}
+
+.result {
+  vertical-align: middle;
+}
+
+.number-lbl {
+  width: min-content;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.button-label-small {
+  position: absolute;
+  top: 10px;
+  left: 35px;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.6;
+}

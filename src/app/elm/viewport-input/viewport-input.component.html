@@ -1,0 +1,47 @@
+<div class="viewport-buttons">
+  <mat-button-toggle-group
+    (change)="onMode($event)"
+    (click)="modeClick()"
+    [value]="mode"
+    [multiple]="false"
+    [vertical]="true"
+    #myMode="matButtonToggleGroup"
+    class="small"
+  >
+    <mat-button-toggle value="definition" class="btn-icon-small">
+      <mat-icon class="icon-small">power_input</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="thickness" class="btn-icon-small">
+      <mat-icon class="icon-small">border_outer</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="real" class="btn-icon-small">
+      <mat-icon class="icon-small">gradient</mat-icon>
+      <div class="viewport-buttons-text1">R</div>
+    </mat-button-toggle>
+    <mat-button-toggle value="max" class="btn-icon-small">
+      <mat-icon class="icon-small">gradient</mat-icon>
+      <div class="viewport-buttons-text1">M</div>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <mat-button-toggle-group
+    (change)="onFeatures($event)"
+    [value]="features"
+    [multiple]="true"
+    [vertical]="true"
+    #myFeatures="matButtonToggleGroup"
+    class="small"
+  >
+    <mat-button-toggle value="Pt" class="btn-icon-small">
+      <mat-icon class="icon-small">scatter_plot</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="Supplement" class="btn-icon-small">
+      <mat-icon class="icon-small">build</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="Dim" class="btn-icon-small">
+      <mat-icon class="icon-small">info</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="Fullscreen" class="btn-icon-small">
+      <mat-icon class="icon-small">fullscreen</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

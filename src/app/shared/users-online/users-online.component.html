@@ -1,0 +1,23 @@
+<div *ngIf="vS.size.users && pS.profile.role.user" class="kd-trans-05 relative">
+  <span *ngIf="dS.status.usersActiveCount" class="count small dimm-8">{{
+    dS.status.usersActiveCount
+  }}</span>
+  <span
+    (click)="
+      router.navigate([{ outlets: { primary: 'de/admin', right: null } }])
+    "
+    class="small dimm-8 hover-pointer"
+    >Online</span
+  >:&nbsp;
+  <span
+    *ngIf="dS.status.usersActive.length; else count"
+    style="font-weight: 700"
+    class="kd-dark"
+  >
+    <span *ngFor="let user of dS.status.usersActive">{{ user }}&nbsp;</span>
+  </span>
+
+  <ng-template #count>
+    <span>{{ dS.status.usersActiveCount }}</span>
+  </ng-template>
+</div>

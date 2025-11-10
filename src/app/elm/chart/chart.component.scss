@@ -1,0 +1,23 @@
+.chart {
+  width: 635px;
+  height: 370px;
+  /* overflow: visible; */
+  /* padding: 20px 20px 20px 0; */
+}
+.header {
+  display: flex;
+
+  height: 85px;
+}
+.header-field {
+  flex: 1;
+
+  padding: 10px;
+}
+
+.axis-text {
+  font-size: 12px;
+  font: 13px 'Roboto';
+  font-family: 'Roboto';
+  stroke: '#888888';
+}

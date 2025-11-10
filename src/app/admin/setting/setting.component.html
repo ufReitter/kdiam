@@ -1,0 +1,14 @@
+<div class="toolbar">
+  <mat-button-toggle-group [value]="lang" (change)="changeLang($event.value)">
+    <mat-button-toggle value="de">DE</mat-button-toggle>
+    <mat-button-toggle value="en"
+      >EN</mat-button-toggle
+    ></mat-button-toggle-group
+  >
+</div>
+<kd-table
+  [table]="table"
+  [data]="table.data"
+  [refresh]="refresh"
+  (rowenter)="saveRow($event)"
+></kd-table>

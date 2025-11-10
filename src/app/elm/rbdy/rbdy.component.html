@@ -1,0 +1,7 @@
+
+<div class="buttons">
+  <button type="button" mat-icon-button (click)="convert()">
+    <mat-icon>import_export</mat-icon>
+  </button>
+</div>
+<div #rbdy [innerHTML]="html | safeHtml" class="info-panel"></div>

@@ -1,0 +1,34 @@
+<p>{{ dS.system.txts.PLEASE_LOGIN }}</p>
+
+<!--   
+  <div *ngIf="pS.profile.role.user" class="user">
+    <div mat-menu-item (click)="$event.stopPropagation()"  class="user-menu-title">
+      {{dS.system.txts.SIGNED_IN_AS}}:&nbsp;&nbsp;{{pS.profile.nickname}}
+      <div> </div>
+        <mat-checkbox [(ngModel)]="dS.noToolTips" [labelPosition]="'before'">Tooltips</mat-checkbox>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>{{dS.system.txts.MY_PROFILE}}</button>
+    <button mat-menu-item (click)="dS.sync();">{{dS.system.txts.SYNCHRONIZE}}</button>
+    <button mat-menu-item (click)="checkInGlobal();">{{dS.system.txts.GLOBAL_CHECKIN}}</button>
+    <button mat-menu-item (click)="dS.deleteDb();">{{dS.system.txts.DELETE_LOCAL_STORAGE}}</button>
+    <button mat-menu-item  (click)="reload()">{{dS.system.txts.RELOAD}}</button>
+    <button mat-menu-item  (click)="logout()">{{dS.system.txts.ABMELDEN}}</button>
+  </div>
+  <div *ngIf="!pS.profile.role.user" class="login" (click)="stopPropagation($event)">
+    <div>
+		<mat-form-field class="form-field-login">
+      <input matInput #myUsername name="identifier" id="username" type="text" autocomplete="username" autocapitalize="none"
+       autocorrect="off" (keydown.enter)="login({name: myUsername.value, password: myPassword.value})"
+       [class.loginFail]="failed">
+       <mat-placeholder>{{dS.system.txts.EMAIL_USERNAME}}</mat-placeholder>
+    </mat-form-field>
+		<mat-form-field class="form-field-login">
+       <input matInput #myPassword  type="password" id="password" name="passwd" autocomplete="current-password"
+        autocapitalize="none" autocorrect="off" (keydown.enter)="login({name: myUsername.value, password: myPassword.value})"
+        [class.loginFail]="failed">
+        <mat-placeholder>{{dS.system.txts.PASSWORD}}</mat-placeholder>
+		</mat-form-field>
+    <button *ngIf="!pS.profile.role.user" mat-menu-item (click)="login({name: myUsername.value, password: myPassword.value})">{{dS.system.txts.ANMELDEN}}</button>
+  </div>
+  </div> -->

@@ -1,0 +1,32 @@
+<div
+  (click)="dS.edit(elm)"
+  [class.hover-pointer]="pS.profile.role.editor"
+  class="kd-reference-foot"
+>
+  <div class="no-cell kd-reference-big">{{ elm.seNo || '*' }}</div>
+  <div class="reference-cell">
+    <span style="white-space: nowrap">{{ elm.datarow?.author || '…' }}</span>
+    <span> /&nbsp;</span>
+    <span
+      *ngIf="elm.datarow?.title && elm.datarow?.title.indexOf('href=') !== -1"
+      style="white-space: nowrap"
+      innerHtml="{{ elm.datarow?.title || '…' }}"
+    ></span>
+    <span
+      *ngIf="elm.datarow?.title && elm.datarow?.title.indexOf('href=') === -1"
+      class="reference-title"
+      >{{ elm.datarow?.title || '…' }}</span
+    >
+    <span> /&nbsp;</span>
+    <span style="white-space: nowrap">{{ elm.datarow?.publisher || '…' }}</span>
+    <span> /&nbsp;</span>
+    <span style="white-space: nowrap">{{ elm.datarow?.place || '…' }}</span>
+    <span> /&nbsp;</span>
+    <span style="white-space: nowrap">{{ elm.datarow?.year || '…' }}</span>
+    <span> /&nbsp;</span>
+    <span style="white-space: nowrap">{{ elm.datarow?.edition || '…' }}</span>
+    <span *ngIf="elm.datarow?.edition" style="white-space: nowrap"
+      >. Auflage</span
+    >
+  </div>
+</div>

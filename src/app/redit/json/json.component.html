@@ -1,0 +1,5 @@
+<kd-redit-toolbar [elm]="elm"></kd-redit-toolbar>
+<div [style.height]="vS.size.editorH + 'px'" class="json">
+  <div [innerHTML]="elm.def | prettyprint | safeHtml" class="dim-9"></div>
+  <div [innerHTML]="elm.txts | prettyprint | safeHtml" class="dim-9"></div>
+</div>

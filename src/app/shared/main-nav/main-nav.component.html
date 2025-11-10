@@ -1,0 +1,19 @@
+<div [style.padding-right]="vS.size.paddingX + 'px'" class="kd-main-nav">
+  <button mat-icon-button class="invis-button"></button>
+  <button
+    type="button"
+    aria-label="Sidenav-Navigation"
+    mat-icon-button
+    (click)="toggleDrawer()"
+    class="btn-icon-shortxxx main-nav-button-3xxx"
+  >
+    <mat-icon
+      [matTooltip]="dS.system.txts.NAVIGATION"
+      [matTooltipDisabled]="dS.noToolTips"
+      [matTooltipShowDelay]="1000"
+      >menu</mat-icon
+    >
+  </button>
+  <kd-volume-picker *ngIf="pS.profile.role.editor"></kd-volume-picker>
+  <kd-logo></kd-logo>
+</div>

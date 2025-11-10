@@ -1,0 +1,23 @@
+
+<div *ngIf="!confirm" style="position: absolute; right: 2px; top: 0px">
+	<button mat-icon-button tabindex="-1" (click)="execute()" class="btn-icon-xsmall">
+		<mat-icon>done</mat-icon>
+	</button>
+	<button mat-icon-button tabindex="-1" (click)="cancel(false)">
+		<mat-icon>clear</mat-icon>
+	</button>
+</div>
+
+<div *ngIf="confirm" style="position: absolute; right: 12px; top: 13px">
+	Änderungen verwerfen?&nbsp;
+	<a (click)="confirm = false" style="font-weight: 500; padding: 5px">
+		Nein
+	</a>
+	<a (click)="cancel(true)" style="font-weight: 500; padding: 5px">
+		Ja
+	</a>
+</div>
+
+<h3 style="position: absolute; left: 20px; top: -4px">
+	<span>{{title}}</span>
+</h3>

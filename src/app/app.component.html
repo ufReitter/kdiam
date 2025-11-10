@@ -1,0 +1,24 @@
+<kd-main
+  *ngIf="pS.loaded && dS.loaded"
+  [class.kia-light-theme]="!dS.isDark"
+  [class.kia-dark-theme]="dS.isDark"
+>
+</kd-main>
+<!-- <mat-card *ngIf="!cookiesAccepted" class="cookie-warning">
+  <div class="cookie-warning-text">
+    Diese Website verwendet Cookies, um Ihnen den bestmöglichen Service zu
+    gewährleisten. Wenn Sie auf der Seite weitersurfen, stimmen Sie der
+    Cookie-Nutzung zu.
+  </div>
+  <div class="d-flex">
+    <button class="wb50 m08" mat-button (click)="acceptCookies(true)">
+      Verwenden
+    </button>
+    <button class="wb50 m08" mat-button (click)="acceptCookies(true)">
+      Nicht verwenden
+    </button>
+  </div>
+  <button class="wb100 m08" mat-button (click)="acceptCookies(true)">
+    Info & Haftungsausschluss
+  </button>
+</mat-card> -->

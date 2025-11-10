@@ -1,0 +1,27 @@
+<div class="cell">
+  <!-- <span class="checkbox-label-small">{{ toSet }}</span> -->
+  <span
+    *ngIf="display"
+    (click)="vS.copyFromContent(str)"
+    class="monospace dimm-9 hover-pointer"
+    ><span *ngIf="str.length === 24">&hellip;</span>{{ display }}</span
+  >
+  <span *ngIf="toSet">
+    <button
+      *ngIf="!display"
+      mat-icon-button
+      (click)="insert()"
+      class="btn-icon-xsmall cell"
+    >
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    <button
+      *ngIf="display"
+      mat-icon-button
+      (click)="remove()"
+      class="btn-icon-xsmall cell"
+    >
+      <mat-icon>remove_circle</mat-icon></button
+    >  
+  </span>
+</div>

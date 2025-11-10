@@ -1,0 +1,144 @@
+<div class="kd-project-row">
+  <div
+    *ngIf="!elm.attrib.hideCaptionNum && !pS.pref.view.full"
+    class="project-caption"
+  >
+    <div (click)="dS.navigate(elm)" class="numeration hover-pointer">
+      {{ dS.system.i18n[target].strs?.CALCULATION_ABR }} {{ node.no }}
+    </div>
+    <div class="cell-caption-project">
+      <kd-text-target
+        [elm]="elm"
+        [parent]="parent"
+        [pos]="'cpt'"
+        [target]="target"
+      ></kd-text-target>
+    </div>
+  </div>
+  <div></div>
+  <div class="kd-project-buttons">
+    <div data-nosnippet class="undo print-hide">
+      <button
+        (click)="reset()"
+        mat-icon-button
+        [disabled]="!dirty && (!defaultDirty || !undos.length || undoIndex < 1)"
+      >
+        <mat-icon>skip_previous</mat-icon>
+      </button>
+      <button
+        (click)="undo()"
+        mat-icon-button
+        [disabled]="!undos.length || undoIndex < 1"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button
+        (click)="redo()"
+        mat-icon-button
+        [disabled]="undos.length === 0 || undoIndex === undos.length - 1"
+      >
+        <mat-icon>redo</mat-icon>
+      </button>
+      <button
+        (click)="saveChange()"
+        mat-icon-button
+        color="warn"
+        [disabled]="!projectDirty"
+      >
+        <mat-icon>forward</mat-icon>
+      </button>
+    </div>
+
+    <!-- (selectionChange)="change($event.value)"
+    (openedChange)="openSelection($event)" -->
+    <div class="selection">
+      <mat-select
+        *ngIf="!edit"
+        placeholder="Projekt"
+        [value]="activeProject"
+        (click)="projClick()"
+        class="kd-projects print-black"
+      >
+        <div class="kd-menu-tools color-foreground color-background">
+          <button
+            (click)="add()"
+            type="button"
+            mat-icon-button
+            class="btn-icon-small"
+          >
+            <mat-icon class="icon-small">add_circle_outline</mat-icon>
+          </button>
+          <button
+            (click)="remove()"
+            type="button"
+            mat-icon-button
+            class="btn-icon-small"
+            [disabled]="
+              (!pS.profile.role.editor && activeProject?.kind === 'example') ||
+              !activeProject
+            "
+          >
+            <mat-icon class="icon-small">remove_circle_outline</mat-icon>
+          </button>
+          <button
+            (click)="editDesign()"
+            type="button"
+            mat-icon-button
+            class="btn-icon-small"
+            [disabled]="
+              (!pS.profile.role.editor && activeProject?.kind === 'example') ||
+              !activeProject
+            "
+          >
+            <mat-icon class="icon-small">edit</mat-icon>
+          </button>
+          <button
+            *ngIf="pS.profile.role.editor"
+            (click)="exampleStatus()"
+            type="button"
+            mat-icon-button
+            class="btn-icon-small"
+          >
+            <mat-icon class="icon-small">info</mat-icon>
+          </button>
+        </div>
+        <mat-option
+          *ngFor="let proj of elm.project?.data"
+          [value]="proj"
+          (click)="clickSelection(proj)"
+          class="print-black"
+        >
+          {{ proj.design }}
+        </mat-option>
+        <ng-container *ngIf="elm.attrib.examples && elm.attrib.examples.length">
+          <mat-divider></mat-divider>
+          <mat-option
+            *ngFor="let projex of elm.attrib.examples"
+            [value]="projex"
+            (click)="clickSelection(projex)"
+          >
+            {{ dS.system.i18n[target].strs?.EXAMPLE_ABR }} {{ projex.design }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+
+      <input
+        *ngIf="edit"
+        matInput
+        type="text"
+        [(ngModel)]="design"
+        (ngModelChange)="validateDesign($event)"
+        (blur)="changeDesign($event)"
+        (keyup.enter)="changeDesign($event)"
+        [placeholder]="dS.system.i18n[target].strs?.PROJECT"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="on"
+        spellcheck="false"
+        [class.warn]="warnDesign"
+        style="width: 135px; position: relative; top: 1px; right: 3px"
+        autofocus
+      />
+    </div>
+  </div>
+</div>

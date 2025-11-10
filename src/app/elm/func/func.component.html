@@ -1,0 +1,9 @@
+<div>
+  <div class="cell" style="min-width: 150px">{{ job.resultSubject | async | json }}</div>
+  <div class="cell" style="min-width: 150px">{{ job.func }} <span *ngFor="let arg of args;">
+    {{arg.key}} </span></div>
+  <div class="cell"><span *ngFor="let arg of args;">
+       <input matInput type="number" [(ngModel)]="arg.parm" (ngModelChange)="change()">
+    </span>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<td class="number-lbl">
+  <span *ngIf="!set.attrib.hideLbl">{{
+    set.attrib[dS.locale] || elm.txts.lbl
+  }}</span>
+</td>
+<td
+  [innerHTML]="elm.sign | safeHtml"
+  (click)="dS.edit(elm)"
+  [class.hover-pointer]="pS.profile.role.editor"
+  class="kd-sign"
+></td>
+<td>{{ set?.state.rel || elm.state.rel || '=' }}</td>
+<td *ngIf="!set.state.input" class="result">
+  <kd-result [elm]="elm" [set]="set"></kd-result>
+</td>
+<td *ngIf="set.state.input" class="relative">
+  <kd-number [elm]="elm" [set]="set"></kd-number>
+</td>
+<td
+  [innerHTML]="set.state.unit || elm.state.unit || '' | safeHtml"
+  style="text-align: left"
+></td>
+<td>&nbsp;</td>

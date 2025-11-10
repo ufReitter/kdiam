@@ -1,0 +1,14 @@
+.item-box {
+  padding: 0 20px 0 10px;
+  vertical-align: middle;
+  height: 34px;
+  width: calc(100% - 30px);
+  margin: 0 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: content-box;
+  font-size: 14px;
+  border-bottom: 1px #fff;
+  white-space: nowrap;
+}

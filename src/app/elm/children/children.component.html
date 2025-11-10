@@ -1,0 +1,294 @@
+<div
+  style="display: block"
+  [class.grid-handset-landscape]="dS.isHandsetPortrait$ | async"
+  [class.grid-handset]="dS.isHandset$ | async"
+>
+  <mat-grid-list
+    *ngIf="elm.view === 'grid'"
+    [cols]="elm.grids[0].cols"
+    [rowHeight]="elm.grids[0].rowHeight"
+    [gutterSize]="elm.grids[0].gutterSize || '10'"
+  >
+    <mat-grid-tile
+      *ngFor="let child of elm.grids[0].children; let i = index"
+      [colspan]="child.set.cols || 1"
+      [rowspan]="child.set.rows || 1"
+      [style.background]="child.set.color"
+    >
+      <kd-elm
+        [node]="child"
+        [parent]="elm"
+        [grid]="elm.grids[0]"
+        [class.tile-align-left]="elm.grids[0].align === true"
+      ></kd-elm>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<div *ngIf="elm.view === 'calc'" [hidden]="vS.isFullscreen">
+  <div *ngIf="elm.grids[0].children.length" style="margin: 6px 0 2px 0">
+    <div
+      *ngFor="let child of elm.grids[0].children; let i = index"
+      [class.kd-elm-selected]="child.elm.selected"
+      style="padding: 4px 0"
+    >
+      <kd-elm
+        [node]="child"
+        [parent]="elm"
+        [grid]="elm.grids[0]"
+        [viewDepth]="2"
+        [class.tile-align-left]="elm.grids[0].align === true"
+      ></kd-elm>
+    </div>
+  </div>
+  <div style="position: relative; width: 100%; text-align: center">
+    <div class="kd-tables">
+      <table
+        *ngIf="
+          (elm.grids[1].children &&
+            elm.grids[1].children.length &&
+            vS.size.device !== 'cellphone') ||
+          vS.size.orientation !== 'portrait'
+        "
+        class="table table-cell"
+      >
+        <tr kd-var-tr [elm]="elm" [set]="set" *ngIf="elm.attrib.selfRef"></tr>
+        <tr
+          *ngFor="let child of elm.grids[1].children; let i = index"
+          [class.kd-elm-selected]="child.elm.selected"
+        >
+          <td class="number-lbl">
+            <span *ngIf="!child.set.attrib.hideLbl">{{
+              child.set.attrib[dS.locale] || child.elm.txts.lbl
+            }}</span>
+          </td>
+          <td
+            [innerHTML]="child.elm.sign | safeHtml"
+            (click)="dS.edit(child.elm)"
+            [class.hover-pointer]="pS.profile.role.editor"
+            class="kd-sign"
+          ></td>
+          <td>{{ child.set.state.rel || child.elm.state.rel || '=' }}</td>
+          <td *ngIf="!child.set.state.input" class="result">
+            <kd-result [elm]="child.elm" [set]="child.set"></kd-result>
+          </td>
+          <td *ngIf="child.set.state.input" class="relative">
+            <kd-number [elm]="child.elm" [set]="child.set"></kd-number>
+          </td>
+          <td
+            [innerHTML]="
+              child.set.state.unit || child.elm.state.unit || '' | safeHtml
+            "
+            style="text-align: left"
+          ></td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+      <br *ngIf="dS.isHandsetPortrait$ | async" />
+      <table
+        *ngIf="elm.grids[2].children && elm.grids[2].children.length"
+        class="table table-cell"
+      >
+        <ng-container
+          *ngIf="
+            vS.size.device === 'cellphone' && vS.size.orientation === 'portrait'
+          "
+        >
+          <tr kd-var-tr [elm]="elm" [set]="set" *ngIf="elm.attrib.selfRef"></tr>
+          <tr
+            *ngFor="let child of elm.grids[1].children; let i = index"
+            [class.kd-elm-selected]="child.elm.selected"
+          >
+            <td class="number-lbl">
+              <span
+                *ngIf="!child.set.attrib.hideLbl"
+                [innerHTML]="
+                  child.set.attrib[dS.locale] || child.elm.txts.lbl
+                    | highlighter : dS.searchTerm : 'partial'
+                "
+              ></span>
+            </td>
+            <td
+              [innerHTML]="child.elm.sign | safeHtml"
+              (click)="dS.edit(child.elm)"
+              [class.hover-pointer]="pS.profile.role.editor"
+              class="kd-sign"
+            ></td>
+            <td>{{ child.set.state.rel || child.elm.state.rel || '=' }}</td>
+            <td *ngIf="!child.set.state.input" class="result">
+              <kd-result [elm]="child.elm" [set]="child.set"></kd-result>
+            </td>
+            <td *ngIf="child.set.state.input" class="relative">
+              <kd-number [elm]="child.elm" [set]="child.set"></kd-number>
+            </td>
+            <td
+              [innerHTML]="
+                child.set.state.unit || child.elm.state.unit || '' | safeHtml
+              "
+              style="text-align: left"
+            ></td>
+            <td>&nbsp;</td>
+          </tr>
+        </ng-container>
+        <tr
+          *ngFor="let child of elm.grids[2].children; let i = index"
+          [class.kd-elm-selected]="child.elm.selected"
+        >
+          <td class="number-lbl">
+            <span
+              *ngIf="!child.set.attrib.hideLbl"
+              [innerHTML]="
+                child.set.attrib[dS.locale] || child.elm.txts.lbl
+                  | highlighter : dS.searchTerm : 'partial'
+              "
+            ></span>
+          </td>
+          <td
+            [innerHTML]="child.elm.sign | safeHtml"
+            (click)="dS.edit(child.elm)"
+            [class.hover-pointer]="pS.profile.role.editor"
+            class="kd-sign"
+          ></td>
+          <td *ngIf="!child.set.state.play">
+            {{ child.set.state.rel || child.elm.state.rel || '=' }}
+          </td>
+          <!-- <td *ngIf="!child.set.state.input" class="result">
+            <kd-result [elm]="child.elm" [set]="child.set"></kd-result>
+          </td> -->
+          <td class="relative">
+            <kd-number
+              *ngIf="child.set.state.input"
+              [elm]="child.elm"
+              [set]="child.set"
+              (slider)="slider2 = $event"
+            ></kd-number>
+            <kd-play-button
+              *ngIf="child.set.state.play"
+              [elm]="child.set.parent"
+            ></kd-play-button>
+          </td>
+          <td
+            [innerHTML]="
+              child.set.state.unit || child.elm.state.unit || '' | safeHtml
+            "
+            class="kd-unit"
+          ></td>
+          <td class="buttons relative">
+            <kd-animation
+              [elm]="child.elm"
+              [set]="child.set"
+              (plays)="playing = $event"
+            ></kd-animation>
+            <kd-check [elm]="child.elm" [set]="child.set"></kd-check>
+            <kd-button [elm]="child.elm" [set]="child.set"></kd-button>
+            <kd-select [elm]="elm" [child]="child"></kd-select>
+            <div class="button-label-small">
+              {{ child.set.attrib?.buttonText || '' }}
+            </div>
+          </td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div *ngIf="slider2" class="relative print-hide">
+  <mat-slider
+    [hidden]="slider2 && playing"
+    [min]="slider2.set.state.min || slider2.elm.state.min || 0"
+    [max]="slider2.set.state.max || slider2.elm.state.max"
+    [step]="slider2.set.state.step || slider2.elm.state.step"
+    [value]="slider2.set.state.val"
+    [color]="'primary'"
+    [disabled]="vS.userAgentIsPrerender"
+    (input)="input($event)"
+    (change)="change($event)"
+    class="slider"
+  ></mat-slider>
+  <div [hidden]="slider2 && !playing" style="height: 16px"></div>
+</div>
+<div *ngIf="vS.isFullscreen && slider1" class="fullscreen-children">
+  <span>{{ slider1.set.attrib[dS.locale] || slider1.elm.txts.lbl }}</span
+  >   <span [innerHTML]="slider1.elm.sign | safeHtml"></span>  
+  <span>{{ slider1.set.state.rel || slider1.elm.state.rel || '=' }}</span
+  >  
+  <kd-result
+    [elm]="slider1.elm"
+    [set]="slider1.set"
+    style="position: relative; bottom: 2px"
+  ></kd-result
+  >  
+
+  <span
+    [innerHTML]="
+      slider1.set.state.unit || slider1.elm.state.unit || '' | safeHtml
+    "
+  ></span>
+  <button
+    mat-icon-button
+    [mat-menu-trigger-for]="sMenu1"
+    [disabled]="elm.grids[1].children.length < 2"
+  >
+    <mat-icon>arrow_drop_down</mat-icon></button
+  >    <span>{{ slider2.set.attrib[dS.locale] || slider2.elm.txts.lbl }}</span
+  >   <span [innerHTML]="slider2.elm.sign | safeHtml"></span>  
+  <span>{{ slider2.set.state.rel || slider2.elm.state.rel || '=' }}</span
+  >  
+  <kd-number
+    *ngIf="slider2.set.state.input"
+    [elm]="slider2.elm"
+    [set]="slider2.set"
+    style="position: relative; bottom: 7px"
+  ></kd-number>
+  <kd-play-button
+    *ngIf="slider2.set.state.play"
+    [elm]="slider2.set.parent"
+  ></kd-play-button
+  >  
+
+  <span
+    [innerHTML]="
+      slider2.set.state.unit || slider2.elm.state.unit || '' | safeHtml
+    "
+  ></span
+  >  
+  <kd-check [elm]="slider2.elm" [set]="slider2.set"></kd-check>
+  <button
+    [mat-menu-trigger-for]="sMenu2"
+    mat-icon-button
+    [disabled]="elm.grids[2].children.length < 2"
+  >
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+
+  <mat-menu #sMenu1="matMenu" class="menu">
+    <button
+      *ngFor="let nd of elm.grids[1].children"
+      mat-menu-item
+      (click)="slider1 = nd"
+      [class.kd-sel]="nd.elm === slider1.elm"
+    >
+      <span>{{ nd.set.attrib[dS.locale] || nd.elm.txts.lbl }}</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #sMenu2="matMenu" class="menu">
+    <button
+      *ngFor="let nd of elm.grids[2].children"
+      mat-menu-item
+      (click)="slider2 = nd"
+      [class.kd-sel]="nd.elm === slider2.elm"
+    >
+      <span>{{ nd.set.attrib[dS.locale] || nd.elm.txts.lbl }}</span>
+    </button>
+  </mat-menu>
+</div>
+
+<ng-container *ngIf="!elm.grids && elm.children">
+  <kd-elm
+    *ngFor="let child of elm.children; let i = index"
+    [node]="child"
+    [parent]="elm"
+    [view]="'article-view'"
+  >
+  </kd-elm>
+</ng-container>

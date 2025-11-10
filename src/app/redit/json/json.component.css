@@ -1,0 +1,8 @@
+.json {
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.85;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

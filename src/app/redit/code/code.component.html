@@ -1,0 +1,147 @@
+<div class="wrapper relative">
+  <div *ngIf="!elm.checkout" class="kd-blocker"></div>
+  <div class="kd-top-toolbar toolbar">
+    <div>
+      <mat-checkbox
+        [(ngModel)]="elm.attrib.viewport"
+        (ngModelChange)="elm.dirty = true"
+        class="checkbox-label-small"
+      >
+        VP</mat-checkbox
+      >
+      <ng-container *ngIf="elm.attrib.viewport">
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.attrib.ratio"
+          (ngModelChange)="elm.dirty = true"
+          [placeholder]="'Ratio'"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          [class.warn]="warnName"
+          style="width: 42px"
+          autofocus
+        /> 
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.yup"
+          (ngModelChange)="elm.dirty = true"
+          class="checkbox-label-small"
+        ></mat-checkbox>
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.horizontal"
+          (ngModelChange)="elm.dirty = true"
+          class="checkbox-label-small"
+        ></mat-checkbox
+        >  
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="elm.attrib.fps"
+          (ngModelChange)="elm.dirty = true"
+          [placeholder]="'FPS'"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="on"
+          spellcheck="false"
+          [class.warn]="warnName"
+          style="width: 40px"
+          autofocus
+        />
+        <mat-checkbox
+          [(ngModel)]="elm.attrib.autoStart"
+          (ngModelChange)="elm.dirty = true"
+          class="checkbox-label-small"
+        ></mat-checkbox>
+      </ng-container>
+    </div>
+    <mat-checkbox
+      [(ngModel)]="elm.attrib.asc"
+      (ngModelChange)="elm.dirty = true"
+      class="checkbox-label-small"
+    >
+      asc</mat-checkbox
+    >
+    <input
+      *ngIf="editName"
+      matInput
+      type="text"
+      [(ngModel)]="funcName"
+      (ngModelChange)="validateName($event)"
+      (blur)="changeName($event)"
+      (keyup.enter)="changeName($event)"
+      [placeholder]="dS.system.txts.NEW_FUNCTION"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="on"
+      spellcheck="false"
+      [class.warn]="warnName"
+      style="width: 135px; position: relative; top: 1px; right: 3px"
+      autofocus
+    />
+
+    <input
+      *ngIf="selectedSrc && activeSrc !== 'init' && activeSrc !== 'changes'"
+      matInput
+      type="text"
+      [(ngModel)]="selectedSrc.args"
+      [placeholder]="dS.system.txts.ARGUMENTS"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="on"
+      spellcheck="false"
+      [class.warn]="warnName"
+      style="width: 320px"
+    />
+    <div>
+      <mat-button-toggle-group
+        (change)="srcChange($event.value)"
+        [value]="pS.pref.edit[elm._eid.str]?.activeSrc || activeSrc"
+        [multiple]="false"
+        [matTooltip]="dS.system.txts.CHLDRVIEW"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+        class="small"
+      >
+        <mat-button-toggle value="init" class="btn-icon-smallx">
+          <mat-icon class="icon-smallx">arrow_upward</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="changes" class="btn-icon-smallx">
+          <mat-icon class="icon-smallx">arrow_forward</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="function" class="btn-icon-smallx">
+          <mat-icon class="icon-smallx">settings</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <button
+        type="button"
+        mat-icon-button
+        (click)="applyCode()"
+        [matTooltip]="dS.system.txts.APPLY_SCRIPT"
+        [matTooltipDisabled]="dS.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        <mat-icon
+          [class.kd-error]="codeDirty"
+          [class.kd-error]="codeError"
+          [class.kd-warn]="codePending"
+          [class.rotating]="codePending"
+          >autorenew</mat-icon
+        >
+      </button>
+    </div>
+  </div>
+
+  <div class="mon-container">
+    <ngx-monaco-editor
+      *ngIf="show"
+      [(ngModel)]="source"
+      [options]="vS.editorTypescriptOptions"
+      (onInit)="onInitMonaco($event)"
+      (ngModelChange)="codeChange(selectedSrc.name, $event)"
+      class="code-editor"
+    >
+    </ngx-monaco-editor>
+  </div>
+</div>

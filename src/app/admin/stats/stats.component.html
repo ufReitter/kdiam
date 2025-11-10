@@ -1,0 +1,20 @@
+<div class="kd-row relative" style="min-height: 515px">
+  <div style="width: 50%; padding-right: 6px">
+    <kd-users-chart [bust]="bust"></kd-users-chart>
+  </div>
+  <div style="width: 50%; padding-left: 6px">
+    <kd-logs
+      [bust]="bust"
+      [palim]="palim"
+      [tabIndex]="tabIndex"
+      [context]="'ranking'"
+    ></kd-logs>
+  </div>
+</div>
+<kd-logs
+  [palim]="palim"
+  [bust]="bust"
+  [tabIndex]="tabIndex"
+  [context]="'webclient'"
+></kd-logs>
+<kd-logs [bust]="bust" [tabIndex]="tabIndex" [context]="'referer'"></kd-logs>
