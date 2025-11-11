@@ -102,19 +102,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kompendiam:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "buildTarget": "kompendiam:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kompendiam:build:production"
+              "buildTarget": "kompendiam:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kompendiam:build"
+            "buildTarget": "kompendiam:build"
           }
         },
         "test": {
