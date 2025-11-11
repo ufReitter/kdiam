@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
@@ -11,6 +11,7 @@ import {
   PLATFORM_ID,
   Renderer2,
   ViewChild,
+  DOCUMENT
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenavContainer } from '@angular/material/sidenav';

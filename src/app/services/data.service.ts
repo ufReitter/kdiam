@@ -1,7 +1,7 @@
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -15,6 +15,7 @@ import {
   NgZone,
   Optional,
   PLATFORM_ID,
+  DOCUMENT
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';

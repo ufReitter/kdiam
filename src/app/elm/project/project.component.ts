@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+
 import {
   AfterViewInit,
   Component,
@@ -9,6 +9,7 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
+  DOCUMENT
 } from '@angular/core';
 import Dexie from 'dexie';
 import { Subscription } from 'rxjs';
