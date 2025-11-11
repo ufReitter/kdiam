@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-// import { JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 // import { TransferHttpCacheModule } from '@nguniversal/common';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { environment } from '../environments/environment';
@@ -153,7 +153,7 @@ export function jwtOptionsFactory(platformId) {
     QuillModule.forRoot({
       suppressGlobalRegisterWarning: true,
     }),
-    /* JwtModule.forRoot({
+    JwtModule.forRoot({
       config: {
         headerName: 'authorization',
         tokenGetter: tokenGetter,
@@ -167,7 +167,7 @@ export function jwtOptionsFactory(platformId) {
         ],
         disallowedRoutes: ['localhost:3001/axxxuth/'],
       },
-    }), */
+    }),
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production,
     }),

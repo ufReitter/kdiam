@@ -50,6 +50,7 @@
     "@angular/service-worker": "^18.2.14",
     "@angular/upgrade": "^18.2.14",
     "@assemblyscript/loader": "0.22.0",
+    "@auth0/angular-jwt": "^5.2.0",
     "@schematics/angular": "^14.0.5",
     "class-transformer": "^0.5.1",
     "clipboardy": "^3.0.0",

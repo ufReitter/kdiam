@@ -12,10 +12,9 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSidenavContainer } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -153,9 +152,9 @@ export class AppComponent implements OnInit, OnDestroy {
     console.log(event);
   }
 
-  handleClose = (button: MatButton) => {
+  /* handleClose = (button: MatButton) => {
     (<any>button)._focusMonitor.stopMonitoring(button._getHostElement());
-  };
+  }; */
 
   ngOnInit() {
     // if (!this.vS.userAgentIsBot) {
