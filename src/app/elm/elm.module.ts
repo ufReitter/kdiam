@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatLegacyDialogActions as MatDialogActions,
-  MatLegacyDialogClose as MatDialogClose,
-  MatLegacyDialogContent as MatDialogContent,
-  MatLegacyDialogTitle as MatDialogTitle,
-} from '@angular/material/legacy-dialog';
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 import { MaterialModule } from '../material.module';

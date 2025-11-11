@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { LegacyProgressSpinnerMode as ProgressSpinnerMode } from '@angular/material/legacy-progress-spinner';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { CalculationService } from '../../services/calculation.service';
 import { DataService } from '../../services/data.service';
 

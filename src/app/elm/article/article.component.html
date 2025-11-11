@@ -1,5 +1,6 @@
 <article *ngIf="node && dS.loaded">
   <mat-card
+    appearance="outlined"
     [class.card-poster-handheld]="
       dS.routeSegments.length <= 2 &&
       dS.routeSegments[1] !== 'admin' &&

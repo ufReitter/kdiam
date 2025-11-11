@@ -58,7 +58,7 @@
   justify-content: left;
 }
 
-.mat-select-panel {
+.mat-mdc-select-panel {
   max-height: 286px !important;
 }
 
@@ -155,6 +155,7 @@
   line-height: 1.6em;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 .form-field-short .mat-form-field-infix {
   width: 6.4em !important;
 }

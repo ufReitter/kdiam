@@ -90,7 +90,7 @@
   display: flex;
   align-items: flex-start;
 }
-.mat-card-title {
+.mat-mdc-card-title {
   font-family: 'myriad-pro-condensed', 'Helvetica Neue', 'Helvetica', 'Arial',
     sans-serif;
   font-size: 2em;
@@ -103,7 +103,7 @@
   */
 }
 
-.mat-card-subtitle {
+.mat-mdc-card-subtitle {
   font-size: 0.9em;
   font-weight: 400;
 }
@@ -125,7 +125,7 @@
   background-size: cover;
 }
 
-.mat-card-avatar {
+.mat-mdc-card-avatar {
   height: 40px !important;
   width: 40px !important;
   border-radius: 50%;

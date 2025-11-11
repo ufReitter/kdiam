@@ -197,13 +197,10 @@
     [min]="slider2.set.state.min || slider2.elm.state.min || 0"
     [max]="slider2.set.state.max || slider2.elm.state.max"
     [step]="slider2.set.state.step || slider2.elm.state.step"
-    [value]="slider2.set.state.val"
     [color]="'primary'"
     [disabled]="vS.userAgentIsPrerender"
-    (input)="input($event)"
-    (change)="change($event)"
     class="slider"
-  ></mat-slider>
+   #ngSlider><input matSliderThumb [value]="slider2.set.state.val" (input)="input({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" #ngSliderThumb="matSliderThumb" (change)="change({source: ngSliderThumb, parent: ngSlider, value: ngSliderThumb.value})" /></mat-slider>
   <div [hidden]="slider2 && !playing" style="height: 16px"></div>
 </div>
 <div *ngIf="vS.isFullscreen && slider1" class="fullscreen-children">

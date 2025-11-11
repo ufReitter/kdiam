@@ -16,10 +16,10 @@ import {
 } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { LegacyProgressSpinnerMode as ProgressSpinnerMode } from '@angular/material/legacy-progress-spinner';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyTabNav as MatTabNav } from '@angular/material/legacy-tabs';
+import { MatDialog } from '@angular/material/dialog';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTabNav } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import Dexie from 'dexie';
 import { Observable, timer } from 'rxjs';

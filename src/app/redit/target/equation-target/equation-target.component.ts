@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Elm, ElmNode } from 'src/app/engine/entity';
 import { DataService } from 'src/app/services/data.service';
 import { ProfileService } from 'src/app/services/profile.service';

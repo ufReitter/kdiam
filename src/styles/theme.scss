@@ -1,27 +1,27 @@
 @use '@angular/material' as mat;
 
-$custom-typography: mat.define-legacy-typography-config(
+$custom-typography: mat.define-typography-config(
   $font-family: 'Roboto, Helvetica Neue, Helvetica, Arial, sans-serif',
-  $display-4: mat.define-typography-level(112px, 112px, 300),
-  $display-3: mat.define-typography-level(56px, 56px, 400),
-  $display-2: mat.define-typography-level(45px, 48px, 400),
-  $display-1: mat.define-typography-level(34px, 40px, 400),
-  $headline: mat.define-typography-level(24px, 32px, 400),
-  $title: mat.define-typography-level(20px, 32px, 500),
-  $subheading-2: mat.define-typography-level(16px, 28px, 400),
-  $subheading-1: mat.define-typography-level(15px, 24px, 400),
-  $body-2: mat.define-typography-level(14px, 24px, 500),
-  $body-1: mat.define-typography-level(14px, 20px, 400),
+  $headline-1: mat.define-typography-level(112px, 112px, 300),
+  $headline-2: mat.define-typography-level(56px, 56px, 400),
+  $headline-3: mat.define-typography-level(45px, 48px, 400),
+  $headline-4: mat.define-typography-level(34px, 40px, 400),
+  $headline-5: mat.define-typography-level(24px, 32px, 400),
+  $headline-6: mat.define-typography-level(20px, 32px, 500),
+  $subtitle-1: mat.define-typography-level(16px, 28px, 400),
+  $body-1: mat.define-typography-level(15px, 24px, 400),
+  $subtitle-2: mat.define-typography-level(14px, 24px, 500),
+  $body-2: mat.define-typography-level(14px, 20px, 400),
   $caption: mat.define-typography-level(12px, 20px, 400),
   $button: mat.define-typography-level(14px, 14px, 500),
-  $input: mat.define-typography-level(inherit, 1.125, 400),
+  $in/* TODO(mdc-migration): No longer supported. Use `body-1` instead. put: mat.define-typography-level(inherit, 1.125, 400),
 );
+ */
+@include mat.typography-hierarchy($custom-typography);
 
-@include mat.legacy-typography-hierarchy($custom-typography);
+@include mat.checkbox-typography($custom-typography);
 
-@include mat.legacy-checkbox-typography($custom-typography);
-
-@include mat.all-legacy-component-typographies($custom-typography);
+@include mat.all-component-typographies($custom-typography);
 
 // TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
 //  The following line adds:
@@ -31,8 +31,8 @@ $custom-typography: mat.define-legacy-typography-config(
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
 //    `@include mat.legacy-typography-hierarchy($custom-typography);`
-@include mat.all-legacy-component-typographies($custom-typography);
-@include mat.legacy-core();
+@include mat.all-component-typographies($custom-typography);
+@include mat.core();
 
 $md-formred2: (
   50: #f8eae8,
@@ -218,7 +218,7 @@ $dark-theme: create-wonky-theme($dark-primary, $dark-accent, $dark-warn);
 // @include mat.all-component-themes($kia-app-theme);
 
 .kia-dark-theme {
-  @include mat.all-legacy-component-themes($dark-theme);
+  @include mat.all-component-themes($dark-theme);
   $background: map-get($dark-theme, background);
   //background-color: mat.get-color-from-palette($background, background);
   $foreground: map-get($dark-theme, foreground);
@@ -226,7 +226,7 @@ $dark-theme: create-wonky-theme($dark-primary, $dark-accent, $dark-warn);
 }
 
 .kia-light-theme {
-  @include mat.all-legacy-component-themes($kia-app-theme);
+  @include mat.all-component-themes($kia-app-theme);
   //background-color: #ccc;
   //color: #333;
 }
@@ -303,7 +303,7 @@ $dark-theme: create-wonky-theme($dark-primary, $dark-accent, $dark-warn);
   // color: map_get(mat.$red-palette, 300) !important;
 }
 
-.mat-tooltip {
+.mat-mdc-tooltip {
   background: rgba(97, 97, 97, 0.9);
 }
 
@@ -410,12 +410,12 @@ $dark-theme: create-wonky-theme($dark-primary, $dark-accent, $dark-warn);
   background: mat.get-color-from-palette($background, dialog) !important;
 }
 
-.kia-dark-theme .mat-card-title {
+.kia-dark-theme .mat-mdc-card-title {
   $foreground: map-get($dark-theme, foreground);
   color: mat.get-color-from-palette($foreground, bold-text);
 }
 
-.kia-light-theme .mat-card-title {
+.kia-light-theme .mat-mdc-card-title {
   color: rgba(black, 0.85);
 }
 

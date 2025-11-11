@@ -18,6 +18,7 @@ body > div {
   transition: top 0.5s;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of checkbox that may no longer apply for the MDC version. */
 .checkbox-label-small .mat-checkbox-label {
   position: relative;
   top: 2px;
@@ -254,6 +255,7 @@ h4:first-letter {
   opacity: 0;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
 .kd-used-by-select .mat-select-trigger {
   width: 2em !important;
   height: 2em !important;
@@ -417,9 +419,11 @@ h4:first-letter {
   color: #f36c12;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
 .mat-slider-horizontal .mat-slider-wrapper {
   top: 5px !important;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of slider that may no longer apply for the MDC version. */
 .mat-slider-horizontal {
   height: 4px !important;
 }
@@ -427,6 +431,7 @@ h4:first-letter {
   color: #f00;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
 .mat-tab-body-content {
   height: auto !important;
   overflow: hidden !important;
@@ -550,7 +555,7 @@ h4:first-letter {
   .sup {
     color: #912518 !important;
   }
-  td.mat-cell {
+  td.mat-mdc-cell {
     border-bottom-color: rgba(255, 255, 255, 0.8) !important;
   }
   .page-break {
@@ -796,7 +801,7 @@ title {
 .link-active:hover {
   font-weight: 700 !important;
 }
-.mat-list-item {
+.mat-mdc-list-item {
   height: 42px !important;
 }
 .invisible {
@@ -1013,6 +1018,7 @@ a:hover {
   overflow: hidden;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 .mat-button-toggle-checked {
   background-color: #fff !important;
   opacity: 1 !important;
@@ -1104,10 +1110,11 @@ a:hover {
 .m08 {
   margin: 5px !important;
 }
-.mat-tab {
+.mat-mdc-tab {
   min-width: 42px !important;
   height: 42px !important;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of tabs that may no longer apply for the MDC version. */
 .mat-tab-label {
   padding: 0 8px !important;
   min-width: 42px !important;
@@ -1129,31 +1136,32 @@ a:hover {
   width: 2em;
   text-align: right;
 }
-.mat-table {
+.mat-mdc-table {
   width: 100%;
   margin: 0 0 0 0;
 }
-tr.mat-header-row {
+tr.mat-mdc-header-row {
   height: 48px !important;
 }
-tr.mat-footer-row,
-tr.mat-row {
+tr.mat-mdc-footer-row,
+tr.mat-mdc-row {
   height: 38px !important;
 }
-.mat-paginator {
+.mat-mdc-paginator {
   min-height: 48px !important;
   height: 48px !important;
   vertical-align: center;
 }
-.mat-paginator-container {
+.mat-mdc-paginator-container {
   min-height: 48px !important;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of paginator that may no longer apply for the MDC version. */
 .mat-paginator-page-size-select {
   margin: 4px 4px 0 4px !important;
   width: 56px !important;
   height: 48px !important;
 }
-.mat-paginator-range-actions {
+.mat-mdc-paginator-range-actions {
   display: flex;
   align-items: center;
   min-height: 48px;
@@ -1175,10 +1183,12 @@ tr.mat-row {
   -webkit-font-smoothing: antialiased;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 mat-button-toggle {
   opacity: 0.5 !important;
 }
 
+/* TODO(mdc-migration): The following rule targets internal classes of button that may no longer apply for the MDC version. */
 .small .mat-button-toggle-label-content {
   line-height: 0px !important;
   padding: 5px 4px 4px 4px !important;
@@ -1300,7 +1310,7 @@ mat-icon.icon-xbig {
   top: 20px !important;
   left: 0px;
 }
-.mat-menu-panel {
+.mat-mdc-menu-panel {
   border-radius: 4px !important;
   min-width: 140px !important;
 
@@ -1308,11 +1318,11 @@ mat-icon.icon-xbig {
   /* max-width: 320px !important; */
 }
 
-.mat-menu-content {
+.mat-mdc-menu-content {
   padding-top: 8px !important;
   padding-bottom: 8px !important;
 }
-.mat-menu-itemXXX {
+.mat-mdc-menu-itemXXX {
   height: 42px !important;
   line-height: 42px !important;
   font-size: 15px !important;

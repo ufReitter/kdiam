@@ -12,16 +12,16 @@ declare var monaco: any;
   template: '<div class="editor-container" #editorContainer></div>',
   styles: [
     `
-      :host {
-        display: block;
-        height: 200px;
-      }
-
-      .editor-container {
-        width: 100%;
-        height: 98%;
-      }
-    `,
+          :host {
+            display: block;
+            height: 200px;
+          }
+    
+          .editor-container {
+            width: 100%;
+            height: 98%;
+          }
+        `,
   ],
   providers: [
     {

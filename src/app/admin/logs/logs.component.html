@@ -438,7 +438,7 @@
 </div>
 
 <mat-menu #showAgents="matMenu" (closed)="popUpIsShown = false" class="menu">
-  <mat-card (click)="$event.stopPropagation()">
+  <mat-card appearance="outlined" (click)="$event.stopPropagation()">
     <div *ngFor="let ua of showElement">
       <table>
         <tr *ngFor="let item of ua">
@@ -451,7 +451,7 @@
 </mat-menu>
 
 <mat-menu #showWhois="matMenu" (closed)="popUpIsShown = false" class="menu">
-  <mat-card (click)="$event.stopPropagation()">
+  <mat-card appearance="outlined" (click)="$event.stopPropagation()">
     <table>
       <tr *ngFor="let item of showWhoisElement">
         <td>{{ item.key }}</td>
@@ -462,7 +462,7 @@
 </mat-menu>
 
 <mat-menu #showError="matMenu" (closed)="popUpIsShown = false" class="menu">
-  <mat-card (click)="$event.stopPropagation()">
+  <mat-card appearance="outlined" (click)="$event.stopPropagation()">
     <div>Additional:</div>
     <div *ngFor="let add of showErrorItem?.additional" style="width: 640px">
       {{ add }}

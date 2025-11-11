@@ -11,9 +11,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  MatLegacyTable as MatTable,
-  MatLegacyTableDataSource as MatTableDataSource,
-} from '@angular/material/legacy-table';
+  MatTable,
+  MatTableDataSource,
+} from '@angular/material/table';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import Dexie from 'dexie';
 import { BehaviorSubject, Subscription, timer } from 'rxjs';
