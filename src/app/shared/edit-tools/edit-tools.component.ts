@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -11,7 +11,7 @@ import { ViewService } from 'src/app/services/view.service';
 })
 export class EditToolsComponent implements OnInit {
   constructor(
-    private router: Router,
+    @Inject(Router) private router: Router,
     public pS: ProfileService,
     public vS: ViewService,
     public dS: DataService,

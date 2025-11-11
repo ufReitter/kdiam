@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { RouterModule } from '@angular/router';
+//import { RouterModule } from '@angular/router';
 import { QuillModule } from 'ngx-quill';
 import { MaterialModule } from '../material.module';
 import { SharedModule } from '../shared.module';
@@ -50,10 +50,10 @@ import { VolumeViewComponent } from './volume-view/volume-view.component';
     QuillModule.forRoot({
       suppressGlobalRegisterWarning: true,
     }),
-    RouterModule,
+    //RouterModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    //FormsModule,
+    //ReactiveFormsModule,
     MaterialModule,
     SharedModule,
   ],
@@ -102,8 +102,8 @@ import { VolumeViewComponent } from './volume-view/volume-view.component';
     MatDialogTitle,
     MaterialModule,
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    //FormsModule,
+    //ReactiveFormsModule,
     MaterialModule,
     ElmComponent,
     TableComponent,

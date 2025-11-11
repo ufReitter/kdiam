@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { JwtModule } from '@auth0/angular-jwt';
 // import { TransferHttpCacheModule } from '@nguniversal/common';
-import { ScullyLibModule } from '@scullyio/ng-lib';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -133,25 +132,24 @@ export function jwtOptionsFactory(platformId) {
     EditsMenuComponent,
   ],
   imports: [
-    SharedModule,
+    FormsModule,
     ReactiveFormsModule,
+    SharedModule,
     MaterialModule,
     MatDialogModule,
     RouterModule,
     CoreModule,
     ElmModule,
-    BrowserModule.withServerTransition({ appId: 'kompendia' }),
-    // TransferHttpCacheModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     ThemePickerModule,
+    BrowserModule.withServerTransition({ appId: 'kompendiam' }),
     LoggerModule.forRoot({
       serverLoggingUrl: '/api/logs/clientconsole',
       level: NgxLoggerLevel.DEBUG,
       serverLogLevel: NgxLoggerLevel.ERROR,
     }),
-    FormsModule,
     QuillModule.forRoot({
       suppressGlobalRegisterWarning: true,
     }),
@@ -172,12 +170,6 @@ export function jwtOptionsFactory(platformId) {
     }),
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production,
-    }),
-    // ScullyLibModule,
-    ScullyLibModule.forRoot({
-      useTransferState: true,
-      alwaysMonitor: false,
-      manualIdle: true,
     }),
   ],
   providers: [
