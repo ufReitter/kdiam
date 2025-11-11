@@ -160,7 +160,7 @@
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/kompendiam/server",
-            "main": "server.ts",
+            "main": "main.ts",
             "tsConfig": "tsconfig.server.json",
             "externalDependencies": [
               "@nestjs/microservices",

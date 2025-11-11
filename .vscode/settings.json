@@ -1,9 +1,0 @@
-{
-  "search.exclude": {
-    "**/data": true,
-    "**/dist": true,
-    "**/server": true,
-    "**/websites": true,
-    "**/angular_material_schematics*": true
-  }
-}
