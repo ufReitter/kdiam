@@ -21,6 +21,8 @@ import { UsersOnlineComponent } from './shared/users-online/users-online.compone
     SwitchMultiCasePipe,
   ],
   exports: [
+    CommonModule,
+    MaterialModule,
     SafeHtmlPipe,
     HighlighterPipe,
     HighlightSearchPipe,

@@ -58,6 +58,7 @@
   >
     <mat-form-field class="form-field-login">
       <input
+        placeholder="email | username"
         matInput
         #myUsername
         name="identifier"
@@ -71,10 +72,10 @@
         "
         [class.loginFail]="failed"
       />
-      <mat-placeholder>{{ dS.system.txts.EMAIL_USERNAME }}</mat-placeholder>
     </mat-form-field>
     <mat-form-field class="form-field-login">
       <input
+        placeholder="password"
         matInput
         #myPassword
         type="password"
@@ -88,7 +89,6 @@
         "
         [class.loginFail]="failed"
       />
-      <mat-placeholder>{{ dS.system.txts.PASSWORD }}</mat-placeholder>
     </mat-form-field>
     <button
       *ngIf="!pS.profile.role.user"

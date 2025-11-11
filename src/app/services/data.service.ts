@@ -34,7 +34,7 @@ import {
   timer,
 } from 'rxjs';
 
-import { IdleMonitorService } from '@scullyio/ng-lib';
+// import { IdleMonitorService } from '@scullyio/ng-lib';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { CalcService } from '../calc/calc.service';
@@ -322,8 +322,8 @@ export class DataService {
     private deviceService: DeviceDetectorService,
     public logger: NGXLogger,
     private zone: NgZone,
-    private ims: IdleMonitorService,
-  ) {
+  ) // private ims: IdleMonitorService,
+  {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     if (
       isPlatformBrowser(this.platformId) &&
@@ -417,20 +417,22 @@ export class DataService {
     }
 
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe((event) => {
-        const msg1 = {
-          de: ` \nEine neue Version der App ist verfügbar\n `,
-          en: ` \nA new version of the App is available\n `,
-        };
-        const warning = msg1[this.locale];
-        const action = this.system.txts.UPDATELOAD;
-        const snack = this.snackbar.open(warning, action, {
-          duration: 14400000,
-          panelClass: ['kd-snackbar'],
-        });
-        snack.onAction().subscribe(() => {
-          this.swUpdate.activateUpdate().then(() => window.location.reload());
-        });
+      this.swUpdate.versionUpdates.subscribe((event) => {
+        if (event.type === 'VERSION_READY') {
+          const msg1 = {
+            de: ` \nEine neue Version der App ist verfügbar\n `,
+            en: ` \nA new version of the App is available\n `,
+          };
+          const warning = msg1[this.locale];
+          const action = this.system.txts.UPDATELOAD;
+          const snack = this.snackbar.open(warning, action, {
+            duration: 14400000,
+            panelClass: ['kd-snackbar'],
+          });
+          snack.onAction().subscribe(() => {
+            this.swUpdate.activateUpdate().then(() => window.location.reload());
+          });
+        }
       });
     }
 
@@ -1432,7 +1434,7 @@ export class DataService {
             this.usersObj[it._id] = it;
           }
         }
-        setTimeout(() => this.ims.fireManualMyAppReadyEvent(), 1000);
+        //setTimeout(() => this.ims.fireManualMyAppReadyEvent(), 1000);
       }
     });
 

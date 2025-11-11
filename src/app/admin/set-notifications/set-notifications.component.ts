@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'kd-set-notifications',
   templateUrl: './set-notifications.component.html',
-  styleUrls: ['./set-notifications.component.css']
+  styleUrls: ['./set-notifications.component.scss'],
 })
 export class SetNotificationsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
