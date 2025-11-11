@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { ElmNode } from 'src/app/engine/entity';
 import { DataService } from '../services/data.service';
@@ -9,7 +9,7 @@ import { ReditService } from './redit.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ReditResolver implements Resolve<ElmNode> {
+export class ReditResolver  {
   constructor(
     @Inject(DataService) private dS: DataService,
     @Inject(ReditService) private rS: ReditService,

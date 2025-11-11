@@ -1,15 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard  {
   route: ActivatedRouteSnapshot;
   jwtHelper = new JwtHelperService();
   constructor(

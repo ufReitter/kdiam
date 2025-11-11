@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { ElmNode } from 'src/app/engine/entity';
 import { Elm } from '../engine/entity';
@@ -8,7 +8,7 @@ import { DataService } from '../services/data.service';
 @Injectable({
   providedIn: 'root',
 })
-export class NodeResolver implements Resolve<ElmNode> {
+export class NodeResolver  {
   subject: Subject<ElmNode>;
   elm: Elm;
   vol: Elm;

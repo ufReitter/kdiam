@@ -1,11 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 
-import {
-  Resolve,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
 import { Elm } from '../engine/entity';
 import { DataService } from '../services/data.service';
@@ -14,7 +9,7 @@ import { Observable, timer } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AdminResolver implements Resolve<boolean> {
+export class AdminResolver  {
   constructor(
     private router: Router,
     @Inject(DataService) private dS: DataService,
