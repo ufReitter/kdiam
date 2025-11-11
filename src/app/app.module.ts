@@ -2,10 +2,9 @@ import { registerLocaleData } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import localeDe from '@angular/common/locales/de';
 import localeEnGb from '@angular/common/locales/en-GB';
-import { ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
+import { APP_ID, ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -144,7 +143,6 @@ export function jwtOptionsFactory(platformId) {
     HttpClientModule,
     AppRoutingModule,
     ThemePickerModule,
-    BrowserModule.withServerTransition({ appId: 'kompendiam' }),
     LoggerModule.forRoot({
       serverLoggingUrl: '/api/logs/clientconsole',
       level: NgxLoggerLevel.DEBUG,
@@ -180,6 +178,7 @@ export function jwtOptionsFactory(platformId) {
       multi: true,
     },
     { provide: LOCALE_ID, useValue: 'de' },
+    { provide: APP_ID, useValue: 'kompendiam' },
   ],
   bootstrap: [AppComponent],
 })
