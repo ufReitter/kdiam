@@ -27,6 +27,7 @@ var deepClone = Dexie.deepClone;
 
 @Component({
   selector: 'kd-debug',
+  standalone: false,
   templateUrl: './debug.component.html',
   styleUrls: ['./debug.component.scss'],
 })

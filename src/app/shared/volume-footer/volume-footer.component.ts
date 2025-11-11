@@ -6,6 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-volume-footer',
+  standalone: false,
   templateUrl: './volume-footer.component.html',
   styleUrls: ['./volume-footer.component.scss'],
 })

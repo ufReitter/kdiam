@@ -4,6 +4,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-notifications',
+  standalone: false,
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
 })

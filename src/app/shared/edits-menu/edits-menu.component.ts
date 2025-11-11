@@ -5,6 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-edits-menu',
+  standalone: false,
   templateUrl: './edits-menu.component.html',
   styleUrls: ['./edits-menu.component.scss'],
 })

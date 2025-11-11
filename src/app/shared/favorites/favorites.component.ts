@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-favorites',
+  standalone: false,
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
 })

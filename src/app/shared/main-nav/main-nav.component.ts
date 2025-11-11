@@ -6,6 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-main-nav',
+  standalone: false,
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss'],
 })

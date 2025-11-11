@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kd-chart',
+  standalone: false,
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })

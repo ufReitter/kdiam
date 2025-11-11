@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-lang-picker',
+  standalone: false,
   templateUrl: './lang-picker.component.html',
   styleUrls: ['./lang-picker.component.scss'],
 })

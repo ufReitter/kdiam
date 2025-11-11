@@ -8,6 +8,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-redit-tools',
+  standalone: false,
   templateUrl: './redit-tools.component.html',
   styleUrls: ['./redit-tools.component.scss'],
 })

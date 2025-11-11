@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-changelog',
+  standalone: false,
   templateUrl: './changelog.component.html',
   styleUrls: ['./changelog.component.scss'],
 })

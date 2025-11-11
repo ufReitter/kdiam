@@ -17,6 +17,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-main',
+  standalone: false,
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })

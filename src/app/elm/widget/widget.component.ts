@@ -3,6 +3,7 @@ import { ViewService } from '../../services/view.service';
 
 @Component({
   selector: 'kd-widget',
+  standalone: false,
   templateUrl: './widget.component.html',
   styleUrls: ['./widget.component.scss'],
 })

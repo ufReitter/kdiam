@@ -34,6 +34,7 @@ var deepClone = Dexie.deepClone;
 
 @Component({
   selector: 'kd-editor',
+  standalone: false,
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
   encapsulation: ViewEncapsulation.None,

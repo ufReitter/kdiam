@@ -7,6 +7,7 @@ import { ViewService } from '../services/view.service';
 @Component({
   selector: 'dialog-error',
   styleUrls: ['error-dialog.component.scss'],
+  standalone: false,
   templateUrl: 'error-dialog.component.html',
 })
 export class ErrorDialogComponent {

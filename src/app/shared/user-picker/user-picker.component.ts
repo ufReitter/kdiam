@@ -4,6 +4,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-user-picker',
+  standalone: false,
   templateUrl: './user-picker.component.html',
   styleUrls: ['./user-picker.component.scss'],
 })

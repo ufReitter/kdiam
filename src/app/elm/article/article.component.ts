@@ -1,14 +1,13 @@
-
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DOCUMENT,
   Inject,
   OnDestroy,
   OnInit,
   ViewChild,
-  DOCUMENT
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +19,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-article',
+  standalone: false,
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

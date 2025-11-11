@@ -5,6 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: '[kd-var-tr]',
+  standalone: false,
   templateUrl: './var-tr.component.html',
   styleUrls: ['./var-tr.component.scss'],
 })

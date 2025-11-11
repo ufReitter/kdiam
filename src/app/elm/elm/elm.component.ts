@@ -18,6 +18,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-elm',
+  standalone: false,
   templateUrl: './elm.component.html',
   styleUrls: ['./elm.component.scss'],
   //changeDetection: ChangeDetectionStrategy.Default,

@@ -15,6 +15,7 @@ import { StyleManager } from '../../services/style-manager';
 
 @Component({
   selector: 'theme-picker',
+  standalone: false,
   templateUrl: 'theme-picker.html',
   styleUrls: ['theme-picker.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

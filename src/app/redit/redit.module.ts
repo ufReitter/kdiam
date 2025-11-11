@@ -13,7 +13,6 @@ import { HistoryComponent } from './history/history.component';
 import { JsonComponent } from './json/json.component';
 // import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 import { HistoryItemComponent } from './history-item/history-item.component';
-import { MonacoEditorModule } from './monaco-editor/editor.module';
 import { ReditRoutingModule } from './redit-routing.module';
 import { ReditwrapComponent } from './reditwrap/reditwrap.component';
 import { ScrollItemComponent } from './scroll-item/scroll-item.component';
@@ -33,12 +32,10 @@ import { ProjectTargetComponent } from './target/project-target/project-target.c
 import { TargetWrapperComponent } from './target/target-wrapper/target-wrapper.component';
 import { TextTargetComponent } from './target/text-target/text-target.component';
 
-import { monacoConfig } from './monacoConfig';
-
 import { LoadComponent } from './load/load.component';
-import './quillConfig';
-import { TreeEditComponent } from './tree-edit/tree-edit.component';
+//import './quillConfig';
 import { EdTableComponent } from './ed-table/ed-table.component';
+import { TreeEditComponent } from './tree-edit/tree-edit.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +70,7 @@ import { EdTableComponent } from './ed-table/ed-table.component';
   imports: [
     SharedLazyModule,
     FormsModule,
-    MonacoEditorModule.forRoot(monacoConfig),
+    // MonacoEditorModule.forRoot(monacoConfig),
     SharedModule,
     ElmModule,
     MaterialModule,

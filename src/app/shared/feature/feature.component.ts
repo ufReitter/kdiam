@@ -7,6 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-feature',
+  standalone: false,
   templateUrl: './feature.component.html',
   styleUrls: ['./feature.component.scss'],
 })

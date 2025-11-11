@@ -3,6 +3,7 @@ import Dexie from 'dexie';
 var deepClone = Dexie.deepClone;
 @Pipe({
   name: 'prettyprint',
+  standalone: false,
 })
 export class PrettyPrintPipe implements PipeTransform {
   transform(val) {

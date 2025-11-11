@@ -3,6 +3,7 @@ import { Elm } from 'src/app/engine/entity';
 
 @Component({
   selector: 'kd-slider',
+  standalone: false,
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
 })

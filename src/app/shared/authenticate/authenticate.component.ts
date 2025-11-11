@@ -4,6 +4,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-authenticate',
+  standalone: false,
   templateUrl: './authenticate.component.html',
   styleUrls: ['./authenticate.component.scss'],
 })

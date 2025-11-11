@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: '[kdI18n]',
+  standalone: false,
   templateUrl: './i18n.component.html',
   styleUrls: ['./i18n.component.scss'],
 })

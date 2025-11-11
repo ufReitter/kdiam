@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'kd-stats',
+  standalone: false,
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
 })

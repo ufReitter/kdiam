@@ -5,6 +5,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-json',
+  standalone: false,
   templateUrl: './json.component.html',
   styleUrls: ['./json.component.scss'],
 })

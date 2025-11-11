@@ -5,6 +5,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-volume-picker',
+  standalone: false,
   templateUrl: './volume-picker.component.html',
   styleUrls: ['./volume-picker.component.scss'],
 })

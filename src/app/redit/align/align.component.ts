@@ -4,6 +4,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-align',
+  standalone: false,
   templateUrl: './align.component.html',
   styleUrls: ['./align.component.scss'],
 })

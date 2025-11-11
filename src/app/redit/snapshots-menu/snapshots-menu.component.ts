@@ -4,6 +4,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-snapshots-menu',
+  standalone: false,
   templateUrl: './snapshots-menu.component.html',
   styleUrls: ['./snapshots-menu.component.scss'],
 })

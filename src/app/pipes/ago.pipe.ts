@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'ago' })
+@Pipe({ name: 'ago', standalone: false })
 export class agoPipe implements PipeTransform {
   transform(timeInput: any, locale): string {
     if (!timeInput) {

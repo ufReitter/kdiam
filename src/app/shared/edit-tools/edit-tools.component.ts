@@ -6,6 +6,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-edit-tools',
+  standalone: false,
   templateUrl: './edit-tools.component.html',
   styleUrls: ['./edit-tools.component.scss'],
 })

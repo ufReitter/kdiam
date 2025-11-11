@@ -15,6 +15,7 @@ declare const monaco: any;
 
 @Component({
   selector: 'kd-code',
+  standalone: false,
   templateUrl: './code.component.html',
   styleUrls: ['./code.component.scss'],
 })

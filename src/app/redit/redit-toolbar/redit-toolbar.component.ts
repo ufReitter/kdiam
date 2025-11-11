@@ -7,6 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-redit-toolbar',
+  standalone: false,
   templateUrl: './redit-toolbar.component.html',
   styleUrls: ['./redit-toolbar.component.scss'],
 })

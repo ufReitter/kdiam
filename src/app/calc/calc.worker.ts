@@ -8,7 +8,7 @@
  * LICENSE file at https://kompendia.net/LICENSE.txt
  */
 
-import loader from '@assemblyscript/loader';
+import * as loader from '@assemblyscript/loader';
 import { timer } from 'rxjs';
 import { setASModuleExports } from './as-utils';
 

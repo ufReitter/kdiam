@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-search',
+  standalone: false,
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })

@@ -7,6 +7,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-storage',
+  standalone: false,
   templateUrl: './storage.component.html',
   styleUrls: ['./storage.component.scss'],
 })

@@ -4,6 +4,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-button',
+  standalone: false,
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })

@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-check',
+  standalone: false,
   templateUrl: './check.component.html',
   styleUrls: ['./check.component.scss'],
 })

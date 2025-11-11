@@ -1,7 +1,7 @@
-
 import {
   AfterViewInit,
   Component,
+  DOCUMENT,
   Inject,
   Input,
   OnDestroy,
@@ -9,7 +9,6 @@ import {
   Renderer2,
   ViewChild,
   ViewEncapsulation,
-  DOCUMENT
 } from '@angular/core';
 import Dexie from 'dexie';
 import { Subscription } from 'rxjs';
@@ -31,6 +30,7 @@ function snapShot(c) {
 
 @Component({
   selector: 'kd-project',
+  standalone: false,
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss'],
   encapsulation: ViewEncapsulation.None,

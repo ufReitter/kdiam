@@ -5,6 +5,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-select',
+  standalone: false,
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })

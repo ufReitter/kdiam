@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-logo',
+  standalone: false,
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.scss'],
 })

@@ -7,6 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-equation',
+  standalone: false,
   templateUrl: './equation.component.html',
   styleUrls: ['./equation.component.scss'],
 })

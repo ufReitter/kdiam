@@ -25,6 +25,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-logs',
+  standalone: false,
   templateUrl: './logs.component.html',
   styleUrls: ['./logs.component.scss'],
 })

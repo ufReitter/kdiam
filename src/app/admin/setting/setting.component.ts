@@ -4,6 +4,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-setting',
+  standalone: false,
   templateUrl: './setting.component.html',
   styleUrls: ['./setting.component.scss'],
 })

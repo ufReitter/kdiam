@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-users',
+  standalone: false,
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })

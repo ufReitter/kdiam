@@ -10,11 +10,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import {
-  MatTable,
-  MatTableDataSource,
-} from '@angular/material/table';
 import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import Dexie from 'dexie';
 import { BehaviorSubject, Subscription, timer } from 'rxjs';
 import { Elm, ElmNode } from 'src/app/engine/entity';
@@ -25,6 +22,7 @@ var getByKeyPath = Dexie.getByKeyPath;
 var setByKeyPath = Dexie.setByKeyPath;
 @Component({
   selector: 'kd-table',
+  standalone: false,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

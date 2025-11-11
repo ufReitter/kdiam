@@ -4,6 +4,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-project-picker',
+  standalone: false,
   templateUrl: './project-picker.component.html',
   styleUrls: ['./project-picker.component.scss'],
 })

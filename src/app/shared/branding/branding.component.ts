@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-branding',
+  standalone: false,
   templateUrl: './branding.component.html',
   styleUrls: ['./branding.component.scss'],
 })

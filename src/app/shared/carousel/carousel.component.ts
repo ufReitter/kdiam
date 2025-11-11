@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-carousel',
+  standalone: false,
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   animations: [fadeInAnimation, slideInAnimation],

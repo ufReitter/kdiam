@@ -8,6 +8,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-deploy',
+  standalone: false,
   templateUrl: './deploy.component.html',
   styleUrls: ['./deploy.component.scss'],
 })

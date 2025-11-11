@@ -8,6 +8,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-target-wrapper',
+  standalone: false,
   templateUrl: './target-wrapper.component.html',
   styleUrls: ['./target-wrapper.component.scss'],
 })

@@ -7,11 +7,8 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import {
-  MatTable,
-  MatTableDataSource,
-} from '@angular/material/table';
 import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import Dexie from 'dexie';
 import { Subscription } from 'rxjs';
 import { Elm } from 'src/app/engine/entity';
@@ -22,6 +19,7 @@ var deepClone = Dexie.deepClone;
 
 @Component({
   selector: 'kd-datarows',
+  standalone: false,
   templateUrl: './datarows.component.html',
   styleUrls: ['./datarows.component.scss'],
 })

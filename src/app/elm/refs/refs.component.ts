@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-refs',
+  standalone: false,
   templateUrl: './refs.component.html',
   styleUrls: ['./refs.component.scss'],
 })

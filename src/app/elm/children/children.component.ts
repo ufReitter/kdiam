@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-children',
+  standalone: false,
   templateUrl: './children.component.html',
   styleUrls: ['./children.component.scss'],
 })

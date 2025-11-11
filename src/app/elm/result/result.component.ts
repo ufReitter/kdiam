@@ -5,6 +5,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-result',
+  standalone: false,
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.scss'],
 })

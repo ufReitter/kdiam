@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -10,6 +10,7 @@ export interface DialogData {
 
 @Component({
   selector: 'load-json-dialog',
+  standalone: false,
   templateUrl: './load-json-dialog.component.html',
   styleUrls: ['./load-json-dialog.component.scss'],
 })

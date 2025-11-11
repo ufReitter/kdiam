@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-elm-legacy',
+  standalone: false,
   templateUrl: './elm-legacy.component.html',
   styleUrls: ['./elm-legacy.component.scss'],
 })

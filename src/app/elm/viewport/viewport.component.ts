@@ -17,6 +17,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-viewport',
+  standalone: false,
   templateUrl: './viewport.component.html',
   styleUrls: ['./viewport.component.scss'],
 })

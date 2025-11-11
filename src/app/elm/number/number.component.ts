@@ -14,6 +14,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-number',
+  standalone: false,
   templateUrl: './number.component.html',
   styleUrls: ['./number.component.scss'],
 })

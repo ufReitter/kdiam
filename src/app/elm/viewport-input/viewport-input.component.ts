@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-viewport-input',
+  standalone: false,
   templateUrl: './viewport-input.component.html',
   styleUrls: ['./viewport-input.component.scss'],
 })

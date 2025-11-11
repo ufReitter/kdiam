@@ -5,6 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-header-target',
+  standalone: false,
   templateUrl: './header-target.component.html',
   styleUrls: ['../../../shared/header/header.component.scss'],
 })

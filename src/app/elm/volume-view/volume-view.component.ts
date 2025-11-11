@@ -5,6 +5,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-volume-view',
+  standalone: false,
   templateUrl: './volume-view.component.html',
   styleUrls: ['./volume-view.component.scss'],
 })

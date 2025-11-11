@@ -16,6 +16,7 @@ import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'kd-figure-target',
+  standalone: false,
   templateUrl: './figure-target.component.html',
   styleUrls: ['../../../elm/figure/figure.component.scss'],
 })

@@ -6,6 +6,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-users-chart',
+  standalone: false,
   templateUrl: './users-chart.component.html',
   styleUrls: ['./users-chart.component.scss'],
 })

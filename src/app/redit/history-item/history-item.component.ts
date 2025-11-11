@@ -5,6 +5,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-history-item',
+  standalone: false,
   templateUrl: './history-item.component.html',
   styleUrls: ['./history-item.component.scss'],
 })

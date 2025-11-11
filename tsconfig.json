@@ -7,14 +7,14 @@
     "sourceMap": true,
     "declaration": false,
     "module": "preserve",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2020",
     "typeRoots": ["node_modules/@types"],
     "lib": ["ES2020", "dom", "ES2021.String"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "strictTemplates": true

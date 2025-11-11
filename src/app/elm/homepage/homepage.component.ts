@@ -7,6 +7,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-homepage',
+  standalone: false,
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })

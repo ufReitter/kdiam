@@ -20,17 +20,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": [
-              "quill"
-            ],
+            "allowedCommonJsDependencies": ["quill"],
             "outputPath": {
               "base": "dist/kompendiam"
             },
             "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "polyfills": ["src/polyfills.ts"],
             "assets": [
               {
                 "glob": "**/*",
@@ -70,9 +66,7 @@
               "src/styles/theme.scss",
               "src/styles.scss"
             ],
-            "scripts": [
-              "src/environments/cachebust.js"
-            ],
+            "scripts": ["src/environments/cachebust.js"],
             "webWorkerTsConfig": "tsconfig.worker.json",
             "extractLicenses": false,
             "sourceMap": true,
@@ -103,7 +97,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "serviceWorker": true
+              "serviceWorker": "/ngsw-worker.js"
             }
           },
           "defaultConfiguration": ""
@@ -117,6 +111,9 @@
           "configurations": {
             "production": {
               "buildTarget": "kompendiam:build:production"
+            },
+            "development": {
+              "buildTarget": "kompendiam:build:development"
             }
           }
         },

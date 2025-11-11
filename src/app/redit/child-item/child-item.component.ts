@@ -8,6 +8,7 @@ var NUMBER_FORMAT_REGEXP = /^(\d+)?\.((\d+)(-(\d+))?)?$/;
 
 @Component({
   selector: 'kd-child-item',
+  standalone: false,
   templateUrl: './child-item.component.html',
   styleUrls: ['./child-item.component.scss'],
 })

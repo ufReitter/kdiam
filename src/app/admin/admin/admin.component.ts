@@ -5,6 +5,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-admin',
+  standalone: false,
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
 })

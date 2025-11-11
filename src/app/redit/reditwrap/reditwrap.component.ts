@@ -9,6 +9,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-reditwrap',
+  standalone: false,
   templateUrl: './reditwrap.component.html',
   styleUrls: ['./reditwrap.component.scss'],
 })

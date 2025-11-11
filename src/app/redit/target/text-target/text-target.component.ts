@@ -18,6 +18,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-text-target',
+  standalone: false,
   templateUrl: './text-target.component.html',
   styleUrls: ['../../../elm/text/text.component.scss'],
 })

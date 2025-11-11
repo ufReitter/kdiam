@@ -1,7 +1,7 @@
-
 import { HttpClient } from '@angular/common/http';
 import {
   Component,
+  DOCUMENT,
   ElementRef,
   enableProdMode,
   HostListener,
@@ -11,7 +11,6 @@ import {
   PLATFORM_ID,
   Renderer2,
   ViewChild,
-  DOCUMENT
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenavContainer } from '@angular/material/sidenav';
@@ -31,6 +30,7 @@ enableProdMode();
 @Component({
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
   templateUrl: './app.component.html',
   providers: [SwUpdate],
 })

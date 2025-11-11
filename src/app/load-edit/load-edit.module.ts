@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
-import Quill from 'quill';
+// import Quill from 'quill';
 import { MaterialModule } from '../material.module';
 import { SharedModule } from '../shared.module';
 import { LoadEditRoutingModule } from './load-edit-routing.module';
@@ -18,7 +18,7 @@ if (!document.getElementById(cssId)) {
   link.media = 'all';
   head.appendChild(link);
 }
-
+/* 
 var Block = Quill.import('blots/block');
 const BlockEmbed = Quill.import('blots/block/embed');
 const Embed = Quill.import('blots/embed');
@@ -103,18 +103,6 @@ XVideoBlot.tagName = 'nb';
 
 Quill.register(XVideoBlot);
 
-// Inline.order = [
-//   'cursor',
-//   'inline',
-//   'code',
-//   'underline',
-//   'strike',
-//   'italic',
-//   'bold',
-//   'script',
-//   'link',
-//   'nbsp',
-// ];
 
 let xxx =
   '<nb>b</nb><span class="kd-variable">s<sub>0</sub></span> = 0,7…1,5<nb>e</nb>';
@@ -123,17 +111,12 @@ class QuillNbsp extends Inline {
   static create(value) {
     let node = super.create();
 
-    // const node = document.createElement('nbsp');
     const child1 = document.createElement('span');
     const child2 = document.createElement('span');
     const child3 = document.createElement('span');
     child1.innerHTML = '<span>aaa</span>';
     child2.innerHTML = '<span>bbb</span>';
     child3.innerHTML = '<span class="kd-variable">s<sub>0</sub></span>';
-    // let content = document.createElement('nbsp');
-    // node.innerHTML =
-    //   '<span class="kd-variable">s<sub>0</sub></span><span> = 0,7…1,5</span>';
-    // node.setAttribute('name', 'nbsp');
     node.appendChild(child1);
     node.appendChild(child2);
     node.appendChild(child3);
@@ -142,7 +125,6 @@ class QuillNbsp extends Inline {
 }
 
 QuillNbsp.blotName = 'nbsp';
-// QuillNbsp.className = 'kd-nbsp';
 QuillNbsp.tagName = 'nbsp';
 QuillNbsp.allowedChildren = [TextBlock, Block, Inline, BlockEmbed];
 
@@ -201,7 +183,7 @@ Quill.register(
 Quill.register(QuillLines);
 Quill.register(QuillCaptionA);
 Quill.register(QuillCaptionB);
-
+ */
 @NgModule({
   declarations: [],
   imports: [

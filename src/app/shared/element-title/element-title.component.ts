@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-element-title',
+  standalone: false,
   templateUrl: './element-title.component.html',
   styleUrls: ['./element-title.component.scss'],
 })

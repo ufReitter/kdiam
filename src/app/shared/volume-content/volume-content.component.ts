@@ -51,6 +51,7 @@ export class CustomTreeControl<T> extends FlatTreeControl<T> {
 
 @Component({
   selector: 'kd-volume-content',
+  standalone: false,
   templateUrl: './volume-content.component.html',
   styleUrls: ['./volume-content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

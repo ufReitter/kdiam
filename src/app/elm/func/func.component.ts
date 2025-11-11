@@ -6,6 +6,7 @@ import { CalculationService } from '../../services/calculation.service';
 
 @Component({
   selector: 'kd-func',
+  standalone: false,
   templateUrl: './func.component.html',
   styleUrls: ['./func.component.scss'],
 })

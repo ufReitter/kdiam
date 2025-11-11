@@ -14,6 +14,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-scroll-item',
+  standalone: false,
   templateUrl: './scroll-item.component.html',
   styleUrls: ['./scroll-item.component.scss'],
 })

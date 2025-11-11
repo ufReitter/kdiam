@@ -6,6 +6,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-ed-table',
+  standalone: false,
   templateUrl: './ed-table.component.html',
   styleUrls: ['./ed-table.component.scss'],
 })

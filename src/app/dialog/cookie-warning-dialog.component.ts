@@ -1,8 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { ViewService } from '../services/view.service';
@@ -10,6 +7,7 @@ import { ViewService } from '../services/view.service';
 @Component({
   selector: 'dialog-cookie-warning',
   styleUrls: ['cookie-warning-dialog.component.scss'],
+  standalone: false,
   templateUrl: 'cookie-warning-dialog.component.html',
 })
 export class CookieWarningDialogComponent {

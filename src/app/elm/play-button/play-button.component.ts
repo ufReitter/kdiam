@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'kd-play-button',
+  standalone: false,
   templateUrl: './play-button.component.html',
   styleUrls: ['./play-button.component.scss'],
 })

@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kd-database',
+  standalone: false,
   templateUrl: './database.component.html',
   styleUrls: ['./database.component.scss'],
 })

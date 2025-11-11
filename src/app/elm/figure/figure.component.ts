@@ -15,6 +15,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-figure',
+  standalone: false,
   templateUrl: './figure.component.html',
   styleUrls: ['./figure.component.scss'],
 })

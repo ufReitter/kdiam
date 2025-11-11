@@ -7,6 +7,7 @@ import { ViewService } from 'src/app/services/view.service';
 
 @Component({
   selector: 'kd-users-online',
+  standalone: false,
   templateUrl: './users-online.component.html',
   styleUrls: ['./users-online.component.scss'],
 })

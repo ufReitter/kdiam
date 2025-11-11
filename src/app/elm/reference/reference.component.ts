@@ -5,6 +5,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-reference',
+  standalone: false,
   templateUrl: './reference.component.html',
   styleUrls: ['./reference.component.scss'],
 })

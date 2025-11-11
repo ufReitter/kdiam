@@ -13,6 +13,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-numeration',
+  standalone: false,
   templateUrl: './numeration.component.html',
   styleUrls: ['./numeration.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

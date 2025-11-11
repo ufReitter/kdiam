@@ -8,6 +8,7 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'kd-translate',
+  standalone: false,
   templateUrl: './translate.component.html',
   styleUrls: ['./translate.component.scss'],
 })

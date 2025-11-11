@@ -10,6 +10,7 @@ function highLightElement(e) {
 
 @Component({
   selector: 'kd-rbdy',
+  standalone: false,
   templateUrl: './rbdy.component.html',
   styleUrls: ['./rbdy.component.scss'],
 })

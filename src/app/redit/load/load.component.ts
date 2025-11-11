@@ -4,6 +4,7 @@ import { ReditService } from '../redit.service';
 
 @Component({
   selector: 'kd-load',
+  standalone: false,
   templateUrl: './load.component.html',
   styleUrls: ['./load.component.scss'],
 })

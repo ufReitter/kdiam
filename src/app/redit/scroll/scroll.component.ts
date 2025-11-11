@@ -19,6 +19,7 @@ import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'kd-scroll',
+  standalone: false,
   templateUrl: './scroll.component.html',
   styleUrls: ['./scroll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
