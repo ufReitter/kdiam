@@ -16,13 +16,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSidenavContainer } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NavigationEnd, Router } from '@angular/router';
-import { SwUpdate } from '@angular/service-worker';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DataService } from './services/data.service';
 import { ProfileService } from './services/profile.service';
 import { StyleManager } from './services/style-manager';
 import { ViewService } from './services/view.service';
+
+import './core/global.prototypes';
 
 declare let gtag: Function;
 
@@ -32,7 +33,7 @@ enableProdMode();
   styleUrls: ['./app.component.scss'],
   standalone: false,
   templateUrl: './app.component.html',
-  providers: [SwUpdate],
+  // providers: [SwUpdate],
 })
 export class AppComponent implements OnInit, OnDestroy {
   swUpdateSubject: Subscription;

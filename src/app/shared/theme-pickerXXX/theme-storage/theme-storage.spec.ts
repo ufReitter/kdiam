@@ -1,19 +1,20 @@
-import {ThemeStorage, DocsSiteTheme} from './theme-storage';
+import {ThemeStorage, SiteTheme} from './theme-storage';
+
 
 const testStorageKey = ThemeStorage.storageKey;
-const testTheme: DocsSiteTheme = {
-  color: '#000000',
-  background: '#ffffff',
-  name: 'test-theme',
+const testTheme: SiteTheme = {
+  primary: '#000000',
+  accent: '#ffffff',
+  name: 'test-theme'
 };
 
 describe('ThemeStorage Service', () => {
   const service = new ThemeStorage();
   const getCurrTheme = () => window.localStorage.getItem(testStorageKey);
-  const secondTestTheme: DocsSiteTheme = {
-    color: '#666666',
-    background: '#333333',
-    name: 'other-test-theme',
+  const secondTestTheme = {
+    primary: '#666666',
+    accent: '#333333',
+    name: 'other-test-theme'
   };
 
   beforeEach(() => {

@@ -8,6 +8,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import {
+  DOCUMENT,
   Inject,
   Injectable,
   InjectionToken,
@@ -15,7 +16,6 @@ import {
   NgZone,
   Optional,
   PLATFORM_ID,
-  DOCUMENT
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
@@ -43,7 +43,7 @@ import { ResultsConvention } from '../calc/render-lib/module';
 import ObjectID from '../core/bson-objectid';
 import '../core/global.prototypes';
 import { Elm, ElmNode, I18n, Project, User } from '../engine/entity';
-import { SiteTheme } from '../shared/theme-picker/theme-storage/theme-storage';
+//import { SiteTheme } from '../shared/theme-picker/theme-storage/theme-storage';
 import { CalculationService } from './calculation.service';
 import { DexieService } from './dexie.service';
 import { ProfileService } from './profile.service';
@@ -234,7 +234,7 @@ export class DataService {
   errorMessage: string;
 
   overlay: any;
-  theme: SiteTheme;
+  /* theme: SiteTheme;
   themes: SiteTheme[] = [
     {
       primary: '#673AB7',
@@ -261,7 +261,7 @@ export class DataService {
       name: 'purple-green',
       isDark: true,
     },
-  ];
+  ]; */
   mdes = {
     de: ['', 'Online Berechnung zum Tiefziehen mit Formeln und Gleichungen.'],
     en: ['', 'Online calculation on deep-drawing with formulae and equations.'],
@@ -322,9 +322,8 @@ export class DataService {
     public dexieService: DexieService,
     private deviceService: DeviceDetectorService,
     public logger: NGXLogger,
-    private zone: NgZone,
-  ) // private ims: IdleMonitorService,
-  {
+    private zone: NgZone, // private ims: IdleMonitorService,
+  ) {
     // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     if (
       isPlatformBrowser(this.platformId) &&
@@ -364,7 +363,7 @@ export class DataService {
     this.subject.editElement = new BehaviorSubject<any>(null);
     this.subject.viewElement = new BehaviorSubject<Elm>(null);
     this.subject.project = new BehaviorSubject<Project>(null);
-    this.subject.theme = new BehaviorSubject<SiteTheme>(null);
+    //this.subject.theme = new BehaviorSubject<SiteTheme>(null);
     this.subject.inserted = new BehaviorSubject<boolean>(null);
     this.subject.loaded = new BehaviorSubject<boolean>(false);
     this.subject.showAlt = new BehaviorSubject<string>('');
@@ -1212,7 +1211,7 @@ export class DataService {
   }
 
   async init() {
-    this.installTheme();
+    //this.installTheme();
 
     if (this.isBrowser) {
       const warned = localStorage.getItem('cookieIsWarned');
@@ -1362,7 +1361,7 @@ export class DataService {
 
     this.pS.prefSub.subscribe((pref) => {
       if (pref) {
-        this.installTheme(pref.theme.name);
+        //this.installTheme(pref.theme.name);
       }
     });
 
@@ -1610,7 +1609,7 @@ export class DataService {
       .replace(/-+$/, ''); // Trim - from end of text
   }
 
-  toggleTheme() {
+  /* toggleTheme() {
     let name =
       this.theme.name === 'kia-light-theme'
         ? 'kia-dark-theme'
@@ -1649,7 +1648,7 @@ export class DataService {
     if (this.theme) {
       this.pS.pref.update({ theme: this.pS.pref.theme });
     }
-  }
+  } */
   removeStyle(key: string) {
     const existingLinkElement = this.getExistingLinkElementByKey(key);
     if (existingLinkElement) {

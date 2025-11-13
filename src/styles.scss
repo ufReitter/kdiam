@@ -1,3 +1,28 @@
+
+@use '@angular/material' as mat;
+
+html {
+ @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary-container),
+    container-text-color: var(--mat-sys-primary)
+  ));
+}
+
+
+:host {
+  color: var(--mat-sys-primary);
+  background: var(--mat-sys-primary-container);
+}
+
 html,
 body {
   width: 100%;

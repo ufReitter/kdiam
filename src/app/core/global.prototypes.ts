@@ -1,5 +1,17 @@
 // declare var global: any;
 
+console.log('Global Prototypes loaded');
+
+interface Number {
+  grad(): number;
+  sgn(): number;
+  runde(dez: number): number;
+  round(places: number): number;
+}
+interface Array<T> {
+  pushUnique(item: any): boolean;
+}
+
 Number.prototype.grad = function () {
   return (this * 180) / Math.PI;
 };
@@ -21,7 +33,7 @@ Number.prototype.round = function (places) {
     return Number(Math.round(Number(numStr)) + 'e-' + places);
   }
 };
-Array.prototype.pushUnique = function (item) {
+Array.prototype.pushUnique = function (item: any) {
   if (item.id) {
     if (!this.find((it) => it.id === item.id)) {
       this.push(item);
@@ -35,7 +47,7 @@ Array.prototype.pushUnique = function (item) {
   }
   return false;
 };
-
+/* 
 window.console.prettyPrint = function () {
   for (var i = 0; i < arguments.length; i++) {
     let obj = arguments[i];
@@ -103,7 +115,7 @@ window.console.prettyPrint = function () {
       str2 = str2.replace(it, ' '.repeat(missing) + it);
     }
   }
-};
+}; */
 
 function propertiesToArray(obj: any) {
   const isObject = (val) => typeof val === 'object' && !Array.isArray(val);

@@ -18,8 +18,10 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
+            "ssr": false,
+            "prerender": false,
             "allowedCommonJsDependencies": ["quill"],
             "outputPath": {
               "base": "dist/kompendiam"
@@ -54,6 +56,26 @@
             "styles": [
               {
                 "inject": false,
+                "input": "src/styles/custom-themes/magenta-violet.scss",
+                "bundleName": "magenta-violet"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/custom-themes/rose-red.scss",
+                "bundleName": "rose-red"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/custom-themes/azure-blue.scss",
+                "bundleName": "azure-blue"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/custom-themes/cyan-orange.scss",
+                "bundleName": "cyan-orange"
+              },
+              {
+                "inject": false,
                 "input": "src/styles/mathjax.css",
                 "bundleName": "editor-styles"
               },
@@ -63,7 +85,6 @@
                 "bundleName": "editor-styles"
               },
               "src/styles/fontsOpenSans.scss",
-              "src/styles/theme.scss",
               "src/styles.scss"
             ],
             "scripts": ["src/environments/cachebust.js"],
@@ -73,11 +94,7 @@
             "optimization": false,
             "namedChunks": true,
             "browser": "src/main.ts",
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "server": "src/main.server.ts"
           },
           "configurations": {
             "production": {
@@ -98,12 +115,17 @@
                 }
               ],
               "serviceWorker": "/ngsw-worker.js"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": ""
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "options": {
             "proxyConfig": "proxy.conf.json",
             "buildTarget": "kompendiam:build"
@@ -118,17 +140,17 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular/build:extract-i18n",
           "options": {
             "buildTarget": "kompendiam:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "src/test.ts",
             "karmaConfig": "./karma.conf.js",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
             "scripts": [],
             "styles": [

@@ -330,8 +330,6 @@ export class ViewService {
   exitFullscreen() {
     if (document.exitFullscreen) {
       document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
     }
   }
 

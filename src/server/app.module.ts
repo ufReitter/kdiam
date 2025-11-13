@@ -1,8 +1,8 @@
-import {MiddlewareConsumer, Module, NestModule} from '@nestjs/common';
-import {ServeStaticModule} from '@nestjs/serve-static';
-import {join} from 'node:path';
-import {AppController} from './app.controller';
-import {AngularMiddleware} from './angular.middleware';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'node:path';
+import { AngularMiddleware } from './angular.middleware';
+import { AppController } from './app.controller';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -18,8 +18,6 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AngularMiddleware)
-      .forRoutes('*')
+    consumer.apply(AngularMiddleware).forRoutes('*');
   }
 }

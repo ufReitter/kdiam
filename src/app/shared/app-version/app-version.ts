@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-const { version: appVersion } = require('../../../package.json');
+const { version: appVersion } = require('../../../../package.json');
 
 @Component({
   selector: 'kd-app-version',

@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": false,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "esModuleInterop": true,
@@ -17,7 +18,7 @@
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
-    "strictTemplates": true
+    "strictTemplates": false
   },
   "snippets": {
     "skipLibCheck": true

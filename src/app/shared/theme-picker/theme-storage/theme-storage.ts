@@ -1,35 +1,38 @@
-import { Injectable, EventEmitter } from '@angular/core';
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.dev/license
+ */
 
-export interface SiteTheme {
+import {Injectable, EventEmitter} from '@angular/core';
+
+export interface DocsSiteTheme {
   name: string;
-  accent: string;
-  primary: string;
-  isDark?: boolean;
+  displayName?: string;
+  color: string;
+  background: string;
   isDefault?: boolean;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({providedIn: 'root'})
 export class ThemeStorage {
-  static storageKey = 'kompendia-theme-storage-current-name';
+  static storageKey = 'docs-theme-storage-current-name';
 
-  onThemeUpdate: EventEmitter<SiteTheme> = new EventEmitter<SiteTheme>();
+  onThemeUpdate: EventEmitter<DocsSiteTheme> = new EventEmitter<DocsSiteTheme>();
 
-  storeTheme(theme: SiteTheme) {
+  storeTheme(theme: DocsSiteTheme) {
     try {
       window.localStorage[ThemeStorage.storageKey] = theme.name;
     } catch {}
+
     this.onThemeUpdate.emit(theme);
   }
 
   getStoredThemeName(): string | null {
     try {
-      let theme = window.localStorage[ThemeStorage.storageKey];
-      if (theme !== 'kia-dark-theme' || theme !== 'kia-light-theme') {
-        theme = 'kia-dark-theme';
-      }
-      return theme;
+      return window.localStorage[ThemeStorage.storageKey] || null;
     } catch {
       return null;
     }
