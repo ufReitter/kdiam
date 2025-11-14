@@ -20,7 +20,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { SwUpdate } from '@angular/service-worker';
+//import { SwUpdate } from '@angular/service-worker';
 import Dexie from 'dexie';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { NGXLogger } from 'ngx-logger';
@@ -301,7 +301,7 @@ export class DataService {
   sound2: any;
 
   constructor(
-    private swUpdate: SwUpdate,
+    // private swUpdate: SwUpdate,
     private snackbar: MatSnackBar,
     public domSanitizer: DomSanitizer,
     private injector: Injector,
@@ -416,7 +416,7 @@ export class DataService {
       this.sound2.load();
     }
 
-    if (this.swUpdate.isEnabled) {
+    /* if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.subscribe((event) => {
         if (event.type === 'VERSION_READY') {
           const msg1 = {
@@ -434,7 +434,7 @@ export class DataService {
           });
         }
       });
-    }
+    } */
 
     this.isOnline = navigator.onLine ? true : false;
 
@@ -456,11 +456,11 @@ export class DataService {
           },
         );
 
-        if (this.swUpdate.isEnabled) {
+        /* if (this.swUpdate.isEnabled) {
           this.subject.updatetimer = timer(60000, 60000).subscribe(() =>
             this.swUpdate.checkForUpdate(),
           );
-        }
+        } */
       }
     });
     fromEvent(window, 'offline').subscribe(() => {
@@ -1231,7 +1231,6 @@ export class DataService {
         }
         for (let i = 0; i < this.selVol.flatTree.length; i++) {
           const node = this.selVol.flatTree[i];
-
           node.path = node.getPath(lang);
         }
         for (let i = 0; i < this.selVol.children.length; i++) {
@@ -1414,11 +1413,11 @@ export class DataService {
             });
           });
 
-          if (this.swUpdate.isEnabled) {
+          /* if (this.swUpdate.isEnabled) {
             this.subject.updatetimer = timer(60000, 60000).subscribe(() =>
               this.swUpdate.checkForUpdate(),
             );
-          }
+          } */
         }
         if (this.pS.profile.role.editor) {
           let data1$: any = this.http.get<any>('/api/users/all');

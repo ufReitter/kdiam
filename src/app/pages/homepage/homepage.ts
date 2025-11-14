@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { Elm } from 'src/app/engine/entity';
 //import { ProfileService } from 'src/app/services/profile.service';
 //import { ViewService } from 'src/app/services/view.service';
-import { DataService } from '../../services/data.service';
+import { ContentManager } from 'src/app/shared/content-manager';
 
 @Component({
   selector: 'kd-homepage',
@@ -21,16 +21,16 @@ export class Homepage implements OnInit, OnDestroy {
   constructor(
     //public vS: ViewService,
     //public pS: ProfileService,
-    public dS: DataService,
+    public cM: ContentManager,
   ) {}
 
   ngOnInit() {
-    this.volumeSubject = this.dS.subject.volume.subscribe((v) => {
+    this.volumeSubject = this.cM.volumeSubject.subscribe((v) => {
       if (v) {
-        const hideBody = this.dS.originName === 'kompendia' ? true : false;
+        const hideBody = this.cM.metaName === 'kompendia' ? true : false;
         this.elm =
           v.roleElm.poster.elm ||
-          this.dS.system.roleElm.poster.elm ||
+          this.cM.system.roleElm.poster.elm ||
           v.tree[0].elm;
         this.node = {
           elm: this.elm,
@@ -39,7 +39,7 @@ export class Homepage implements OnInit, OnDestroy {
         };
         this.children = this.elm.children;
 
-        this.dS.subject.viewElement.next(v);
+        //this.cM.subject.viewElement.next(v);
         //this.dS.updateMetaTags(v);
       }
     });
@@ -48,7 +48,7 @@ export class Homepage implements OnInit, OnDestroy {
   }
 
   toggleNav(e) {
-    if (this.dS.selVol._eid.str !== '5c40af3f4f5eb4199613c5e1') {
+    if (this.cM.selVol._eid.str !== '5c40af3f4f5eb4199613c5e1') {
       //this.pS.pref.snav.opened = !this.pS.pref.snav.opened;
     }
   }

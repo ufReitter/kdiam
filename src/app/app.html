@@ -1,10 +1,9 @@
 <mat-toolbar *ngIf="true" color="primary" class="mat-elevation-z6 relative">
   <button
-    type="button"
     aria-label="Sidenav-Navigation"
     mat-icon-button
     (click)="drawer.toggle()"
-    class="btn-icon-shortxxx main-nav-button-3xxx"
+    class="navbar-icon-button"
   >
     <mat-icon>menu</mat-icon>
   </button>
@@ -47,13 +46,7 @@
 
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
-    <p>Auto-resizing sidenav</p>
-    @if (showFiller) {
-    <p>Lorem, ipsum dolor sit amet consectetur.</p>
-    }
-    <button (click)="showFiller = !showFiller" matButton="elevated">
-      Toggle extra text
-    </button>
+    <kd-volume-content *ngIf="cM.selVol" [drawer]="drawer"></kd-volume-content>
   </mat-drawer>
 
   <div class="sidenav-content">

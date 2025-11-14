@@ -11,7 +11,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ContentManager } from './shared/content-manager';
 import { ThemePicker } from './shared/theme-picker';
+import { VolumeContent } from './shared/volume-content/volume-content';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +29,7 @@ import { ThemePicker } from './shared/theme-picker';
     FormsModule,
     MatSidenavModule,
     ThemePicker,
+    VolumeContent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -34,10 +37,5 @@ import { ThemePicker } from './shared/theme-picker';
 export class App {
   showFiller = false;
   protected readonly title = signal('kdiam');
-  /* xxx
-  constructor(
-    //public pS: ProfileService,
-    public vS: ViewService,
-  ) //public dS: DataService,
-  {} */
+  constructor(public cM: ContentManager) {}
 }

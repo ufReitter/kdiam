@@ -1,0 +1,89 @@
+<div #scroll data-nosnippet (click)="closeDrawer()" class="scroll-feature">
+  <button mat-icon-button class="invis-button"></button>
+  <div *ngIf="showGlobal" class="sticky-wrapper">
+    <button mat-icon-button (click)="expandAll()" class="close-all-buttons">
+      <mat-icon
+        [class.icon-rotate-45]="expansion === 'some'"
+        [class.icon-rotate-90]="expansion === 'all'"
+        [matTooltip]="cM.system.txts.EXT_COLLAPSE"
+        [matTooltipDisabled]="cM.noToolTips"
+        [matTooltipShowDelay]="1000"
+      >
+        chevron_right
+      </mat-icon>
+    </button>
+  </div>
+  <mat-tree #tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <mat-tree-node
+      *matTreeNodeDef="let node"
+      cdkTreeNodePadding
+      [cdkTreeNodePaddingIndent]="15"
+      class="kd-tree-node hover-pointer"
+      [class.kd-selected]="node.id === cM.selElm?._eid.str"
+      [class.kd-sel]="node.id === cM.selElm?._eid.str"
+    >
+      <ng-container>
+        <button mat-icon-button class="btn-icon-small"></button>
+        <div class="item">
+          <div
+            *ngIf="node.nums[0]"
+            cdkTreeNodeToggle
+            [style.min-width]="'11px'"
+            [style.width]="numWidth(node.num) + 'px'"
+            class="cell num"
+          >
+            {{ node.num }}
+          </div>
+          <a
+            [class.color-foreground]="node.id !== cM.selElm?._eid.str"
+            class="cell noSelect"
+            [routerLink]="node.path"
+            (click)="expander(node)"
+          >
+            {{ node.elm.txts.lbl }}</a
+          >
+        </div>
+      </ng-container>
+    </mat-tree-node>
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: hasChild; let index = index"
+      cdkTreeNodePadding
+      [cdkTreeNodePaddingIndent]="15"
+      class="kd-tree-node hover-pointer"
+      [class.kd-selected]="node.id === cM.selElm?._eid.str"
+      [class.kd-sel]="node.id === cM.selElm?._eid.str"
+    >
+      <ng-container>
+        <button
+          mat-icon-button
+          [attr.aria-label]="'toggle ' + node.id"
+          cdkTreeNodeToggle
+          class="btn-icon-small"
+          (click)="handleExpansion(node)"
+        >
+          <mat-icon class="mat-icon-rtl-mirror icon-small">
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon>
+        </button>
+        <div class="item">
+          <div
+            *ngIf="node.nums[0]"
+            [style.min-width]="'11px'"
+            [style.width]="numWidth(node.num) + 'px'"
+            class="cell num"
+          >
+            {{ node.num }}
+          </div>
+          <a
+            [class.color-foreground]="node.id !== cM.selElm?._eid.str"
+            class="cell noSelect"
+            [routerLink]="node.path"
+            (click)="expander(node)"
+          >
+            {{ node.elm.txts.lbl }}</a
+          >
+        </div>
+      </ng-container>
+    </mat-tree-node>
+  </mat-tree>
+</div>

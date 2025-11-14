@@ -1,13 +1,5 @@
-<div
-  [class.poster-wrapper]="(dS.isHandsetPortrait$ | async) === false"
-  class="color-background"
->
-  <div
-    [class.handheld-portrait]="dS.isHandset$ | async"
-    [class.poster]="(dS.isHandsetPortrait$ | async) === false"
-    (click)="toggleNav($event)"
-    [class.hover-pointerxxx]="dS.origin === 'https://4ming.de'"
-  >
+<div>
+  <div (click)="toggleNav($event)">
     <!-- <kd-elm [node]="node" [view]="'poster-view'"></kd-elm> -->
     HHHHHHHHHHHHHHH
 

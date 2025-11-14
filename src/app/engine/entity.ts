@@ -831,6 +831,7 @@ export class Elm extends Entity {
 
   distSlugs() {
     for (const nd of this.flatTree) {
+      console.log('distSlugs', nd.elm, nd.slugs);
       for (const key in nd.slugs) {
         if (nd.slugs.hasOwnProperty(key)) {
           const slug = nd.slugs[key];

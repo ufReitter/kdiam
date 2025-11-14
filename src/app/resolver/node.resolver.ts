@@ -3,12 +3,12 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { ElmNode } from 'src/app/engine/entity';
 import { Elm } from '../engine/entity';
-import { DataService } from '../services/data.service';
+import { ContentManager } from '../shared/content-manager/content-manager';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NodeResolver  {
+export class NodeResolver {
   subject: Subject<ElmNode>;
   elm: Elm;
   vol: Elm;
@@ -17,14 +17,14 @@ export class NodeResolver  {
   success: boolean;
   constructor(
     private router: Router,
-    @Inject(DataService) private dS: DataService,
+    @Inject(ContentManager) private cM: ContentManager,
   ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,
   ): Observable<ElmNode> | Promise<ElmNode> | ElmNode {
     const urlSegments = route.url.map((s) => s.path);
-    const obs = this.dS.getNode(urlSegments);
+    const obs = this.cM.getNode(urlSegments);
 
     return obs;
   }
