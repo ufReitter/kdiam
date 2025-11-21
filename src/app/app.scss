@@ -35,9 +35,25 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .example-spacer {
-  flex: 1 1 auto;
+
+.kd-navbar-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 16px;
+
+  > .mat-mdc-button {
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+
+  .docs-navbar-header-item-selected {
+    background: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+  }
 }
+
+
 
 .container {
   width: 100%;

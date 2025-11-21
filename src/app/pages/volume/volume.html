@@ -1,0 +1,15 @@
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <kd-volume-content *ngIf="cM.selVol" [drawer]="drawer"></kd-volume-content>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <div class="sidenav-content"></div>
+  </mat-drawer-content>
+  <mat-toolbar
+    *ngIf="true"
+    color="primary"
+    class="mat-elevation-z6 relative kd-navbar-footer"
+    >kdiam v<kd-app-version></kd-app-version
+  ></mat-toolbar>
+</mat-drawer-container>

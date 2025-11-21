@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, REQUEST } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import Dexie from 'dexie';
@@ -60,15 +60,27 @@ export class ContentManager {
   imgsTable: any;
   wasmsTable: any;
 
-  domain: string = 'http://localhost:4200';
+  origin: string = 'http://localhost:4200';
   trouble: any;
   slug: any = { de: {}, en: {} };
   statusAt: Date;
   insertedSubject: BehaviorSubject<boolean>;
   loaded: boolean;
   viewElementSubject: BehaviorSubject<Elm>;
+  host: string;
+  hostname: string;
+  port: string;
+  request: any;
+  debug: any = {
+    timeIdbLoad: 0,
+    timeHttpLoad: 0,
+    countIdbLoad: 0,
+    countHttpLoad: 0,
+    countElms: 0,
+  };
 
   constructor(
+    @Inject(REQUEST) request,
     public router: Router,
 
     public http: HttpClient,
@@ -78,6 +90,15 @@ export class ContentManager {
 
     public dexieService: DexieService,
   ) {
+    if (window?.location) {
+      this.origin = window.location.origin;
+      this.host = window.location.host;
+      this.hostname = window.location.hostname;
+      this.port = window.location.port;
+    } else if (request) {
+      this.hostname = this.request?.headers.get('x-forwarded-host');
+    }
+
     this.viewElementSubject = new BehaviorSubject<Elm>(null);
     this.volumeSubject = new BehaviorSubject<Elm>(null);
     this.localeSubject = new BehaviorSubject<string>('');
@@ -124,7 +145,6 @@ export class ContentManager {
     });
 
     this.localeSubject.subscribe((lang) => {
-      console.log('locale change', lang);
       if (lang) {
         for (let i = 0; i < this.arr.length; i++) {
           const elm = this.arr[i];
@@ -133,7 +153,6 @@ export class ContentManager {
         for (let i = 0; i < this.selVol.flatTree.length; i++) {
           const node = this.selVol.flatTree[i];
 
-          console.log('set path for', node);
           node.path = node.getPath(lang);
         }
         for (let i = 0; i < this.selVol.children.length; i++) {
@@ -175,6 +194,47 @@ export class ContentManager {
     this.router.navigate(segments);
   }
 
+  getOptions(urlSegments) {
+    let options: any = {};
+
+    let lang = urlSegments[0];
+    if (!this.locales.includes(lang)) {
+      lang = this.locales[0];
+      return this.router.navigate([lang]);
+    }
+
+    options = {
+      lang: lang,
+      eid: '',
+      slug: '',
+      volumeEid: '',
+      popToc: false,
+      popChilldren: false,
+      popReferences: false,
+      full: false,
+    };
+
+    if (urlSegments.length < 2) {
+      switch (this.hostname) {
+        case 'localhost':
+          options.eid = '5c81b1cc8df0b13e5a079cd5';
+          break;
+        case 'kompendia.net':
+          options.eid = '5c40af3f4f5eb4199613c5e1';
+          break;
+        case '4Ming.de':
+          options.eid = '5c81b1cc8df0b13e5a079cd5';
+          break;
+        default:
+          options.eid = '5c40af3f4f5eb4199613c5e1';
+          break;
+      }
+      options.popChilldren = true;
+    }
+
+    return options;
+  }
+
   getNode(urlSegments) {
     const subject = new ReplaySubject<ElmNode>();
     const obs = subject.asObservable();
@@ -206,10 +266,12 @@ export class ContentManager {
   }
 
   async resolveNode(urlSegments, subject) {
-    let lang = urlSegments[0];
-    if (!this.locales.includes(lang)) {
-      lang = this.locales[0];
-      return this.router.navigate([lang]);
+    const options = this.getOptions(urlSegments);
+
+    if (urlSegments.length < 2) {
+    }
+
+    if (urlSegments[1] === 'store') {
     }
 
     if (this.hasIdb && !this.hasLoadedIdb) {
@@ -218,21 +280,21 @@ export class ContentManager {
     }
 
     if (!this.obj[this.defaultVolId]) {
-      await this.loadHttp(lang, this.defaultVolId, false, false, true);
+      await this.loadHttp(options);
     }
 
     if (!this.selVol) {
       this.volumeSubject.next(this.obj[this.defaultVolId]);
     }
 
-    if (this.locale !== lang) {
-      this.localeSubject.next(lang);
+    if (this.locale !== options.lang) {
+      this.localeSubject.next(options.lang);
     }
 
     const node = this.getElmNode(urlSegments);
 
     if (!node) {
-      return this.router.navigate([lang]);
+      return this.router.navigate([options.lang]);
     }
 
     subject.next(node);
@@ -243,6 +305,7 @@ export class ContentManager {
   }
 
   async loadIdb() {
+    let t0 = new Date().getTime();
     if (!this.hasIdb) {
       return null;
     }
@@ -263,36 +326,38 @@ export class ContentManager {
       .catch(Dexie.DatabaseClosedError, (e) => {
         this.hasIdb = false;
       });
+    let t1 = new Date().getTime();
+    this.debug.timeIdbLoad = t1 - t0;
 
     const success = this.insert(defs);
   }
 
-  async loadHttp(lang, eid, noe, noi, full) {
-    eid = '60a0102c1d78a6394c237f0b';
-    let options = `?lang=${lang}`;
-    if (eid === 'leichtbau-durch-sicken-fachbuch') {
-      options += `&lds=true`;
+  async loadHttp(options) {
+    // eid = '60a0102c1d78a6394c237f0b';
+    let query = `?lang=${options.lang}`;
+    if (options.slug === 'leichtbau-durch-sicken-fachbuch') {
+      query += `&lds=true`;
     }
-    if (full) {
-      options += `&full=true`;
+    if (options.full) {
+      query += `&full=true`;
     }
-    if (noe) {
-      options += `&noe=true`;
+    /* if (noe) {
+      query += `&noe=true`;
     }
     if (noi) {
-      options += `&noi=true`;
-    }
-    if (!this.system || !this.system.i18n[lang]) {
-      options += `&system=true`;
+      query += `&noi=true`;
+    } */
+    if (!this.system || !this.system.i18n[options.lang]) {
+      query += `&system=true`;
     }
     if (!this.obj[this.defaultVolId]) {
-      options += '&volume=' + this.defaultVolId;
+      //query += '&volume=' + this.defaultVolId;
     }
     const data$: any = this.http.get<any>(
-      `${this.domain}/api/elements/${eid}${options}`,
+      `${this.origin}/api/elements/${options.eid}${query}`,
     );
     const defs: any = await lastValueFrom(data$).catch((e) => {});
-    if (this.hasIdb && full) {
+    if (this.hasIdb) {
       const putElms = await this.elmsTable
         .bulkPut(defs?.elms || [])
         .catch(function (e) {
@@ -304,7 +369,7 @@ export class ContentManager {
           console.error('Database error: ' + e.message);
         });
     }
-    this.insert(defs, lang);
+    this.insert(defs, options.lang);
   }
 
   insert(defs, lang?) {

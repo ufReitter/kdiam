@@ -1,7 +1,5 @@
 // declare var global: any;
 
-console.log('Global Prototypes loaded');
-
 interface Number {
   grad(): number;
   sgn(): number;

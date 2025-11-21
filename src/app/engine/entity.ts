@@ -98,7 +98,6 @@ export class Elms {
 
 export class Entity {
   set: any;
-  val: any;
   storage: any;
   created_id: ObjectID;
   updated_id: ObjectID;
@@ -114,7 +113,6 @@ export class Entity {
   savestatus: string;
   isDirty: boolean;
   dirty: boolean;
-  history: any;
   constructor(def?) {}
 
   set def(def) {
@@ -1160,8 +1158,6 @@ export class Project extends Entity {
   tree: any;
   dataTable: any;
   idb: any;
-  created_at: Date;
-  updated_at: Date;
   delay: any;
   constructor(def?, idb?) {
     super(def);
@@ -1431,8 +1427,6 @@ export class Preferences extends Entity {
     editTab1: 0,
     editTab2: 0,
   };
-  created_at: Date;
-  updated_at: Date;
   volume: Elm;
 
   editorLoaded = true;

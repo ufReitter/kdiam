@@ -56,6 +56,16 @@
             "styles": [
               {
                 "inject": false,
+                "input": "src/styles/custom-themes/forming-light.scss",
+                "bundleName": "forming-light"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/custom-themes/forming-dark.scss",
+                "bundleName": "forming-dark"
+              },
+              {
+                "inject": false,
                 "input": "src/styles/custom-themes/magenta-violet.scss",
                 "bundleName": "magenta-violet"
               },

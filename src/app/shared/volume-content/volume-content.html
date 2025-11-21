@@ -1,4 +1,4 @@
-<div #scroll data-nosnippet (click)="closeDrawer()" class="scroll-feature">
+<div #scroll data-nosnippet (click)="closeDrawer()" class="scroll-featurexxx">
   <button mat-icon-button class="invis-button"></button>
   <div *ngIf="showGlobal" class="sticky-wrapper">
     <button mat-icon-button (click)="expandAll()" class="close-all-buttons">
@@ -35,7 +35,6 @@
             {{ node.num }}
           </div>
           <a
-            [class.color-foreground]="node.id !== cM.selElm?._eid.str"
             class="cell noSelect"
             [routerLink]="node.path"
             (click)="expander(node)"
@@ -75,7 +74,6 @@
             {{ node.num }}
           </div>
           <a
-            [class.color-foreground]="node.id !== cM.selElm?._eid.str"
             class="cell noSelect"
             [routerLink]="node.path"
             (click)="expander(node)"

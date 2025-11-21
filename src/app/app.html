@@ -1,12 +1,45 @@
-<mat-toolbar *ngIf="true" color="primary" class="mat-elevation-z6 relative">
-  <button
+<kd-cookie-popup></kd-cookie-popup>
+<mat-toolbar *ngIf="true" color="primary" class="kd-navbar-header">
+  <!-- <button
     aria-label="Sidenav-Navigation"
     mat-icon-button
     (click)="drawer.toggle()"
     class="navbar-icon-button"
   >
     <mat-icon>menu</mat-icon>
+  </button> -->
+  <button
+    matIconButton
+    routerLink="/"
+    style="width: 110px"
+    aria-label="Kdia Logo"
+  >
+    <mat-icon style="width: 100%"
+      ><kd-logo [name]="logoName"></kd-logo
+    ></mat-icon>
   </button>
+  <a
+    matButton="text"
+    routerLink="/volumes/forming-handbuch"
+    aria-label="Kdiam Handbook"
+  >
+    Handbuch Blechumformung
+  </a>
+  <a
+    matButton="text"
+    routerLink="/volumes/kompendia-redaktionssytem"
+    aria-label="About Kompendiam"
+  >
+    Über Kompendiam
+  </a>
+  <a
+    matButton="text"
+    routerLink="/de/admin"
+    aria-label="Kdiam Admin"
+    routerLinkActive="docs-navbar-header-item-selected"
+  >
+    Admin
+  </a>
 
   <!--   <kd-main-nav [pos]="'top-left'"></kd-main-nav>
  -->
@@ -17,7 +50,35 @@
     [class.prerender-display]="vS.userAgentIsPrerender"
     [pos]="'top-right'"
   ></kd-main-tools> -->
-  <div class="example-spacer"></div>
+
+  <div class="spacer"></div>
+  <mat-checkbox
+    [(ngModel)]="showDebug"
+    labelPosition="before"
+    style="opacity: 0.5"
+    >Debug</mat-checkbox
+  >
+
+  @if (showDebug) { <span class="small">elms alive: </span
+  ><span class="kd-warn">{{cM.arr.length}} </span>
+  <div style="line-height: 15px">
+    <span class="small">count: </span>
+    <span class="kd-warn">{{cM.debug.countIdbLoad}} </span>
+    <span class="small">timeIdb: </span>
+    <span class="kd-warn">{{cM.debug.timeIdbLoad}} </span><br /><span
+      class="small"
+      >count:
+    </span>
+    <span class="kd-warn">{{cM.debug.countHttpLoad}} </span
+    ><span class="small">timeHttp: </span>
+    <span class="kd-warn">{{cM.debug.timeHttpLoad}} </span>
+  </div>
+  }
+
+  <div class="spacer"></div>
+  <a matButton="text" routerLink="/de/admin" aria-label="Kdiam Admin">
+    Kontakt
+  </a>
   <theme-picker />
   <div
     data-nosnippet
@@ -44,19 +105,4 @@
   </div>
 </mat-toolbar>
 
-<mat-drawer-container class="container" autosize>
-  <mat-drawer #drawer class="sidenav" mode="side">
-    <kd-volume-content *ngIf="cM.selVol" [drawer]="drawer"></kd-volume-content>
-  </mat-drawer>
-
-  <div class="sidenav-content">
-    <router-outlet />
-  </div>
-
-  <mat-toolbar
-    *ngIf="true"
-    color="primary"
-    class="mat-elevation-z6 relative footer"
-    >kdiam v<kd-app-version></kd-app-version
-  ></mat-toolbar>
-</mat-drawer-container>
+<router-outlet />

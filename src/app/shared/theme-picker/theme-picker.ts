@@ -25,6 +25,7 @@ import { DocsSiteTheme, ThemeStorage } from './theme-storage/theme-storage';
 
 @Component({
   selector: 'theme-picker',
+  standalone: true,
   templateUrl: 'theme-picker.html',
   styleUrls: ['theme-picker.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,15 +50,15 @@ export class ThemePicker {
   // The below colors need to align with the themes defined in theme-picker.scss
   themes: DocsSiteTheme[] = [
     {
-      color: '#ffd9e1',
-      displayName: 'Rose & Red',
-      name: 'rose-red',
-      background: '#fffbff',
+      color: '#ab3523',
+      displayName: '4Ming Dark',
+      name: 'forming-dark',
+      background: '#160b09',
     },
     {
       color: '#d7e3ff',
-      displayName: 'Azure & Blue',
-      name: 'azure-blue',
+      displayName: '4Ming Light',
+      name: 'forming-light',
       background: '#fdfbff',
       isDefault: true,
     },
@@ -72,6 +73,12 @@ export class ThemePicker {
       displayName: 'Cyan & Orange',
       name: 'cyan-orange',
       background: '#191c1c',
+    },
+    {
+      color: '#ffd9e1',
+      displayName: 'Rose & Red',
+      name: 'rose-red',
+      background: '#fffbff',
     },
   ];
 

@@ -53,6 +53,7 @@ export class CustomTreeControl<T> extends FlatTreeControl<T> {
 
 @Component({
   selector: 'kd-volume-content',
+  standalone: true,
   imports: [CommonModule, MatTreeModule, MatButtonModule, MatIconModule],
   templateUrl: './volume-content.html',
   styleUrls: ['./volume-content.scss'],

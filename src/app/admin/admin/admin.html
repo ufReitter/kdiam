@@ -1,29 +1,34 @@
-<mat-card
+<div
   appearance="outlined"
-  [style.min-height]="vS.size.articleMinHeight + 18 + 'px'"
-  style="width: 1280px"
+  class="relative"
+  style="width: 1280px; height: 100%; margin: auto"
 >
   <div class="aux-header">
+    <div class="spacer"></div>
     <div>
-      <span class="dimm-6 small">Besucher:  </span
-      ><span style="font-size: 22px" class="kd-warn"
-        >{{ dS.status.usersActiveCount }}  </span
+      <span class="small">Besucher:  </span
+      ><span
+        style="font-size: 22px; position: relative; top: 3px"
+        class="kd-warn"
+        >{{ cM.status.usersActiveCount }}  </span
       >
+      <mat-checkbox
+        [(ngModel)]="palim"
+        (ngModelChange)="onPalimChange($event)"
+        labelPosition="before"
+        class="checkbox-label-small"
+        >Palim:</mat-checkbox
+      >  
+      <button
+        mat-icon-button
+        class="centerxxx"
+        style="position: relative; top: 7px"
+      >
+        <mat-icon (click)="reload()">autorenew</mat-icon>
+      </button>
     </div>
-    <mat-checkbox
-      [(ngModel)]="pS.pref.notify"
-      (ngModelChange)="pS.pref.save({ notify: pS.pref.notify })"
-      labelPosition="before"
-      class="checkbox-label-small"
-      >Palim:</mat-checkbox
-    >  
-    <button mat-icon-button class="center">
-      <mat-icon (click)="reload()">autorenew</mat-icon>
-    </button>
   </div>
   <mat-tab-group
-    *ngIf="pS.prefLoaded"
-    [selectedIndex]="pS.pref.admin.active || 0"
     (selectedIndexChange)="onTabChange($event)"
     (animationDone)="onTabChangeDone()"
     [animationDuration]="'500ms'"
@@ -31,53 +36,56 @@
   >
     <mat-tab class="admin-tab">
       <ng-template mat-tab-label>
-        <div class="admin-tab">{{ dS.system.txts.ANALYTICS }}</div>
+        <div class="admin-tab">{{ cM.system.txts.ANALYTICS }}</div>
       </ng-template>
-      <kd-stats
+      xxx
+      <!-- <kd-stats
         [palim]="pS.pref.notify"
         [bust]="bust"
         [tabIndex]="pS.pref.admin.active || 0"
-      ></kd-stats>
+      ></kd-stats> -->
     </mat-tab>
     <mat-tab class="admin-tab">
       <ng-template mat-tab-label>
-        <div class="admin-tab">{{ dS.system.txts.USER }}</div>
+        <div class="admin-tab">{{ cM.system.txts.USER }}</div>
       </ng-template>
-      <kd-users></kd-users>
+      xxx
+      <!-- <kd-users></kd-users> -->
     </mat-tab>
     <mat-tab class="admin-tab">
       <ng-template mat-tab-label>
         <div class="admin-tab">Logs</div>
       </ng-template>
-      <kd-logs
+      xxx
+      <!-- <kd-logs
         [context]="'system'"
         [tabIndex]="pS.pref.admin.active || 0"
-      ></kd-logs>
+      ></kd-logs> -->
     </mat-tab>
     <mat-tab class="admin-tab">
       <ng-template mat-tab-label>
-        <div class="admin-tab">{{ dS.system.txts.DATABASE }}</div>
+        <div class="admin-tab">{{ cM.system.txts.DATABASE }}</div>
       </ng-template>
-      <kd-database></kd-database>
+      <!-- <kd-database></kd-database> -->
     </mat-tab>
     <mat-tab>
       <ng-template mat-tab-label>
-        <div class="admin-tab">{{ dS.system.txts.PUBLISH }}</div>
+        <div class="admin-tab">{{ cM.system.txts.PUBLISH }}</div>
       </ng-template>
       <div>&nbsp;</div>
-      <kd-deploy></kd-deploy>
+      <!-- <kd-deploy></kd-deploy> -->
     </mat-tab>
     <mat-tab class="admin-tab">
       <ng-template mat-tab-label>
         <div class="admin-tab">Einrichten</div>
       </ng-template>
-      <kd-setting></kd-setting>
+      <!-- <kd-setting></kd-setting> -->
     </mat-tab>
     <mat-tab class="admin-tab">
       <ng-template mat-tab-label>
         <div class="admin-tab">Mitteilung</div>
       </ng-template>
-      <kd-set-notifications></kd-set-notifications>
+      <!-- <kd-set-notifications></kd-set-notifications> -->
     </mat-tab>
   </mat-tab-group>
-</mat-card>
+</div>

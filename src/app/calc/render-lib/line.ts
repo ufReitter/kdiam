@@ -43,7 +43,7 @@ export class Line extends Prim {
       ctx.stroke();
     }
     if (this.style === 13) {
-      if (phi === 0) {
+      if (Object.is(phi, 0)) {
         this.arrowhead(ctx, this.p0.x, this.p0.y, phi + Math.PI);
         this.arrowhead(ctx, this.p1.x, this.p1.y, phi);
       } else {
@@ -52,7 +52,7 @@ export class Line extends Prim {
       }
     }
     if (this.style === 14) {
-      if (phi === 0) {
+      if (Object.is(phi, 0)) {
         this.arrowhead(ctx, this.p0.x, this.p0.y, PI05);
         this.arrowhead(ctx, this.p1.x, this.p1.y, -PI05);
         ctx.beginPath();
@@ -74,7 +74,7 @@ export class Line extends Prim {
         ctx.moveTo(this.p0.x * ctx.s, this.p0.y * ctx.s);
         ctx.lineTo(this.p1.x * ctx.s, (this.p0.y + 40 / ctx.s) * ctx.s);
         ctx.stroke();
-      } else if (phi === -0) {
+      } else if (Object.is(phi, -0)) {
         this.arrowhead(ctx, this.p0.x, this.p0.y, PI05);
         this.arrowhead(ctx, this.p1.x, this.p1.y, -PI05);
         ctx.beginPath();

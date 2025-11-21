@@ -1,5 +1,5 @@
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
@@ -273,27 +273,6 @@ export class DataService {
   cookieIsWarned = false;
   interactiveIsAware = false;
 
-  isHandsetPortrait$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.HandsetPortrait)
-    .pipe(
-      map((result) => {
-        return result.matches;
-      }),
-    );
-  // isHandsetLandscape$: Observable<boolean> = this.breakpointObserver
-  //   .observe(Breakpoints.HandsetLandscape)
-  //   .pipe(map((result) => result.matches));
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(map((result) => result.matches));
-
-  isXSmall$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.XSmall)
-    .pipe(map((result) => result.matches));
-  isSmall$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Small)
-    .pipe(map((result) => result.matches));
-
   online: boolean;
   domain: string;
   page404: any;
@@ -318,7 +297,7 @@ export class DataService {
     public http: HttpClient,
     public router: Router,
     public route: ActivatedRoute,
-    private breakpointObserver: BreakpointObserver,
+    public breakpointObserver: BreakpointObserver,
     public dexieService: DexieService,
     private deviceService: DeviceDetectorService,
     public logger: NGXLogger,
@@ -1213,6 +1192,25 @@ export class DataService {
   async init() {
     //this.installTheme();
 
+    /* 
+  isHandsetPortrait$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.HandsetPortrait)
+    .pipe(
+      map((result) => {
+        return result.matches;
+      }),
+    );
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map((result) => result.matches));
+
+  isXSmall$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.XSmall)
+    .pipe(map((result) => result.matches));
+  isSmall$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Small)
+    .pipe(map((result) => result.matches)); */
+
     if (this.isBrowser) {
       const warned = localStorage.getItem('cookieIsWarned');
       const aware = localStorage.getItem('interactiveIsAware');
@@ -1377,12 +1375,12 @@ export class DataService {
         this.selElm.setTheme(theme);
       }
     });
-
+    /* 
     this.isHandset$.subscribe((data) => {
       if (data) {
         this.pS.pref.snav.opened = false;
       }
-    });
+    }); */
 
     this.subject.loaded.subscribe(async (loaded) => {
       if (loaded && !this.loaded) {

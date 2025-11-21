@@ -1,14 +1,29 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
 import { Subscription } from 'rxjs';
 import { Elm } from 'src/app/engine/entity';
+import { AppVersion } from 'src/app/shared/app-version/app-version';
 //import { ProfileService } from 'src/app/services/profile.service';
 //import { ViewService } from 'src/app/services/view.service';
 import { ContentManager } from 'src/app/shared/content-manager';
+import { AppLogo } from 'src/app/shared/logo/logo';
 
 @Component({
   selector: 'kd-homepage',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDivider,
+    MatIcon,
+    AppLogo,
+    MatToolbar,
+    MatButtonModule,
+    AppVersion,
+  ],
   templateUrl: './homepage.html',
   styleUrls: ['./homepage.scss'],
 })

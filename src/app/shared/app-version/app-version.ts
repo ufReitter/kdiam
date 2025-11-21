@@ -3,6 +3,7 @@ const { version: appVersion } = require('../../../../package.json');
 
 @Component({
   selector: 'kd-app-version',
+  standalone: true,
   templateUrl: './app-version.html',
   styleUrl: './app-version.scss',
 })

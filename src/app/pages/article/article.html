@@ -16,9 +16,8 @@
     class="card-article relative h100"
   >
     <kd-header [node]="node"></kd-header>
-    <kd-elm [view]="'article-view'" [viewDepth]="99" [node]="node"></kd-elm>
+    <!-- <kd-elm [view]="'article-view'" [viewDepth]="99" [node]="node"></kd-elm> -->
     <div [style.height]="refsHeight + 'px'"></div>
-    <!-- <div *ngFor="let ref of node.elm.refs" style="height: 15px"></div> -->
     <div #references class="references">
       <kd-reference
         *ngFor="let ref of node.elm.refs"
